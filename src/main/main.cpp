@@ -18,11 +18,6 @@ int main() {
 
     Simulation simulation(material);
 
-    /*for (int N = 0; N < 1e5; N++) {
-        cout << std::endl;
-        simulation.next();
-        cout << *simulation.upperBoundary << std::endl;
-    }*/
     int N = 1e7;
     for (int i = 0; i < N; i++) {
         if (i % 100 == 0) {
