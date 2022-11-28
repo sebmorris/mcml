@@ -11,6 +11,7 @@ using std::vector;
 #include "../src/simulation/simulation.hpp"
 
 int main() {
+    // based on the comparison in Biomedical Optics (Wang & Wu)
     vector<Layer> layers{Layer(0.9, 1, 0.1, 100)};
     
     Material material(layers);
