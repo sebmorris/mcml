@@ -24,8 +24,8 @@ struct Photon {
     double weight; // starts $ALIVE, ends $DEAD
 
     void step(const double size);
-    void unstep(); // un(do) the last step
-    double stepToHeight(const double z); // returns step size
+    void stepToHeight(const double z); // returns step size
+    double unstep(); // un(do) the last step, return the step
     void changeDirection(double x, double y, double z);
 
     Photon();

@@ -8,17 +8,17 @@ using std::cout;
 Boundary::Boundary(double z, double nAbove, double nBelow) : z(z), nAbove(nAbove), nBelow(nBelow) {  };
 
 const double Boundary::reflect(CartVec& direction) {
+    if (std::abs(nBelow - nAbove) < 1e-6) return 0; // matched n
+
     double& before = direction.z > 0 ? nBelow : nAbove;
     double& after = direction.z > 0 ? nAbove : nBelow;
-
-    //cout << "before " << before << " after " << after << std::endl;
 
     double uz = std::abs(direction.z);
     double sinI = std::sin(uz);
     double sinT = before*sinI/after;
-    //cout << uz << sinI << sinT << std::endl;
-    // TIR check
+
     if (after < before && sinT > 1) {
+        // TIR
         return 1;
     }
 
@@ -30,22 +30,24 @@ const double Boundary::reflect(CartVec& direction) {
 
     double R = 0.5*(rootRs*rootRs + rootRp*rootRp);
 
-    //cout << cosI << cosT << rootRs << rootRp << std::endl;
-
     return R;
 }
 
 const CartVec Boundary::refractionDirection(CartVec& direction) {
+    if (std::abs(nBelow - nAbove) < 1e-6) return direction; // matched n
+
+
     double ratio = direction.z > 0 ? nBelow/nAbove : nAbove/nBelow; // before / after
 
-    double sinI = std::abs(std::sin(direction.z));
-    double cosI = std::sqrt(1 - sinI*sinI);
+    // think I corrected this but needs testing
+    double cosI = direction.z;
+    double sinI = std::sqrt(1 - cosI*cosI);
     double sinT = ratio*sinI;
     double cosT = std::sqrt(1 - sinT*sinT);
 
     CartVec newDirection = direction * ratio;
 
-    newDirection.z += (direction.z > 0 ? -1 : +1)*(ratio*cosI - cosT);
+    newDirection.z = (direction.z > 0 ? +1 : -1)*cosT;
 
     return newDirection;
 }

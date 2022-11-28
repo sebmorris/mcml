@@ -3,13 +3,13 @@
 
 #include "../cartvec/cartvec.hpp"
 
-const int REFLECTANCE_BINS = 50;
+const int REFLECTANCE_BINS = 400;
 const int HEIGHT_BINS = 100;
 const int RADIAL_BINS = 100;
 
-const double RADIAL_MAX = 50;
+const double RADIAL_MAX = 2;
 
-const double HEIGHT_MIN = -50;
+const double HEIGHT_MIN = -1;
 
 struct Result {
     private:

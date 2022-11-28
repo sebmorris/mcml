@@ -12,10 +12,11 @@
 #include "../result/result.hpp"
 
 struct Simulation {
-    const double TERMINATION_THRESHOLD = 1e-9;
+    const double TERMINATION_THRESHOLD = 1e-4;
     const double TERMINATION_CHANCE = 0.1;
 
-    int photonsUsed;
+    int photonsLaunched;
+    double stepLeft;
 
     Result results;
 

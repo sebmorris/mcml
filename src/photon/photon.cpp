@@ -12,17 +12,17 @@ void Photon::step(const double size) {
     position += size * direction;
 }
 
-void Photon::unstep() {
+double Photon::unstep() {
+    double step = (position.z - directionHistory.top().z) / direction.z;
     position = directionHistory.top();
     directionHistory.pop();
+
+    return step;
 }
 
-double Photon::stepToHeight(const double height) {
+void Photon::stepToHeight(const double height) {
     directionHistory.push(position);
-    double heightChange = height - position.z;
-    double stepSize = heightChange / direction.z;
-    step(stepSize);
-    return stepSize;
+    step((height - position.z) / direction.z);
 }
 
 void Photon::changeDirection(double x, double y, double z) {

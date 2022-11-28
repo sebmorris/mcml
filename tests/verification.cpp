@@ -6,12 +6,12 @@ using std::vector;
 
 #include <cmath>
 
-#include "../layer/layer.hpp"
-#include "../material/material.hpp"
-#include "../simulation/simulation.hpp"
+#include "../src/layer/layer.hpp"
+#include "../src/material/material.hpp"
+#include "../src/simulation/simulation.hpp"
 
 int main() {
-    vector<Layer> layers{Layer(0.9, 1.4, 0.04, 20, 10), Layer(0.9, 1.4, 0.001, 0.1, 2), Layer(0.9, 1.4, 0.025, 25, 4), Layer(0.9, 1.4, 0.005, 60)};
+    vector<Layer> layers{Layer(0.9, 1, 0.1, 100)};
     
     Material material(layers);
     cout << material;
@@ -26,14 +26,6 @@ int main() {
         simulation.nextPhoton();
     }
     cout << std::endl << "Done, " << simulation.photonsLaunched << " photons used" << std::endl;
-
-    for (auto e : simulation.results.reflectance) {
-        cout << e << " ";
-    }
-    cout << std::endl;
-
-    cout << "Reflectance overflow " << simulation.results.reflectanceOverflow << std::endl;
-    cout << "Absorption overflow " << simulation.results.absorptionOverflow << std::endl;
 
     simulation.results.save(simulation.photonsLaunched);
 }
