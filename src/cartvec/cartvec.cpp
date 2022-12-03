@@ -1,26 +1,42 @@
 #include "cartvec.hpp"
 
-CartVec::CartVec() : x(0), y(0), z(0) {  };
-CartVec::CartVec(double x, double y, double z) : x(x), y(y), z(z) {  };
+CartVec::CartVec() : xc(0), yc(0), zc(0) {  };
+CartVec::CartVec(double x, double y, double z) : xc(x), yc(y), zc(z) {  };
 
-const void CartVec::operator+=(const CartVec& rhs) {
-    x += rhs.x;
-    y += rhs.y;
-    z += rhs.z;
+double CartVec::x() const { return xc; }
+double CartVec::y() const { return yc; }
+double CartVec::z() const { return zc; }
+
+double CartVec::magnitude() {
+    return std::sqrt(xc*xc + yc*yc + zc*zc);
 }
 
-CartVec operator*(const double lhs, const CartVec& vec) {
-    CartVec newVec(vec.x * lhs, vec.y * lhs, vec.z * lhs);
+void CartVec::operator+=(const CartVec& rhs) {
+    xc += rhs.x();
+    yc += rhs.y();
+    zc += rhs.z();
+}
+
+const CartVec operator*(double lhs, const CartVec& vec) {
+    CartVec newVec(vec.x() * lhs, vec.y() * lhs, vec.z() * lhs);
     return newVec;
 }
 
-CartVec operator*(const CartVec& vec, const double rhs) {
-    CartVec newVec(vec.x * rhs, vec.y * rhs, vec.z * rhs);
+const CartVec operator*(const CartVec& vec, double rhs) {
+    return rhs * vec; // commutative
+}
+
+const CartVec operator+(const CartVec& lhs, const CartVec& rhs) {
+    CartVec newVec(lhs.x() + rhs.x(), lhs.y() + rhs.y(), lhs.z() + rhs.z());
     return newVec;
+}
+
+const CartVec operator-(const CartVec& lhs, const CartVec& rhs) {
+    return lhs + (-1*rhs);
 }
 
 std::ostream& operator<<(std::ostream& os, const CartVec& vec) {
-    os << "(" << vec.x << ", " << vec.y << ", " << vec.z << ")";
+    os << "(" << vec.x() << ", " << vec.y() << ", " << vec.z() << ")";
 
     return os;
 }
