@@ -21,6 +21,8 @@ struct CartVec {
         double y() const;
         double z() const;
         double r() const;
+
+        CartVec& operator=(const CartVec&);
 };
 
 const CartVec operator*(double lhs, const CartVec& vec);

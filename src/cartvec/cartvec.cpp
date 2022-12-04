@@ -18,6 +18,12 @@ void CartVec::operator+=(const CartVec& rhs) {
     zc += rhs.z();
 }
 
+CartVec& CartVec::operator=(const CartVec& rhs) {
+    xc = rhs.x();
+    yc = rhs.y();
+    zc = rhs.z();
+}
+
 const CartVec operator*(double lhs, const CartVec& vec) {
     CartVec newVec(vec.x() * lhs, vec.y() * lhs, vec.z() * lhs);
     return newVec;
