@@ -8,7 +8,7 @@ double CartVec::y() const { return yc; }
 double CartVec::z() const { return zc; }
 double CartVec::r() const { return std::sqrt(xc*xc + yc*yc); }
 
-double CartVec::magnitude() {
+double CartVec::magnitude() const {
     return std::sqrt(xc*xc + yc*yc + zc*zc);
 }
 
@@ -22,6 +22,8 @@ CartVec& CartVec::operator=(const CartVec& rhs) {
     xc = rhs.x();
     yc = rhs.y();
     zc = rhs.z();
+
+    return *this;
 }
 
 const CartVec operator*(double lhs, const CartVec& vec) {

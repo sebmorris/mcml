@@ -1,5 +1,3 @@
-using std::cout;
-
 #include "boundary.hpp"
 
 Boundary::Boundary(double z, double nAbove, double nBelow) : z(z), nAbove(nAbove), nBelow(nBelow) {  };

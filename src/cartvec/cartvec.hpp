@@ -13,15 +13,15 @@ struct CartVec {
         CartVec();
         CartVec(double, double, double);
 
-        double magnitude();
+        double magnitude() const;
 
-        void operator+=(const CartVec& rhs);
 
         double x() const;
         double y() const;
         double z() const;
         double r() const;
 
+        void operator+=(const CartVec& rhs);
         CartVec& operator=(const CartVec&);
 };
 

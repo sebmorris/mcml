@@ -8,9 +8,10 @@
 struct RadialTracker {
     typedef std::vector<double>::size_type index_type;
     private:
-        const index_type NUM_BINS;
-        const double RADIAL_MAX;
-        const double BIN_SIZE;
+        // logically const values
+        index_type NUM_BINS;
+        double RADIAL_MAX;
+        double BIN_SIZE;
 
         double rawOverflow;
         std::vector<double> rawRadial;
@@ -31,12 +32,13 @@ const std::vector<double>& normReflectance(const RadialTracker&, int);
 struct BulkTracker {
     typedef RadialTracker::index_type index_type;
     private:
-        const index_type NUM_RADIAL_BINS;
-        const index_type NUM_HEIGHT_BINS;
-        const double HEIGHT_MAX;
-        const double RADIAL_MAX;
-        const double HEIGHT_BIN_SIZE;
-        const double RADIAL_BIN_SIZE;
+        // logically const values
+        index_type NUM_RADIAL_BINS;
+        index_type NUM_HEIGHT_BINS;
+        double HEIGHT_MAX;
+        double RADIAL_MAX;
+        double HEIGHT_BIN_SIZE;
+        double RADIAL_BIN_SIZE;
 
         double overflow;
         std::vector<RadialTracker> rawBulk;

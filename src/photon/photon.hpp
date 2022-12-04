@@ -24,9 +24,12 @@ class Photon {
 
         double weight_; // starts $ALIVE, ends $DEAD
     public:
+        // accessors
         double weight() const;
         const CartVec& position() const;
+        const CartVec& direction() const;
 
+        // control
         void step(double size);
         void stepToHeight(double z);
         double unstep(); // un(do) the last step, return the step
@@ -35,9 +38,6 @@ class Photon {
 
         void incrementWeight(double);
         void setWeight(double);
-
-        const CartVec& position() const;
-        const CartVec& direction() const;
 
         Photon();
         Photon(CartVec, CartVec);

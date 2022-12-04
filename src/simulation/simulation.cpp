@@ -155,7 +155,7 @@ void Simulation::escape(Boundary& boundary) {
 }
 
 void Simulation::drop() {
-    double amount = (currentLayer_->mu_a / (currentLayer_->mu_a + currentLayer_->mu_s))*currentPhoton_.weight;
+    double amount = (currentLayer_->mu_a / (currentLayer_->mu_a + currentLayer_->mu_s))*currentPhoton_.weight();
     currentPhoton_.incrementWeight(amount);
 
     totalAbsorption_.rawDrop(amount, currentPhoton_.position());

@@ -49,7 +49,7 @@ class Simulation {
         boundary_it upperBoundary_;
         // TODO: precompute muT
 
-        std::default_random_engine generator_;
+        mutable std::default_random_engine generator_;
         mutable std::uniform_real_distribution<double> distribution_{0.0, 1.0};
 
         double random() const;
