@@ -20,6 +20,7 @@ struct CartVec {
         double x() const;
         double y() const;
         double z() const;
+        double r() const;
 };
 
 const CartVec operator*(double lhs, const CartVec& vec);

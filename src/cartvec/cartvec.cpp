@@ -6,6 +6,7 @@ CartVec::CartVec(double x, double y, double z) : xc(x), yc(y), zc(z) {  };
 double CartVec::x() const { return xc; }
 double CartVec::y() const { return yc; }
 double CartVec::z() const { return zc; }
+double CartVec::r() const { return std::sqrt(xc*xc + yc*yc); }
 
 double CartVec::magnitude() {
     return std::sqrt(xc*xc + yc*yc + zc*zc);
