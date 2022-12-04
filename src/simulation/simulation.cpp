@@ -213,3 +213,7 @@ void Simulation::rouletteTerminate() {
         }
     }
 }
+
+unsigned int Simulation::launchedPhotons() {
+    return photonsLaunched_;
+}

@@ -73,6 +73,8 @@ class Simulation {
         void next();
         void nextPhoton();
         void rouletteTerminate();
+
+        unsigned int launchedPhotons();
 };
 
 #endif
