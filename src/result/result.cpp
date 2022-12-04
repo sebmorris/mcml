@@ -9,59 +9,70 @@ using std::cout;
 
 constexpr double pi = 3.14159265358979323846;
 
-Result::Result() : reflectance{0}, absorption{0} {  };
-
-inline double Result::r(double x, double y) {
-    return std::sqrt(x*x + y*y);
+RadialTracker::RadialTracker(index_type noBins, double rMax) : NUM_BINS(noBins), RADIAL_MAX(rMax), BIN_SIZE(rMax/noBins) {
+    rawRadial.resize(NUM_BINS, 0.0);
 }
 
-inline const int Result::radialIndex(CartVec& position) {
-    return radialIndex(position.x, position.y);
+RadialTracker::index_type RadialTracker::index(double r) const {
+    return r / BIN_SIZE;
 }
 
-int Result::radialIndex(double x, double y) {
-    return std::floor(r(x, y) / RADIAL_BIN_SIZE);
+RadialTracker::index_type RadialTracker::index(const CartVec& position) const {
+    return index(position.r());
 }
 
-inline const int Result::heightIndex(CartVec& position) {
-    return heightIndex(position.z);
-}
-
-int Result::heightIndex(double z) {
-    return std::floor(std::abs(z) / HEIGHT_BIN_SIZE);
-}
-
-inline const int Result::reflectanceIndex(CartVec& position) {
-    return reflectanceIndex(position.x, position.y);
-}
-
-int Result::reflectanceIndex(double x, double y) {
-    return std::floor(r(x, y) / REFLECTANCE_BIN_SIZE);
-}
-
-const void Result::drop(CartVec& position, double amount) {
-    int i = radialIndex(position);
-    int j = heightIndex(position);
-
-    if (i >= RADIAL_BINS || j >= HEIGHT_BINS) {
-        absorptionOverflow += amount;
+void RadialTracker::rawDrop(double amount, index_type i) {
+    if (i >= NUM_BINS) {
+        rawOverflow += amount;
         return;
     }
 
-    //cout << "i " << i << " j " << j << " for position " << position << std::endl;
-    absorption[i][j] += amount;
+    rawRadial[i] += amount;
 }
 
-const void Result::escape(CartVec& position, double amount) {
-    int i = reflectanceIndex(position);
+void RadialTracker::rawDrop(double amount, double r) {
+    rawDrop(amount, index(r));
+}
 
-    if (i >= REFLECTANCE_BINS) {
-        reflectanceOverflow += amount;
+double RadialTracker::overflow() const {
+    return rawOverflow;
+}
+
+BulkTracker::BulkTracker(index_type noHeightBins, index_type noRadialBins, double hMax, double rMax) :
+NUM_HEIGHT_BINS(noHeightBins), NUM_RADIAL_BINS(noRadialBins), HEIGHT_MAX(hMax), RADIAL_MAX(rMax),
+HEIGHT_BIN_SIZE(hMax/noHeightBins), RADIAL_BIN_SIZE(rMax/noRadialBins) {
+    rawBulk.resize(NUM_HEIGHT_BINS, RadialTracker(NUM_RADIAL_BINS, 0.0));
+};
+
+BulkTracker::index_type BulkTracker::heightIndex(double z) const {
+    return z / HEIGHT_BIN_SIZE;
+}
+
+BulkTracker::index_type BulkTracker::heightIndex(const CartVec& position) const {
+    return heightIndex(position.z());
+}
+
+void BulkTracker::rawDrop(double amount, index_type hi, index_type ri) {
+    if (hi >= NUM_HEIGHT_BINS) {
+        overflow += amount;
         return;
     }
-    reflectance[i] += amount;
+
+    rawBulk[hi].rawDrop(amount, ri);
 }
 
+void BulkTracker::rawDrop(double amount, const CartVec& position) {
+    index_type hi = heightIndex(position);
+
+    if (hi >= NUM_HEIGHT_BINS) {
+        overflow += amount;
+        return;
+    }
+
+    rawBulk[hi].rawDrop(amount, position.r());
+}
+
+/*
 void Result::save(int N) {
     double resultAbs[RADIAL_BINS][HEIGHT_BINS]{};
     for (int i = 0; i < RADIAL_BINS; i++) {
@@ -91,4 +102,14 @@ void Result::save(int N) {
         outRef << resultRef[j];
         if (j != RADIAL_BINS - 1) outRef << ',';
     }
-}
+
+    std::ofstream outTracking("tracking.csv");
+
+    for (auto& row : pathTracking) {
+        for (int j = 0; j < RADIAL_BINS; j++) {
+            outTracking << row[j];
+            if (j != RADIAL_BINS - 1) outTracking << ',';
+        }
+        outTracking << '\n';
+    }
+}*/
