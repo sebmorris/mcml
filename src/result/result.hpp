@@ -2,6 +2,10 @@
 #define RESULT_H
 
 #include <vector>
+#include <iostream>
+#include <cmath>
+#include <fstream>
+#include <algorithm>
 
 #include "../cartvec/cartvec.hpp"
 
@@ -22,12 +26,14 @@ struct RadialTracker {
         void rawDrop(double amount, index_type index);
         void rawDrop(double amount, double r);
         double overflow() const;
+        const std::vector<double>& rawData() const;
 
         RadialTracker() = delete;
         RadialTracker(index_type, double);
 };
 
 const std::vector<double>& normReflectance(const RadialTracker&, int);
+std::string csvRowString(const std::vector<double>&);
 
 struct BulkTracker {
     typedef RadialTracker::index_type index_type;
@@ -48,6 +54,7 @@ struct BulkTracker {
     public:
         void rawDrop(double amount, const CartVec& position);
         void rawDrop(double amount, index_type, index_type);
+        const std::vector<RadialTracker>& rawData() const;
 
         BulkTracker() = delete;
         BulkTracker(index_type, index_type, double, double);

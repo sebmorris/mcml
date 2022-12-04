@@ -74,7 +74,9 @@ class Simulation {
         void nextPhoton();
         void rouletteTerminate();
 
-        unsigned int launchedPhotons();
+        // accessors
+        const vector<double>& rawReflectance() const;
+        unsigned int launchedPhotons() const;
 };
 
 #endif

@@ -1,7 +1,7 @@
 #include "photon.hpp"
 
-Photon::Photon() : position_(CartVec(0, 0, 0)), direction_(CartVec(0, 0, -1)) {  }
-Photon::Photon(CartVec pos, CartVec dir) : position_(pos), direction_(dir) {  }
+Photon::Photon() : position_(CartVec(0, 0, 0)), direction_(CartVec(0, 0, -1)), weight_(ALIVE) {  }
+Photon::Photon(CartVec pos, CartVec dir) : position_(pos), direction_(dir), weight_(ALIVE) {  }
 
 void Photon::step(const double size) {
     positionHistory_.push(position_);

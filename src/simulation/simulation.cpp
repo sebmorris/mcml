@@ -145,9 +145,10 @@ void Simulation::escape(Boundary& boundary) {
     double R = boundary.reflect(currentPhoton_.direction());
 
     double weightT = (1 - R) * currentPhoton_.weight();
+    //cout << "Dropping weight " << weightT << std::endl;
     reflectance_.rawDrop(weightT, currentPhoton_.position().r());
 
-    currentPhoton_.incrementWeight(weightT);
+    currentPhoton_.incrementWeight(-weightT);
     flipDirection();
 
     // TODO: need to add this
@@ -156,7 +157,7 @@ void Simulation::escape(Boundary& boundary) {
 
 void Simulation::drop() {
     double amount = (currentLayer_->mu_a / (currentLayer_->mu_a + currentLayer_->mu_s))*currentPhoton_.weight();
-    currentPhoton_.incrementWeight(amount);
+    currentPhoton_.incrementWeight(-amount);
 
     totalAbsorption_.rawDrop(amount, currentPhoton_.position());
 }
@@ -214,6 +215,10 @@ void Simulation::rouletteTerminate() {
     }
 }
 
-unsigned int Simulation::launchedPhotons() {
+unsigned int Simulation::launchedPhotons() const {
     return photonsLaunched_;
+}
+
+const vector<double>& Simulation::rawReflectance() const {
+    return reflectance_.rawData();
 }

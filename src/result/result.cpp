@@ -1,11 +1,6 @@
-#include <iostream>
-using std::cout;
-
-#include <cmath>
-
-#include <fstream>
-
 #include "result.hpp"
+
+using std::vector;
 
 constexpr double pi = 3.14159265358979323846;
 
@@ -36,6 +31,10 @@ void RadialTracker::rawDrop(double amount, double r) {
 
 double RadialTracker::overflow() const {
     return rawOverflow;
+}
+
+const vector<double>& RadialTracker::rawData() const {
+    return rawRadial;
 }
 
 BulkTracker::BulkTracker(index_type noHeightBins, index_type noRadialBins, double hMax, double rMax) :

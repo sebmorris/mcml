@@ -32,6 +32,8 @@ void verificationModels() {
         simulation.nextPhoton();
     }
     cout << std::endl << "Done, " << simulation.launchedPhotons() << " photons used" << std::endl;
+
+    cout << csvRowString(simulation.rawReflectance()) << std::endl;
 }
 
 int main(int argc, char** argv) {
