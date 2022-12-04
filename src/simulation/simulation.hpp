@@ -11,41 +11,68 @@
 #include "../material/material.hpp"
 #include "../result/result.hpp"
 
-struct Simulation {
-    const double TERMINATION_THRESHOLD = 1e-4;
-    const double TERMINATION_CHANCE = 0.1;
+const double TERMINATION_THRESHOLD = 1e-4;
+const double TERMINATION_CHANCE = 0.1;
 
-    int photonsLaunched;
-    double stepLeft;
+const double SIM_EXTENT = 50;
+const unsigned int BINS = 100;
 
-    Result results;
+struct TrackedDistance {
+    BulkTracker absorption_;
+    double distance_;
+    double tolerance_;
 
-    Material material;
-    Photon currentPhoton;
+    TrackedDistance() = delete;
+    TrackedDistance(const BulkTracker&, double, double);
+};
 
-    vector<Layer>::iterator currentLayer;
-    vector<Boundary>::iterator upperBoundary;
+bool operator==(const TrackedDistance&, double);
+bool operator==(double, const TrackedDistance&);
 
-    std::default_random_engine generator;
-    std::uniform_real_distribution<double> distribution{0.0, 1.0};
+class Simulation {
+    private:
+        // simulation history
+        unsigned int photonsLaunched_;
+        BulkTracker totalAbsorption_;
+        RadialTracker reflectance_;
+        double trackingInterval_;
+        vector<TrackedDistance> trackedDistances_;
 
-    Simulation(Material material);
+        typedef vector<Layer>::iterator layer_it;
+        typedef vector<Boundary>::iterator boundary_it;
+        // physical situation
+        Material material_;
+        Photon currentPhoton_;
+        double stepLeft_;
 
-    double random();
+        layer_it currentLayer_;
+        boundary_it upperBoundary_;
+        // TODO: precompute muT
 
-    void launch();
+        std::default_random_engine generator_;
+        mutable std::uniform_real_distribution<double> distribution_{0.0, 1.0};
 
-    void next();
-    void hop();
-    bool hitBoundary();
-    void processBoundaries();
-    const void reflect(Boundary& boundary);
-    const void escape(Boundary& boundary);
-    void drop();
-    void spin();
-    void terminate();
+        double random() const;
+        void launch();
+        void hop();
+        void flipDirection();
 
-    void nextPhoton();
+        // managing photon events
+        bool hitBoundary() const;
+        void safeProcessBoundaries();
+        void spin();
+        void drop();
+
+        void reflect(Boundary& boundary);
+        void escape(Boundary& boundary);
+    public:
+        Simulation() = delete;
+        Simulation(Material material, vector<double> trackedDistances, double trackingInterval);
+
+        // maybe have these return the instance
+        void next();
+        void nextPhoton();
+        void rouletteTerminate();
 };
 
 #endif
