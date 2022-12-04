@@ -33,6 +33,9 @@ class Photon {
         void setDirection(double x, double y, double z);
         void setDirection(const CartVec&);
 
+        const CartVec& position() const;
+        const CartVec& direction() const;
+
         Photon();
         Photon(CartVec, CartVec);
 };

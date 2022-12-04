@@ -32,3 +32,11 @@ void Photon::setDirection(const CartVec& direction) {
 double Photon::weight() const {
     return weight_;
 }
+
+const CartVec& Photon::position() const {
+    return position_;
+}
+
+const CartVec& Photon::direction() const {
+    return direction_;
+}
