@@ -1,19 +1,16 @@
-#include <cmath>
-#include <utility>
-#include <iostream>
 using std::cout;
 
 #include "boundary.hpp"
 
 Boundary::Boundary(double z, double nAbove, double nBelow) : z(z), nAbove(nAbove), nBelow(nBelow) {  };
 
-const double Boundary::reflect(CartVec& direction) {
+double Boundary::reflect(const CartVec& direction) const {
     if (std::abs(nBelow - nAbove) < 1e-6) return 0; // matched n
 
-    double& before = direction.z > 0 ? nBelow : nAbove;
-    double& after = direction.z > 0 ? nAbove : nBelow;
+    double before = direction.z() > 0 ? nBelow : nAbove;
+    double after = direction.z() > 0 ? nAbove : nBelow;
 
-    double uz = std::abs(direction.z);
+    double uz = std::abs(direction.z());
     double sinI = std::sin(uz);
     double sinT = before*sinI/after;
 
@@ -33,23 +30,20 @@ const double Boundary::reflect(CartVec& direction) {
     return R;
 }
 
-const CartVec Boundary::refractionDirection(CartVec& direction) {
+CartVec Boundary::refractionDirection(const CartVec& direction) const {
     if (std::abs(nBelow - nAbove) < 1e-6) return direction; // matched n
 
-
-    double ratio = direction.z > 0 ? nBelow/nAbove : nAbove/nBelow; // before / after
+    double ratio = direction.z() > 0 ? nBelow/nAbove : nAbove/nBelow; // before / after
 
     // think I corrected this but needs testing
-    double cosI = direction.z;
+    double cosI = direction.z();
     double sinI = std::sqrt(1 - cosI*cosI);
     double sinT = ratio*sinI;
     double cosT = std::sqrt(1 - sinT*sinT);
 
-    CartVec newDirection = direction * ratio;
+    double uz = (direction.z() > 0 ? +1 : -1)*cosT;
 
-    newDirection.z = (direction.z > 0 ? +1 : -1)*cosT;
-
-    return newDirection;
+    return CartVec(direction.x()*ratio, direction.y()*ratio, uz);
 }
 
 std::ostream& operator<<(std::ostream& os, const Boundary& boundary) {

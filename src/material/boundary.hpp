@@ -3,13 +3,17 @@
 
 #include "../cartvec/cartvec.hpp"
 
+#include <cmath>
+#include <utility>
+#include <iostream>
+
 struct Boundary {
     double z;
     double nAbove;
     double nBelow;
 
-    const double reflect(CartVec& direction);
-    const CartVec refractionDirection(CartVec& direction);
+    double reflect(const CartVec& direction) const;
+    CartVec refractionDirection(const CartVec& direction) const;
 
     Boundary(double z, double nAbove, double nBelow);
 

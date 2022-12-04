@@ -14,7 +14,7 @@ Material::Material(vector<Layer> layers) : layers(layers), num_layers(layers.siz
 }
 
 const int Material::getLayerIndex(const CartVec& position) {
-    auto lower = std::lower_bound(boundaries.begin(), boundaries.end(), position.z,
+    auto lower = std::lower_bound(boundaries.begin(), boundaries.end(), position.z(),
         [](const Boundary& b, double value) { return b.z < value; }
     );
     int layerIndex = std::distance(boundaries.begin(), lower);
