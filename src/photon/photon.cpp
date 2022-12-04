@@ -40,3 +40,11 @@ const CartVec& Photon::position() const {
 const CartVec& Photon::direction() const {
     return direction_;
 }
+
+void Photon::incrementWeight(double inc) {
+    weight_ += inc;
+}
+
+void Photon::setWeight(double weight) {
+    weight_ = weight;
+}
