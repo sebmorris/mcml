@@ -6,8 +6,8 @@
 
 #include "../cartvec/cartvec.hpp"
 
-extern const double ALIVE;
-extern const double DEAD;
+const double ALIVE = 1;
+const double DEAD = 0;
 
 /*
 keeps track of macro & micro dofs
@@ -15,22 +15,26 @@ facilitates dof control of the "photon"
 
 perhaps should log positions separately
 */
-struct Photon {
-    CartVec position; // position
-    CartVec direction; // direction cosines
+class Photon {
+    private:
+        CartVec position_; // position
+        CartVec direction_; // direction cosines
 
-    std::stack<CartVec> directionHistory; // history of previous directions
+        std::stack<CartVec> positionHistory_;
 
-    double weight; // starts $ALIVE, ends $DEAD
+        double weight_; // starts $ALIVE, ends $DEAD
+    public:
+        double weight() const;
+        const CartVec& position() const;
 
-    void step(const double size);
-    void stepToHeight(const double z); // returns step size
-    double unstep(); // un(do) the last step, return the step
-    void changeDirection(double x, double y, double z);
+        void step(double size);
+        void stepToHeight(double z);
+        double unstep(); // un(do) the last step, return the step
+        void setDirection(double x, double y, double z);
+        void setDirection(const CartVec&);
 
-    Photon();
-    Photon(CartVec, CartVec);
-    Photon(CartVec, CartVec, double);
+        Photon();
+        Photon(CartVec, CartVec);
 };
 
 std::ostream &print(std::ostream &os, const Photon &photon);

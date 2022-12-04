@@ -1,32 +1,34 @@
 #include "photon.hpp"
 
-const double ALIVE = 1;
-const double DEAD = 0;
-
-Photon::Photon() : position(CartVec()), direction(CartVec(0, 0, -1)), weight(ALIVE) {}
-Photon::Photon(CartVec pos, CartVec dir) : position(pos), direction(CartVec(0, 0, -1)), weight(ALIVE) {}
-Photon::Photon(CartVec pos, CartVec dir, double weight) : position(pos), direction(dir), weight(weight) {}
+Photon::Photon() : position_(CartVec(0, 0, 0)), direction_(CartVec(0, 0, -1)) {  }
+Photon::Photon(CartVec pos, CartVec dir) : position_(pos), direction_(dir) {  }
 
 void Photon::step(const double size) {
-    directionHistory.push(position);
-    position += size * direction;
+    positionHistory_.push(position_);
+    position_ += size * direction_;
 }
 
 double Photon::unstep() {
-    double step = (position.z - directionHistory.top().z) / direction.z;
-    position = directionHistory.top();
-    directionHistory.pop();
+    double step = (position_.z() - positionHistory_.top().z()) / direction_.z();
+    position_ = positionHistory_.top();
+    positionHistory_.pop();
 
     return step;
 }
 
 void Photon::stepToHeight(const double height) {
-    directionHistory.push(position);
-    step((height - position.z) / direction.z);
+    positionHistory_.push(position_);
+    step((height - position_.z()) / direction_.z());
 }
 
-void Photon::changeDirection(double x, double y, double z) {
-    direction.x = x;
-    direction.y = y;
-    direction.z = z;
+void Photon::setDirection(double x, double y, double z) {
+    setDirection(CartVec(x, y, z));
+}
+
+void Photon::setDirection(const CartVec& direction) {
+    direction_ = direction;
+}
+
+double Photon::weight() const {
+    return weight_;
 }
