@@ -1,10 +1,8 @@
-#include <iostream>
-using std::cout;
-
-#include <cmath>
-#include <limits>
-
 #include "simulation.hpp"
+
+using std::cout;
+using std::ostream;
+using std::vector;
 
 constexpr double pi = 3.14159265358979323846;
 
@@ -219,6 +217,26 @@ unsigned int Simulation::launchedPhotons() const {
     return photonsLaunched_;
 }
 
-const vector<double>& Simulation::rawReflectance() const {
+const RadialTracker::row& Simulation::rawReflectance() const {
     return reflectance_.rawData();
+}
+
+RadialTracker::row Simulation::reflectance() const {
+    return reflectance_.normData(photonsLaunched_);
+}
+
+ostream& Simulation::reflectance(ostream& os) const {
+    os << csvRowString(reflectance_.normData(photonsLaunched_));
+
+    return os;
+}
+
+ostream& Simulation::absorption(ostream& os) const {
+    vector<RadialTracker::row> absorption = totalAbsorption_.normData(photonsLaunched_);
+
+    for (auto i : absorption) {
+        os << csvRowString(i) << "\n";
+    }
+
+    return os;
 }

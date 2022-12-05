@@ -1,8 +1,10 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
 
+#include <iostream>
 #include <random>
 #include <vector>
+#include <cmath>
 
 #include "../cartvec/cartvec.hpp"
 #include "../layer/layer.hpp"
@@ -75,7 +77,10 @@ class Simulation {
         void rouletteTerminate();
 
         // accessors
-        const vector<double>& rawReflectance() const;
+        const RadialTracker::row& rawReflectance() const;
+        RadialTracker::row reflectance() const;
+        std::ostream& reflectance(std::ostream&) const;
+        std::ostream& absorption(std::ostream&) const;
         unsigned int launchedPhotons() const;
 };
 

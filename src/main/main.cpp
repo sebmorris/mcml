@@ -24,16 +24,20 @@ void verificationModels() {
 
     Simulation simulation(material, trackedDistances, trackingInterval);
 
-    int N = 1e6;
+    int N = 10;
     for (int i = 0; i < N; i++) {
-        if (i % 100 == 0) {
+        if (i % 1000 == 0) {
             cout << "Done " << std::ceil(1e4*i / N) / 100 << "%" << std::endl;
         }
         simulation.nextPhoton();
     }
     cout << std::endl << "Done, " << simulation.launchedPhotons() << " photons used" << std::endl;
 
-    cout << csvRowString(simulation.rawReflectance()) << std::endl;
+    std::ofstream outRef("reflectance_verification.csv");
+    simulation.reflectance(outRef);
+
+    std::ofstream outAbs("absorption_verification.csv");
+    simulation.absorption(outAbs);
 }
 
 int main(int argc, char** argv) {

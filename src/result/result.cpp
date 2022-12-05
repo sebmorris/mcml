@@ -1,6 +1,7 @@
 #include "result.hpp"
 
 using std::vector;
+using std::cout;
 
 constexpr double pi = 3.14159265358979323846;
 
@@ -33,18 +34,29 @@ double RadialTracker::overflow() const {
     return rawOverflow;
 }
 
-const vector<double>& RadialTracker::rawData() const {
+const RadialTracker::row& RadialTracker::rawData() const {
     return rawRadial;
+}
+
+RadialTracker::row RadialTracker::normData(unsigned int N) const {
+    row copy = rawRadial;
+
+    for (index_type i = 0; i != copy.size(); i++) {
+        double areaElement = 2 * pi * (i + 0.5) * BIN_SIZE * BIN_SIZE;
+        copy[i] /= areaElement * N;
+    }
+
+    return copy;
 }
 
 BulkTracker::BulkTracker(index_type noHeightBins, index_type noRadialBins, double hMax, double rMax) :
 NUM_HEIGHT_BINS(noHeightBins), NUM_RADIAL_BINS(noRadialBins), HEIGHT_MAX(hMax), RADIAL_MAX(rMax),
 HEIGHT_BIN_SIZE(hMax/noHeightBins), RADIAL_BIN_SIZE(rMax/noRadialBins) {
-    rawBulk.resize(NUM_HEIGHT_BINS, RadialTracker(NUM_RADIAL_BINS, 0.0));
+    rawBulk.resize(NUM_HEIGHT_BINS, RadialTracker(NUM_RADIAL_BINS, RADIAL_MAX));
 };
 
 BulkTracker::index_type BulkTracker::heightIndex(double z) const {
-    return z / HEIGHT_BIN_SIZE;
+    return std::abs(z / HEIGHT_BIN_SIZE);
 }
 
 BulkTracker::index_type BulkTracker::heightIndex(const CartVec& position) const {
@@ -69,6 +81,19 @@ void BulkTracker::rawDrop(double amount, const CartVec& position) {
     }
 
     rawBulk[hi].rawDrop(amount, position.r());
+}
+
+vector<RadialTracker::row> BulkTracker::normData(unsigned int N) const {
+    vector<RadialTracker::row> result;
+
+    for (RadialTracker i : rawBulk) {
+        RadialTracker::row normRow = i.rawData();
+        std::transform(normRow.begin(), normRow.end(), normRow.begin(),
+            [this](double e) { return e / HEIGHT_BIN_SIZE; });
+        result.push_back(normRow);
+    }
+
+    return result;
 }
 
 /*

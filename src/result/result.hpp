@@ -10,7 +10,9 @@
 #include "../cartvec/cartvec.hpp"
 
 struct RadialTracker {
-    typedef std::vector<double>::size_type index_type;
+    public:
+        typedef std::vector<double> row;
+        typedef row::size_type index_type;
     private:
         // logically const values
         index_type NUM_BINS;
@@ -18,7 +20,7 @@ struct RadialTracker {
         double BIN_SIZE;
 
         double rawOverflow;
-        std::vector<double> rawRadial;
+        row rawRadial;
 
         index_type index(double r) const;
         index_type index(const CartVec&) const;
@@ -26,14 +28,14 @@ struct RadialTracker {
         void rawDrop(double amount, index_type index);
         void rawDrop(double amount, double r);
         double overflow() const;
-        const std::vector<double>& rawData() const;
+        const row& rawData() const;
+        row normData(unsigned int) const;
 
         RadialTracker() = delete;
         RadialTracker(index_type, double);
 };
 
-const std::vector<double>& normReflectance(const RadialTracker&, int);
-std::string csvRowString(const std::vector<double>&);
+std::string csvRowString(const RadialTracker::row&);
 
 struct BulkTracker {
     typedef RadialTracker::index_type index_type;
@@ -54,12 +56,11 @@ struct BulkTracker {
     public:
         void rawDrop(double amount, const CartVec& position);
         void rawDrop(double amount, index_type, index_type);
-        const std::vector<RadialTracker>& rawData() const;
+        const std::vector<RadialTracker::row>& rawData() const;
+        std::vector<RadialTracker::row> normData(unsigned int) const;
 
         BulkTracker() = delete;
         BulkTracker(index_type, index_type, double, double);
 };
-
-const std::vector<std::vector<double> >& normAbsorption(const BulkTracker&, int);
 
 #endif

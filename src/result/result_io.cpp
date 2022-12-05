@@ -10,7 +10,7 @@ string csvRowString(const vector<double>& row) {
     // have to treat either the first or last element specially
     string result(to_string(row[0]));
     for (auto it = row.begin() + 1; it != row.end(); it++) {
-        result += " ," + to_string(*it);
+        result += ", " + to_string(*it);
     }
 
     return result;
