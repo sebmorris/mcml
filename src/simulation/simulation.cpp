@@ -8,17 +8,6 @@ constexpr double pi = 3.14159265358979323846;
 
 // Probably want another one with double width, double height, size_type bins
 
-TrackedDistance::TrackedDistance(const BulkTracker& tracker, double distance, double tolerance) :
-absorption_(tracker), distance_(distance), tolerance_(tolerance) {  };
-
-bool operator==(const TrackedDistance& tracker, double distance) {
-    return std::abs(tracker.distance_ - distance) < tracker.tolerance_;
-}
-
-bool operator==(double distance, const TrackedDistance& tracker) {
-    return tracker == distance;
-}
-
 Simulation::Simulation(Material material, vector<double> trackedDistances, double trackingInterval) :
 material_(material), trackingInterval_(trackingInterval),
 totalAbsorption_(BINS, BINS, SIM_EXTENT, SIM_EXTENT), reflectance_(BINS, SIM_EXTENT) { // need to change these ones
@@ -51,6 +40,7 @@ void Simulation::launch() {
     stepLeft_ = 0;
     upperBoundary_ = begin(material_.boundaries);
     currentLayer_ = begin(material_.layers);
+    absorptionHistory_ = std::stack<AbsorptionEvent>();
 }
 
 void Simulation::next() {
@@ -149,8 +139,18 @@ void Simulation::escape(Boundary& boundary) {
     currentPhoton_.incrementWeight(-weightT);
     flipDirection();
 
-    // TODO: need to add this
-    // track();
+    safeTrack(weightT);
+}
+
+void Simulation::safeTrack(double amount) {
+    auto it = std::find(trackedDistances_.begin(), trackedDistances_.end(), currentPhoton_.position().r());
+    
+    if (it != trackedDistances_.end()) {
+        while (absorptionHistory_.size() != 0) {
+            it->absorption_.rawDrop(absorptionHistory_.top().amount_, absorptionHistory_.top().position_);
+            absorptionHistory_.pop();
+        }
+    }
 }
 
 void Simulation::drop() {
@@ -158,6 +158,8 @@ void Simulation::drop() {
     currentPhoton_.incrementWeight(-amount);
 
     totalAbsorption_.rawDrop(amount, currentPhoton_.position());
+
+    absorptionHistory_.push(AbsorptionEvent(amount, currentPhoton_.position()));
 }
 
 void Simulation::spin() {
@@ -225,18 +227,17 @@ RadialTracker::row Simulation::reflectance() const {
     return reflectance_.normData(photonsLaunched_);
 }
 
-ostream& Simulation::reflectance(ostream& os) const {
-    os << csvRowString(reflectance_.normData(photonsLaunched_));
-
-    return os;
+BulkTracker::grid Simulation::absorption() const {
+    return totalAbsorption_.normData(photonsLaunched_);
 }
 
-ostream& Simulation::absorption(ostream& os) const {
-    vector<RadialTracker::row> absorption = totalAbsorption_.normData(photonsLaunched_);
+vector<BulkTracker::grid> Simulation::trackedAbsorption() const {
+    vector<BulkTracker::grid> result;
 
-    for (auto i : absorption) {
-        os << csvRowString(i) << "\n";
+    for (auto i : trackedDistances_) {
+        BulkTracker::grid grid = i.absorption_.normData(photonsLaunched_);
+        result.push_back(grid);
     }
 
-    return os;
+    return result;
 }

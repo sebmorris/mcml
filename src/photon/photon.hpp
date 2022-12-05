@@ -2,7 +2,6 @@
 #define PHOTON_H
 
 #include <iostream>
-#include <stack>
 
 #include "../cartvec/cartvec.hpp"
 
@@ -17,10 +16,9 @@ perhaps should log positions separately
 */
 class Photon {
     private:
-        CartVec position_; // position
+        CartVec position_;
+        CartVec lastPosition_; // can only go back once
         CartVec direction_; // direction cosines
-
-        std::stack<CartVec> positionHistory_;
 
         double weight_; // starts $ALIVE, ends $DEAD
     public:

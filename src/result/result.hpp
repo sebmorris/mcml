@@ -36,9 +36,11 @@ struct RadialTracker {
 };
 
 std::string csvRowString(const RadialTracker::row&);
+std::ostream& csvRowString(std::ostream&, const RadialTracker::row&);
 
 struct BulkTracker {
     typedef RadialTracker::index_type index_type;
+    typedef std::vector<RadialTracker::row> grid;
     private:
         // logically const values
         index_type NUM_RADIAL_BINS;
@@ -56,11 +58,13 @@ struct BulkTracker {
     public:
         void rawDrop(double amount, const CartVec& position);
         void rawDrop(double amount, index_type, index_type);
-        const std::vector<RadialTracker::row>& rawData() const;
-        std::vector<RadialTracker::row> normData(unsigned int) const;
+        grid rawData() const;
+        grid normData(unsigned int) const;
 
         BulkTracker() = delete;
         BulkTracker(index_type, index_type, double, double);
 };
+
+std::ostream& csvGridString(std::ostream&, const BulkTracker::grid&);
 
 #endif

@@ -3,8 +3,9 @@
 using std::string;
 using std::to_string;
 using std::vector;
+using std::ostream;
 
-string csvRowString(const vector<double>& row) {
+string csvRowString(const RadialTracker::row& row) {
     if (row.size() == 0) return "";
 
     // have to treat either the first or last element specially
@@ -14,4 +15,18 @@ string csvRowString(const vector<double>& row) {
     }
 
     return result;
+}
+
+ostream& csvRowString(ostream& os, const RadialTracker::row& row) {
+    os << csvRowString(row);
+
+    return os;
+}
+
+ostream& csvGridString(ostream& os, const BulkTracker::grid& grid) {
+    for (auto i : grid) {
+        os << csvRowString(i) << "\n";
+    }
+
+    return os;
 }

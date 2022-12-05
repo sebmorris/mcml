@@ -83,8 +83,19 @@ void BulkTracker::rawDrop(double amount, const CartVec& position) {
     rawBulk[hi].rawDrop(amount, position.r());
 }
 
-vector<RadialTracker::row> BulkTracker::normData(unsigned int N) const {
-    vector<RadialTracker::row> result;
+BulkTracker::grid BulkTracker::rawData() const {
+    grid result;
+
+    for (RadialTracker i : rawBulk) {
+        RadialTracker::row normRow = i.rawData();
+        result.push_back(normRow);
+    }
+
+    return result;
+}
+
+BulkTracker::grid BulkTracker::normData(unsigned int N) const {
+    grid result;
 
     for (RadialTracker i : rawBulk) {
         RadialTracker::row normRow = i.rawData();

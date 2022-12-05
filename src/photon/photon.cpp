@@ -4,20 +4,19 @@ Photon::Photon() : position_(CartVec(0, 0, 0)), direction_(CartVec(0, 0, -1)), w
 Photon::Photon(CartVec pos, CartVec dir) : position_(pos), direction_(dir), weight_(ALIVE) {  }
 
 void Photon::step(const double size) {
-    positionHistory_.push(position_);
+    lastPosition_ = position_;
     position_ += size * direction_;
 }
 
 double Photon::unstep() {
-    double step = (position_.z() - positionHistory_.top().z()) / direction_.z();
-    position_ = positionHistory_.top();
-    positionHistory_.pop();
+    double step = (position_.z() - lastPosition_.z()) / direction_.z();
+    position_ = lastPosition_;
 
     return step;
 }
 
 void Photon::stepToHeight(const double height) {
-    positionHistory_.push(position_);
+    lastPosition_ = position_;
     step((height - position_.z()) / direction_.z());
 }
 
