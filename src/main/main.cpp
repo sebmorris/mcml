@@ -27,7 +27,7 @@ void verificationModels() {
 
     Simulation simulation(material, trackedDistances, trackingInterval);
 
-    int N = 1e3;
+    int N = 1e6;
     for (int i = 0; i < N; i++) {
         if (i % 1000 == 0) {
             cout << "Done " << std::ceil(1e4*i / N) / 100 << "%" << std::endl;
