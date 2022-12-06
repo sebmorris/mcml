@@ -10,7 +10,8 @@ constexpr double pi = 3.14159265358979323846;
 
 Simulation::Simulation(Material material, vector<double> trackedDistances, double trackingInterval) :
 material_(material), trackingInterval_(trackingInterval),
-totalAbsorption_(BINS, BINS, SIM_EXTENT, SIM_EXTENT), reflectance_(BINS, SIM_EXTENT) { // need to change these ones
+totalAbsorption_(BINS, BINS, SIM_EXTENT, SIM_EXTENT), reflectance_(BINS, SIM_EXTENT),
+generator_(std::random_device{}()) {
     launch();
     photonsLaunched_ = 1;
 

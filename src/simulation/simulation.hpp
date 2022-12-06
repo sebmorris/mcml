@@ -63,7 +63,8 @@ class Simulation {
         layer_it currentLayer_;
         boundary_it upperBoundary_;
 
-        mutable std::default_random_engine generator_;
+        //mutable std::default_random_engine generator_;
+        mutable std::mt19937_64 generator_;
         mutable std::uniform_real_distribution<double> distribution_{0.0, 1.0};
 
         double random() const;
