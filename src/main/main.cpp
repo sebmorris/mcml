@@ -19,7 +19,7 @@ void verificationModels() {
 
     vector<Layer> layers{Layer(0.9, 1.4, 0.04, 20, 10), Layer(0.9, 1.4, 0.001, 0.1, 2), Layer(0.9, 1.4, 0.025, 25, 4), Layer(0.9, 1.4, 0.005, 60)};
     
-    Material material(layers);
+    Material material(layers, 1.4);
     cout << material;
 
     vector<double> trackedDistances{10, 20, 30, 40};
@@ -45,7 +45,7 @@ void verificationModels() {
     vector<BulkTracker::grid> trackedAbs = simulation.trackedAbsorption();
 
     for (BulkTracker::index_type i = 0; i != trackedDistances.size(); i++) {
-        std::string roundedDistance = to_string(round(trackedDistances[i]));
+        std::string roundedDistance = to_string((int)round(trackedDistances[i]));
         std::ofstream outTracked("absorption_verification_" + roundedDistance + "mm.csv");
         csvGridString(outTracked, trackedAbs[i]);
     }

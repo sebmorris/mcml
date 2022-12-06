@@ -15,7 +15,7 @@ struct Material {
     vector<Layer> layers;
     vector<Boundary> boundaries;
     
-    Material(vector<Layer> layers);
+    Material(vector<Layer> layers, double);
 
     const Boundary& upperBoundary(const CartVec& position) const;
     const Boundary& lowerBoundary(const CartVec& position) const;

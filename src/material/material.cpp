@@ -3,13 +3,12 @@
 #include "material.hpp"
 #include "boundary.hpp"
 
-Material::Material(vector<Layer> layers) : layers(layers), num_layers(layers.size()) {
-    float nLast = 1; // refractive index of air taken to be one
+Material::Material(vector<Layer> layers, double nAir) : layers(layers), num_layers(layers.size()) {
     double runningSum = 0;
     for(Layer l : layers) {
-        boundaries.push_back(Boundary(-runningSum, nLast, l.n));
+        boundaries.push_back(Boundary(-runningSum, nAir, l.n));
         runningSum += l.height;
-        nLast = l.n;
+        nAir = l.n;
     }
 }
 
