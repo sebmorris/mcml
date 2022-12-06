@@ -17,10 +17,10 @@ struct Material {
     
     Material(vector<Layer> layers);
 
-    const Boundary upperBoundary(const CartVec& position);
-    const Boundary lowerBoundary(const CartVec& position);
-    const Layer& getLayer(const CartVec& position);
-    const int getLayerIndex(const CartVec& position);
+    const Boundary& upperBoundary(const CartVec& position) const;
+    const Boundary& lowerBoundary(const CartVec& position) const;
+    const Layer& getLayer(const CartVec& position) const;
+    const int getLayerIndex(const CartVec& position) const;
 };
 
 std::ostream& operator<<(std::ostream& os, const Material& material);

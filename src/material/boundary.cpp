@@ -5,8 +5,8 @@ Boundary::Boundary(double z, double nAbove, double nBelow) : z(z), nAbove(nAbove
 double Boundary::reflect(const CartVec& direction) const {
     if (std::abs(nBelow - nAbove) < 1e-6) return 0; // matched n
 
-    double before = direction.z() > 0 ? nBelow : nAbove;
-    double after = direction.z() > 0 ? nAbove : nBelow;
+    const double& before = direction.z() > 0 ? nBelow : nAbove;
+    const double& after = direction.z() > 0 ? nAbove : nBelow;
 
     double uz = std::abs(direction.z());
     double sinI = std::sin(uz);
@@ -31,7 +31,7 @@ double Boundary::reflect(const CartVec& direction) const {
 CartVec Boundary::refractionDirection(const CartVec& direction) const {
     if (std::abs(nBelow - nAbove) < 1e-6) return direction; // matched n
 
-    double ratio = direction.z() > 0 ? nBelow/nAbove : nAbove/nBelow; // before / after
+    const double& ratio = direction.z() > 0 ? nBelow/nAbove : nAbove/nBelow; // before / after
 
     // think I corrected this but needs testing
     double cosI = direction.z();
