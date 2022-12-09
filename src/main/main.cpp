@@ -8,6 +8,7 @@ using std::vector;
 #include <cmath>
 using std::round;
 #include <cstring>
+#include <stdexcept>
 
 #include "../layer/layer.hpp"
 #include "../material/material.hpp"
@@ -51,9 +52,25 @@ void verificationModels() {
     }
 }
 
+void checkApproximation() {
+    cout << "Checking approximation" << std::endl;
+
+    std::logic_error("check-approximation not yet implemented");
+}
+
 int main(int argc, char** argv) {
-    if (argc == 2 && strcmp(argv[1], "verification") == 0) {
+    if (argc < 2) {
+        cout << "Must provide at least one argument" << std::endl;
+        return -1;
+    }
+
+    if (strcmp(argv[1], "verification") == 0) {
         verificationModels();
+        return 0;
+    }
+
+    if (strcmp(argv[1], "check-approximation") == 0) {
+        checkApproximation();
         return 0;
     }
 
