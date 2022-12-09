@@ -39,8 +39,8 @@ void Simulation::launch() {
     // essentially a reset function
     currentPhoton_ = Photon();
     stepLeft_ = 0;
-    upperBoundary_ = begin(material_.boundaries);
-    currentLayer_ = begin(material_.layers);
+    upperBoundary_ = begin(material_.boundaries_);
+    currentLayer_ = begin(material_.layers_);
     absorptionHistory_ = std::stack<AbsorptionEvent>();
 }
 

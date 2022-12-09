@@ -11,9 +11,8 @@
 using std::vector;
 
 struct Material {
-    const int num_layers;
-    vector<Layer> layers;
-    vector<Boundary> boundaries;
+    vector<Layer> layers_;
+    vector<Boundary> boundaries_;
     
     Material(vector<Layer> layers, double);
 
