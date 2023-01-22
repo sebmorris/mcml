@@ -2,18 +2,99 @@
 #define LAYER_H
 
 #include <iostream>
+#include <cmath>
+#include <memory>
+#include <stdexcept>
 
-struct Layer {
-    double g;
-    double n;
-    double mu_a, mu_s;
+#include "../constants/constants.h"
+#include "../photon/photon.hpp"
+
+/*
+Look up if constexpr is the appropriate thing to use in some cases here
+Sort out constructors 
+Do I need to add a virtual destructor?
+*/
+
+struct BaseLayerOptions {
     double height;
     bool infinite;
+    double n;
+    double mu_a;
 
-    Layer(double g, double n, double mu_a, double mu_s);
-    Layer(double g, double n, double mu_a, double mu_s, double height);
+    BaseLayerOptions(double, double);
+    BaseLayerOptions(double, double, double);
 };
 
-std::ostream& operator<<(std::ostream& os, const Layer& layer);
+// virtual base class stores non-scattering information
+class BaseLayer {
+    friend class Layer;
+    protected:
+        double n_;
+        double mu_a_;
+        double height_;
+        bool infinite_;
+
+        void drop(Photon&) const;
+        double dropFrac() const;
+        double n() const;
+        double h() const;
+        bool isFinite() const;
+
+        BaseLayer() = delete;
+        BaseLayer(const BaseLayerOptions&);
+
+        virtual double interactionRate() const = 0;
+        virtual void interact(Photon&, double()) const = 0;
+    public:
+        virtual ~BaseLayer();
+};
+
+// isotropic scattering with a reduced scattering coefficient rate (similarity relation)
+class IsoLayer : public BaseLayer {
+    friend class Layer;
+    private:
+        double red_mu_s_;
+
+        double interactionRate() const;
+        void interact(Photon&, double()) const;
+
+        IsoLayer(const BaseLayerOptions&, double);
+};
+
+// HG phase-function scattering layer with anisotroy g and scattering rate mu_s
+class HGLayer : public BaseLayer {
+    friend class Layer;
+    private:
+        double mu_s_;
+        double g_;
+
+        double interactionRate() const;
+        void interact(Photon&, double()) const;
+
+        HGLayer(const BaseLayerOptions&, double, double);
+};
+
+// interface
+class Layer {
+    private:
+        std::shared_ptr<BaseLayer> layer_;
+
+        void safeCall() const;
+    public:
+        Layer() = delete;
+        Layer(const BaseLayerOptions&, double, double); // HGLayer
+        Layer(const BaseLayerOptions&, double); // IsoLayer
+
+        double interactionRate() const;
+        void interact(Photon&, double()) const;
+        double n() const;
+        double h() const;
+        double dropFrac() const;
+        bool isFinite() const;
+};
+
+std::ostream& operator<<(std::ostream&, const Layer&);
+
+// TODO: define a free layer
 
 #endif

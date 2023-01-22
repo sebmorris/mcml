@@ -1,6 +1,7 @@
 #include "cartvec.hpp"
 
 CartVec::CartVec() : xc(0), yc(0), zc(0) {  };
+CartVec::CartVec(const CartVec& vec) : xc(vec.x()), yc(vec.y()), zc(vec.z()) {  };
 CartVec::CartVec(double x, double y, double z) : xc(x), yc(y), zc(z) {  };
 
 double CartVec::x() const { return xc; }
@@ -16,14 +17,6 @@ void CartVec::operator+=(const CartVec& rhs) {
     xc += rhs.x();
     yc += rhs.y();
     zc += rhs.z();
-}
-
-CartVec& CartVec::operator=(const CartVec& rhs) {
-    xc = rhs.x();
-    yc = rhs.y();
-    zc = rhs.z();
-
-    return *this;
 }
 
 const CartVec operator*(double lhs, const CartVec& vec) {

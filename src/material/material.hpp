@@ -2,19 +2,25 @@
 #define MATERIAL_H
 
 #include <iostream>
+#include <algorithm>
 
 #include "../layer/layer.hpp"
 #include "../cartvec/cartvec.hpp"
 #include "boundary.hpp"
 
 #include <vector>
-using std::vector;
+#include <iostream>
 
 struct Material {
-    vector<Layer> layers_;
-    vector<Boundary> boundaries_;
-    
-    Material(vector<Layer> layers, double);
+    // spin and drop in layers
+    std::vector<Layer> layers_;
+
+    // reflect from boundaries
+    // the boundary vector precomputes some information
+    std::vector<Boundary> boundaries_;
+
+    Material() = delete;
+    Material(std::vector<Layer> layers, double nAir = 1);
 
     const Boundary& upperBoundary(const CartVec& position) const;
     const Boundary& lowerBoundary(const CartVec& position) const;

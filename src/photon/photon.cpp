@@ -1,11 +1,13 @@
 #include "photon.hpp"
 
-Photon::Photon() : position_(CartVec(0, 0, 0)), direction_(CartVec(0, 0, -1)), weight_(ALIVE) {  }
-Photon::Photon(CartVec pos, CartVec dir) : position_(pos), direction_(dir), weight_(ALIVE) {  }
+using std::cout;
 
-void Photon::step(const double size) {
+Photon::Photon(double weight) : position_(CartVec(0, 0, 0)), direction_(CartVec(0, 0, -1)), weight_(weight) {  }
+Photon::Photon(CartVec pos, CartVec dir, double weight) : position_(pos), direction_(dir), weight_(weight) {  }
+
+void Photon::step(double step) {
     lastPosition_ = position_;
-    position_ += size * direction_;
+    position_ += step * direction_;
 }
 
 double Photon::unstep() {
@@ -15,9 +17,9 @@ double Photon::unstep() {
     return step;
 }
 
-void Photon::stepToHeight(const double height) {
-    lastPosition_ = position_;
-    step((height - position_.z()) / direction_.z());
+void Photon::stepToHeight(double height) {
+    double stepRequired = (height - position_.z()) / direction_.z();
+    step(stepRequired);
 }
 
 void Photon::setDirection(double x, double y, double z) {

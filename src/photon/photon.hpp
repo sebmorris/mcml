@@ -28,8 +28,8 @@ class Photon {
         const CartVec& direction() const;
 
         // control
-        void step(double size);
-        void stepToHeight(double z);
+        void step(double);
+        void stepToHeight(double);
         double unstep(); // un(do) the last step, return the step
         void setDirection(double x, double y, double z);
         void setDirection(const CartVec&);
@@ -37,8 +37,8 @@ class Photon {
         void incrementWeight(double);
         void setWeight(double);
 
-        Photon();
-        Photon(CartVec, CartVec);
+        Photon(double = ALIVE);
+        Photon(CartVec, CartVec, double = ALIVE);
 };
 
 std::ostream &print(std::ostream &os, const Photon &photon);

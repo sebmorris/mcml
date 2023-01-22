@@ -1,29 +1,41 @@
 #include "boundary.hpp"
 
+using std::cout;
+
 Boundary::Boundary(double z, double nAbove, double nBelow) : z(z), nAbove(nAbove), nBelow(nBelow) {  };
 
 double Boundary::reflect(const CartVec& direction) const {
-    if (std::abs(nBelow - nAbove) < 1e-6) return 0; // matched n
+    if (std::abs(nBelow - nAbove) < 1e-10 /* small number */) return 0; // matched n
 
-    const double& before = direction.z() > 0 ? nBelow : nAbove;
-    const double& after = direction.z() > 0 ? nAbove : nBelow;
+    // before = going_deeper ? nAbove : nBelow
+    double before = direction.z() < 0 ? nAbove : nBelow;
+    double after = direction.z() < 0 ? nBelow : nAbove;
 
-    double uz = std::abs(direction.z());
-    double sinI = std::sin(uz);
+    // transmission cosT is always positive
+    // easier to follow through if we ensure cosI is positive
+    double cosI = std::abs(direction.z());
+    double sinI = std::sqrt(1 - cosI*cosI);
+
     double sinT = before*sinI/after;
+    double cosT = std::sqrt(1 - sinT*sinT);
 
-    if (after < before && sinT > 1) {
+    if (sinT > 1) {
         // TIR
+        return 1;
+    } else if(cosI > 1 - 1e-12) {
+        // normal incidence
+        return rSpecular(direction.z() < 0);
+    } else if (cosI < 1e-6) {
+        // very oblique incidence
+        // TODO: check this since mcml sets r = 1 here
         return 1;
     }
 
-    double cosI = std::sqrt(1 - sinI*sinI);
-    double cosT = std::sqrt(1 - sinT*sinT);
-
-    double rootRs = (before*cosI - after*cosT) / (before*cosI + after*cosT);
-    double rootRp = (before*cosT - after*cosI) / (before*cosT + after*cosI);
-
-    double R = 0.5*(rootRs*rootRs + rootRp*rootRp);
+    double cap = cosI*cosT - sinI*sinT;
+    double cam = cosI*cosT + sinI*sinT;
+    double sap = sinI*cosT + cosI*sinT;
+    double sam = sinI*cosT - cosI*sinT;
+    double R = 0.5*sam*sam*(cam*cam+cap*cap)/(sap*sap*cam*cam); 
 
     return R;
 }
@@ -31,17 +43,34 @@ double Boundary::reflect(const CartVec& direction) const {
 CartVec Boundary::refractionDirection(const CartVec& direction) const {
     if (std::abs(nBelow - nAbove) < 1e-6) return direction; // matched n
 
-    const double& ratio = direction.z() > 0 ? nBelow/nAbove : nAbove/nBelow; // before / after
+    double ratio = direction.z() < 0 ? nAbove/nBelow : nBelow/nAbove; // before / after
 
-    // think I corrected this but needs testing
-    double cosI = direction.z();
+    double cosI = std::abs(direction.z());
     double sinI = std::sqrt(1 - cosI*cosI);
+
     double sinT = ratio*sinI;
-    double cosT = std::sqrt(1 - sinT*sinT);
+    double cosT = std::sqrt(1 - sinT*sinT); // always positive
 
-    double uz = (direction.z() > 0 ? +1 : -1)*cosT;
+    if (cosI > 1 - 1e-12 /*cos(~0)*/) {
+        return CartVec(direction.x()*ratio, direction.y()*ratio, direction.z());
+    }
 
-    return CartVec(direction.x()*ratio, direction.y()*ratio, uz);
+
+    // if we're going deeper, we're still going deeper
+    double uz = (direction.z() < 0 ? -1 : +1)*cosT;
+    CartVec afterDirection(direction.x()*ratio, direction.y()*ratio, uz);
+
+    return afterDirection;
+}
+
+// movingDown true for passing nAbove->nBelow (uz < 0)
+double Boundary::rSpecular(bool movingDown) const {
+    double before = movingDown ? nAbove : nBelow;
+    double after = movingDown ? nBelow : nAbove;
+
+    double rootR = (before - after) / (before + after);
+
+    return rootR*rootR;
 }
 
 std::ostream& operator<<(std::ostream& os, const Boundary& boundary) {

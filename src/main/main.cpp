@@ -18,12 +18,32 @@ using std::round;
 void verificationModels() {
     cout << "Running verification models" << std::endl;
 
-    vector<Layer> layers{Layer(0.9, 1.4, 0.04, 20, 10), Layer(0.9, 1.4, 0.001, 0.1, 2), Layer(0.9, 1.4, 0.025, 25, 4), Layer(0.9, 1.4, 0.005, 60)};
+    vector<Layer> layers;
+    /*
+        one layer unmatched
+    */
+    //layers.emplace_back(BaseLayerOptions(1.5,   0.1),  10    , 0.9);
+
+    /*
+        one layer matched
+    */
+    //layers.emplace_back(BaseLayerOptions(1,   0.1),  10    , 0.9);
+
+    /*
+        three layers
+    */
+    layers.emplace_back(BaseLayerOptions(1.5, 0.01, 10), 20, 0.9);
+    layers.emplace_back(BaseLayerOptions(1, 0.001, 5), 0.1, 0.9);
+    layers.emplace_back(BaseLayerOptions(0.5, 0.005), 50, 0.8);
     
-    Material material(layers, 1.4);
+    Material material(layers, 1);
     cout << material;
 
-    vector<double> trackedDistances{10, 20, 30, 40};
+    for (auto b : material.boundaries_) {
+        cout << b << std::endl;
+    }
+
+    vector<double> trackedDistances{};
     double trackingInterval = 0.5;
 
     Simulation simulation(material, trackedDistances, trackingInterval);
@@ -31,7 +51,7 @@ void verificationModels() {
     int N = 1e6;
     for (int i = 0; i < N; i++) {
         if (i % 1000 == 0) {
-            cout << "Done " << std::ceil(1e4*i / N) / 100 << "%" << std::endl;
+            cout << "Done " << std::ceil(1e4*i / N) / 100 << "%\n";
         }
         simulation.nextPhoton();
     }

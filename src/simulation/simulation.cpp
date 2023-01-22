@@ -4,14 +4,11 @@ using std::cout;
 using std::ostream;
 using std::vector;
 
-constexpr double pi = 3.14159265358979323846;
-
 // Probably want another one with double width, double height, size_type bins
 
 Simulation::Simulation(Material material, vector<double> trackedDistances, double trackingInterval) :
-material_(material), trackingInterval_(trackingInterval),
-totalAbsorption_(BINS, BINS, SIM_EXTENT, SIM_EXTENT), reflectance_(BINS, SIM_EXTENT),
-generator_(std::random_device{}()) {
+material_(material), trackingInterval_(trackingInterval), tracking_(!trackedDistances.empty()),
+totalAbsorption_(BINS, BINS, SIM_EXTENT, SIM_EXTENT), reflectance_(BINS, SIM_EXTENT) {
     launch();
     photonsLaunched_ = 1;
 
@@ -20,10 +17,6 @@ generator_(std::random_device{}()) {
         trackedDistances_.push_back(tracker);
     }
 };
-
-inline double Simulation::random() const {
-    return distribution_(generator_);
-}
 
 void Simulation::nextPhoton() {
     if (currentPhoton_.weight() == DEAD) {
@@ -37,10 +30,10 @@ void Simulation::nextPhoton() {
 
 void Simulation::launch() {
     // essentially a reset function
-    currentPhoton_ = Photon();
-    stepLeft_ = 0;
     upperBoundary_ = begin(material_.boundaries_);
     currentLayer_ = begin(material_.layers_);
+    currentPhoton_ = Photon(ALIVE - upperBoundary_->rSpecular());
+    stepLeft_ = 0;
     absorptionHistory_ = std::stack<AbsorptionEvent>();
 }
 
@@ -50,8 +43,8 @@ void Simulation::next() {
     if (hitBoundary()) {
         safeProcessBoundaries();
     } else {
-        drop();
-        spin();
+        recordDrop();
+        interact();
         rouletteTerminate();
     }
 }
@@ -59,66 +52,74 @@ void Simulation::next() {
 void Simulation::hop() {
     double step;
     if (stepLeft_ == 0) {
-        step = -std::log(random()) / (currentLayer_->mu_a + currentLayer_->mu_s);
-        currentPhoton_.step(step);
+        step = -std::log(sim_random()) / currentLayer_->interactionRate();
     } else {
-        // this has not been tested
-        //cout << "Using some leftover step " << stepLeft << std::endl;
-        step = stepLeft_ / (currentLayer_->mu_a + currentLayer_->mu_s);
-        stepLeft_ = 0;
-        currentPhoton_.step(step);
+        step = stepLeft_ / currentLayer_->interactionRate();
+        stepLeft_ = 0; // the hitBoundary function will reassign stepLeft_ if multiple layers are traversed
     }
+
+    currentPhoton_.step(step);
 }
 
 bool Simulation::hitBoundary() const {
     if (currentPhoton_.direction().z() > 0 && currentPhoton_.position().z() > upperBoundary_->z) return true;
-    if (currentPhoton_.direction().z() < 0 && !currentLayer_->infinite && currentPhoton_.position().z() < upperBoundary_[1].z) return true;
+    if (currentPhoton_.direction().z() < 0 && currentLayer_->isFinite() && currentPhoton_.position().z() < upperBoundary_[1].z) return true;
 
     return false;
 }
 
+double Simulation::stepLeft(double stepped, double target) const {
+    double reqStep = (target - currentPhoton_.position().z()) / currentPhoton_.direction().z();
+    double dimfulStepLeft = stepped - reqStep;
+    double dimlessStepLeft = dimfulStepLeft * currentLayer_->interactionRate();
+
+    return dimlessStepLeft;
+}
+
 // assumes we have already hit a boundary
 void Simulation::safeProcessBoundaries() {
+    bool tryingToEscape = false;
+    boundary_it hitBoundary;
+
+    // this whole block could be replaced with a single ternary if we sacrifice should never reach
     if (currentPhoton_.position().z() > upperBoundary_->z) {
-        bool tryingToEscape = currentPhoton_.position().z() > 0;
-        double stepped = currentPhoton_.unstep();
-        // stepLeft not used by verification model as R=0 with matched n
-        stepLeft_ = stepped -
-            (currentPhoton_.position().z() - upperBoundary_->z) / currentPhoton_.direction().z();
-        currentPhoton_.stepToHeight(upperBoundary_->z);
-        if (tryingToEscape) {
-            escape(*upperBoundary_);
-        } else {
-            // hasn't yet been verified
-            reflect(*upperBoundary_);
-        }
-    } else if (!currentLayer_->infinite) {
-        // must be a collision with a lower boundary
-        // hasn't yet been verified
-        auto lowerBoundary = upperBoundary_[1];
-        if (currentPhoton_.position().z() < lowerBoundary.z) {
-            double stepped = currentPhoton_.unstep();
-            stepLeft_ = stepped - (currentPhoton_.position().z() - lowerBoundary.z) / currentPhoton_.direction().z();
-            currentPhoton_.stepToHeight(lowerBoundary.z);
-            reflect(lowerBoundary);
-        }
+        hitBoundary = upperBoundary_;
+        tryingToEscape = upperBoundary_ == begin(material_.boundaries_);
+    } else if (currentLayer_->isFinite()) {
+        hitBoundary = upperBoundary_ + 1; // there must be a lower a boundary if we hit it 
     } else {
         cout << "Should never reach" << std::endl;
+    }
+
+    double lastStep = currentPhoton_.unstep();
+
+    stepLeft_ = stepLeft(lastStep, hitBoundary->z);
+    currentPhoton_.stepToHeight(hitBoundary->z);
+
+    if (tryingToEscape) {
+        escape(*upperBoundary_);
+    } else {
+        reflect(*hitBoundary);
     }
 }
 
 void Simulation::flipDirection() {
-    const CartVec& dir = currentPhoton_.direction();
-    currentPhoton_.setDirection(dir.x(), dir.y(), -dir.z());
+    currentPhoton_.setDirection(
+        currentPhoton_.direction().x(),
+        currentPhoton_.direction().y(),
+        -currentPhoton_.direction().z()
+    );
 }
 
 void Simulation::reflect(Boundary& boundary) {
     double R = boundary.reflect(currentPhoton_.direction());
-    double rand = random();
+    double rand = sim_random();
 
     if (rand > R) {
         // transmit
-        int change = currentPhoton_.direction().z() > 0 ? -1 : 1;
+
+        // if we're going deeper, advance iterator
+        int change = currentPhoton_.direction().z() < 0 ? +1 : -1;
 
         currentLayer_ += change;
         upperBoundary_ += change;
@@ -133,14 +134,16 @@ void Simulation::reflect(Boundary& boundary) {
 void Simulation::escape(Boundary& boundary) {
     double R = boundary.reflect(currentPhoton_.direction());
 
+    // implements partial reflection
     double weightT = (1 - R) * currentPhoton_.weight();
-    //cout << "Dropping weight " << weightT << std::endl;
+
     reflectance_.rawDrop(weightT, currentPhoton_.position().r());
 
-    currentPhoton_.incrementWeight(-weightT);
+    currentPhoton_.setWeight(currentPhoton_.weight() * R);
+
     flipDirection();
 
-    safeTrack(weightT);
+    if (tracking_) safeTrack(weightT);
 }
 
 void Simulation::safeTrack(double amount) {
@@ -154,61 +157,20 @@ void Simulation::safeTrack(double amount) {
     }
 }
 
-void Simulation::drop() {
-    double amount = (currentLayer_->mu_a / (currentLayer_->mu_a + currentLayer_->mu_s))*currentPhoton_.weight();
-    currentPhoton_.incrementWeight(-amount);
+void Simulation::recordDrop() {
+    double amount = currentLayer_->dropFrac()*currentPhoton_.weight();
 
     totalAbsorption_.rawDrop(amount, currentPhoton_.position());
-
-    absorptionHistory_.push(AbsorptionEvent(amount, currentPhoton_.position()));
+    if (tracking_) absorptionHistory_.emplace(amount, currentPhoton_.position());
 }
 
-void Simulation::spin() {
-    // eq. 5.45, 5.46, 5.47a of:
-    // Monte Carlo Modeling of Light Transport in Tissue (Steady State and Time of Flight) (Jacques 2011)
-    double rand = random();
-
-    // avoiding messy formulas
-    double& g = (*currentLayer_).g;
-    const double& ux = currentPhoton_.direction().x();
-    const double& uy = currentPhoton_.direction().y();
-    const double& uz = currentPhoton_.direction().z();
-
-    // I chose g*g instead of square functions
-    // apparently it's more efficient
-    // https://stackoverflow.com/a/2940800
-    double num_factor = (1 - g*g) / (1 - g + 2*g*rand);
-    double num = 1 + g*g - num_factor*num_factor;
-
-    // nb: sqrt faster than sin
-    double cosTheta = num / (2*g);
-    double sinTheta = std::sqrt(1 - cosTheta*cosTheta);
-    double Phi = 2*pi*random();
-    double cosPhi = std::cos(Phi);
-    double sinPhi;
-    if(Phi<pi) sinPhi = std::sqrt(1 - cosPhi*cosPhi);
-    else sinPhi = - std::sqrt(1 - cosPhi*cosPhi);
-
-    double temp = std::sqrt(1 - uz*uz);
-
-    if (1 - std::abs(uz) < 1e-5 /*small number*/) {
-        double uxx = sinTheta*cosPhi;
-        double uyy = sinTheta*sinPhi;
-        double uzz = (uz > 0 ? 1 : -1)*cosTheta;
-
-        currentPhoton_.setDirection(uxx, uyy, uzz);
-    } else {
-        double uxx = sinTheta*(ux*uz*cosPhi - uy*sinPhi)/temp + ux*cosTheta;
-        double uyy = sinTheta*(uy*uz*cosPhi + ux*sinPhi)/temp + uy*cosTheta;
-        double uzz = -sinTheta*cosPhi*temp + uz*cosTheta;
-
-        currentPhoton_.setDirection(uxx, uyy, uzz);
-    }
+void Simulation::interact() {
+    currentLayer_->interact(currentPhoton_, sim_random);
 }
 
 void Simulation::rouletteTerminate() {
     if (currentPhoton_.weight() < TERMINATION_THRESHOLD) {
-        if (random() < TERMINATION_CHANCE) {
+        if (sim_random() < TERMINATION_CHANCE) {
             currentPhoton_.setWeight(currentPhoton_.weight() / TERMINATION_CHANCE);
         } else {
             currentPhoton_.setWeight(DEAD);
@@ -241,4 +203,22 @@ vector<BulkTracker::grid> Simulation::trackedAbsorption() const {
     }
 
     return result;
+}
+
+double sim_random() {
+    static std::random_device device;
+    static std::default_random_engine generator(device());
+
+    static std::uniform_real_distribution<double> distribution{0.0, 1.0};
+
+    double rand;
+
+    do rand = distribution(generator);
+    while (rand <= 0); // ensures rand != 0
+
+    if (rand > 1) {
+        cout << "should never reach" << std::endl;
+    }
+
+    return rand;
 }

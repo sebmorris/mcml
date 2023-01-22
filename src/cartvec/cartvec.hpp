@@ -11,6 +11,7 @@ struct CartVec {
         double zc;
     public:
         CartVec();
+        CartVec(const CartVec&);
         CartVec(double, double, double);
 
         double magnitude() const;
@@ -22,7 +23,6 @@ struct CartVec {
         double r() const;
 
         void operator+=(const CartVec& rhs);
-        CartVec& operator=(const CartVec&);
 };
 
 const CartVec operator*(double lhs, const CartVec& vec);

@@ -1,14 +1,16 @@
-#include <algorithm>
-
 #include "material.hpp"
 #include "boundary.hpp"
 
+using std::vector;
+
 Material::Material(vector<Layer> layers, double nAir) : layers_(layers) {
     double runningSum = 0;
-    for(Layer l : layers_) {
-        boundaries_.push_back(Boundary(-runningSum, nAir, l.n));
-        runningSum += l.height;
-        nAir = l.n;
+    double prevRefractiveIndex = nAir;
+    for(auto layer : layers_) {
+        double n = layer.n();
+        boundaries_.emplace_back(-runningSum, prevRefractiveIndex, n);
+        runningSum += layer.h();
+        prevRefractiveIndex = n;
     }
 }
 

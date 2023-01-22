@@ -14,6 +14,7 @@ struct Boundary {
 
     double reflect(const CartVec& direction) const;
     CartVec refractionDirection(const CartVec& direction) const;
+    double rSpecular(bool = true) const;
 
     Boundary(double z, double nAbove, double nBelow);
 

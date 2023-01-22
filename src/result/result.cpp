@@ -3,14 +3,12 @@
 using std::vector;
 using std::cout;
 
-constexpr double pi = 3.14159265358979323846;
-
 RadialTracker::RadialTracker(index_type noBins, double rMax) : NUM_BINS(noBins), RADIAL_MAX(rMax), BIN_SIZE(rMax/noBins) {
     rawRadial.resize(NUM_BINS, 0.0);
 }
 
 RadialTracker::index_type RadialTracker::index(double r) const {
-    return r / BIN_SIZE;
+    return std::floor(r / BIN_SIZE);
 }
 
 RadialTracker::index_type RadialTracker::index(const CartVec& position) const {
@@ -42,7 +40,7 @@ RadialTracker::row RadialTracker::normData(unsigned int N) const {
     row copy = rawRadial;
 
     for (index_type i = 0; i != copy.size(); i++) {
-        double areaElement = 2 * pi * (i + 0.5) * BIN_SIZE * BIN_SIZE;
+        double areaElement = 2.0 * pi * (i + 0.5) * BIN_SIZE * BIN_SIZE;
         copy[i] /= areaElement * N;
     }
 
@@ -56,7 +54,7 @@ HEIGHT_BIN_SIZE(hMax/noHeightBins), RADIAL_BIN_SIZE(rMax/noRadialBins) {
 };
 
 BulkTracker::index_type BulkTracker::heightIndex(double z) const {
-    return std::abs(z / HEIGHT_BIN_SIZE);
+    return std::abs(z) / HEIGHT_BIN_SIZE;
 }
 
 BulkTracker::index_type BulkTracker::heightIndex(const CartVec& position) const {
@@ -98,7 +96,7 @@ BulkTracker::grid BulkTracker::normData(unsigned int N) const {
     grid result;
 
     for (RadialTracker i : rawBulk) {
-        RadialTracker::row normRow = i.rawData();
+        RadialTracker::row normRow = i.normData(N);
         std::transform(normRow.begin(), normRow.end(), normRow.begin(),
             [this](double e) { return e / HEIGHT_BIN_SIZE; });
         result.push_back(normRow);
@@ -106,45 +104,3 @@ BulkTracker::grid BulkTracker::normData(unsigned int N) const {
 
     return result;
 }
-
-/*
-void Result::save(int N) {
-    double resultAbs[RADIAL_BINS][HEIGHT_BINS]{};
-    for (int i = 0; i < RADIAL_BINS; i++) {
-        for (int j = 0; j < HEIGHT_BINS; j++) {
-            resultAbs[i][j] = absorption[i][j] / (2 * pi * (i + 0.5) * RADIAL_BIN_SIZE * RADIAL_BIN_SIZE * HEIGHT_BIN_SIZE * N);
-        }
-    }
-
-    std::ofstream outAbs("absorption.csv");
-
-    for (auto& row : resultAbs) {
-        for (int j = 0; j < RADIAL_BINS; j++) {
-            outAbs << row[j];
-            if (j != RADIAL_BINS - 1) outAbs << ',';
-        }
-        outAbs << '\n';
-    }
-
-    double resultRef[REFLECTANCE_BINS]{};
-    for (int i = 0; i < REFLECTANCE_BINS; i++) {
-        resultRef[i] = reflectance[i] / (2 * pi * (i + 0.5) * REFLECTANCE_BIN_SIZE * REFLECTANCE_BIN_SIZE * N);
-    }
-
-    std::ofstream outRef("reflectance.csv");
-
-    for (int j = 0; j < REFLECTANCE_BINS; j++) {
-        outRef << resultRef[j];
-        if (j != RADIAL_BINS - 1) outRef << ',';
-    }
-
-    std::ofstream outTracking("tracking.csv");
-
-    for (auto& row : pathTracking) {
-        for (int j = 0; j < RADIAL_BINS; j++) {
-            outTracking << row[j];
-            if (j != RADIAL_BINS - 1) outTracking << ',';
-        }
-        outTracking << '\n';
-    }
-}*/
