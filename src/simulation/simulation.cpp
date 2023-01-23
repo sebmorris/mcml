@@ -204,21 +204,3 @@ vector<BulkTracker::grid> Simulation::trackedAbsorption() const {
 
     return result;
 }
-
-double sim_random() {
-    static std::random_device device;
-    static std::default_random_engine generator(device());
-
-    static std::uniform_real_distribution<double> distribution{0.0, 1.0};
-
-    double rand;
-
-    do rand = distribution(generator);
-    while (rand <= 0); // ensures rand != 0
-
-    if (rand > 1) {
-        cout << "should never reach" << std::endl;
-    }
-
-    return rand;
-}

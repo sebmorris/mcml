@@ -2,7 +2,6 @@
 #define SIMULATION_H
 
 #include <iostream>
-#include <random>
 #include <vector>
 #include <cmath>
 #include <algorithm>
@@ -15,6 +14,7 @@
 #include "../material/material.hpp"
 #include "../result/result.hpp"
 #include "../constants/constants.h"
+#include "../random/random.hpp"
 
 const double TERMINATION_THRESHOLD = 1e-4;
 const double TERMINATION_CHANCE = 0.1;
@@ -97,7 +97,5 @@ class Simulation {
         std::vector<BulkTracker::grid> trackedAbsorption() const;
         unsigned int launchedPhotons() const;
 };
-
-double sim_random();
 
 #endif
