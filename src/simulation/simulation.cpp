@@ -204,3 +204,7 @@ vector<BulkTracker::grid> Simulation::trackedAbsorption() const {
 
     return result;
 }
+
+const Material& Simulation::getMaterial() const {
+    return material_;
+}

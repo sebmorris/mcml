@@ -96,6 +96,7 @@ class Simulation {
         BulkTracker::grid absorption() const;
         std::vector<BulkTracker::grid> trackedAbsorption() const;
         unsigned int launchedPhotons() const;
+        const Material& getMaterial() const;
 };
 
 #endif
