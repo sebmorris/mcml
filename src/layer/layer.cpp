@@ -100,8 +100,14 @@ void HGLayer::interact(Photon& photon, double rand()) const {
     Layer definitions
 */
 // need constructor to be called internally so make_shared not appropriate
-Layer::Layer(const BaseLayerOptions& baseOpts, double red_mu_s) : layer_(std::shared_ptr<IsoLayer>(new IsoLayer(baseOpts, red_mu_s))) {  }
-Layer::Layer(const BaseLayerOptions& baseOpts, double mu_s, double g) : layer_(std::shared_ptr<HGLayer>(new HGLayer(baseOpts, mu_s, g))) {  }
+Layer::Layer(const BaseLayerOptions& baseOpts, double red_mu_s) :
+    layer_(std::shared_ptr<IsoLayer>(new IsoLayer(baseOpts, red_mu_s))),
+    scattering_rate_(red_mu_s) {  }
+
+Layer::Layer(const BaseLayerOptions& baseOpts, double mu_s, double g) :
+    layer_(std::shared_ptr<HGLayer>(new HGLayer(baseOpts, mu_s, g))),
+    scattering_rate_(mu_s),
+    g_(g) {  }
 
 void Layer::safeCall() const {
     if (!layer_)
@@ -131,6 +137,18 @@ double Layer::dropFrac() const {
 
 bool Layer::isFinite() const {
     return layer_->isFinite();
+}
+
+double Layer::mu_a() const {
+    return layer_->mu_a_;
+}
+
+double Layer::scattering_rate() const {
+    return scattering_rate_;
+}
+
+double Layer::g() const {
+    return g_;
 }
 
 std::ostream& operator<<(std::ostream& os, const Layer& layer) {

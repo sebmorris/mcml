@@ -79,6 +79,9 @@ class Layer {
     private:
         std::shared_ptr<BaseLayer> layer_;
 
+        double g_;
+        double scattering_rate_;
+
         void safeCall() const;
     public:
         Layer() = delete;
@@ -89,6 +92,9 @@ class Layer {
         void interact(Photon&, double()) const;
         double n() const;
         double h() const;
+        double scattering_rate() const;
+        double g() const;
+        double mu_a() const;
         double dropFrac() const;
         bool isFinite() const;
 };
