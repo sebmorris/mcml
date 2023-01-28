@@ -54,6 +54,5 @@ void Recording::saveSimulation(const Simulation& sim) {
         throw std::runtime_error("Something went wrong serializing message");
     }
     
-    cout << serializedMessage.length() << " " << serializedMessage.size() << std::endl;
     db_.archive(serializedMessage);
 }

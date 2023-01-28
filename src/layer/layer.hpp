@@ -8,6 +8,7 @@
 
 #include "../constants/constants.h"
 #include "../photon/photon.hpp"
+#include "../random/random.hpp"
 
 /*
 Look up if constexpr is the appropriate thing to use in some cases here
@@ -44,7 +45,7 @@ class BaseLayer {
         BaseLayer(const BaseLayerOptions&);
 
         virtual double interactionRate() const = 0;
-        virtual void interact(Photon&, double()) const = 0;
+        virtual void interact(Photon&, Random) const = 0;
     public:
         virtual ~BaseLayer();
 };
@@ -56,7 +57,7 @@ class IsoLayer : public BaseLayer {
         double red_mu_s_;
 
         double interactionRate() const;
-        void interact(Photon&, double()) const;
+        void interact(Photon&, Random) const;
 
         IsoLayer(const BaseLayerOptions&, double);
 };
@@ -69,7 +70,7 @@ class HGLayer : public BaseLayer {
         double g_;
 
         double interactionRate() const;
-        void interact(Photon&, double()) const;
+        void interact(Photon&, Random) const;
 
         HGLayer(const BaseLayerOptions&, double, double);
 };
@@ -89,7 +90,7 @@ class Layer {
         Layer(const BaseLayerOptions&, double); // IsoLayer
 
         double interactionRate() const;
-        void interact(Photon&, double()) const;
+        void interact(Photon&, Random) const;
         double n() const;
         double h() const;
         double scattering_rate() const;

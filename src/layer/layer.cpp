@@ -29,7 +29,7 @@ double IsoLayer::interactionRate() const {
     return mu_a_ + red_mu_s_;
 }
 
-void IsoLayer::interact(Photon& photon, double rand()) const {
+void IsoLayer::interact(Photon& photon, Random rand) const {
     double cosT = 2*rand() - 1;
     double sinT = std::sqrt(1-cosT*cosT);
 
@@ -51,7 +51,7 @@ double HGLayer::interactionRate() const {
     return mu_a_ + mu_s_;
 }
 
-void HGLayer::interact(Photon& photon, double rand()) const {
+void HGLayer::interact(Photon& photon, Random rand) const {
     drop(photon);
 
     
@@ -119,7 +119,7 @@ double Layer::interactionRate() const {
     return layer_->interactionRate();
 }
 
-void Layer::interact(Photon& photon, double rand()) const {
+void Layer::interact(Photon& photon, Random rand) const {
     return layer_->interact(photon, rand);
 }
 

@@ -4,6 +4,10 @@ using std::string;
 using std::cout;
 
 Database::Database(string filepath) : filepath_(filepath) {
+    if (sqlite3_threadsafe() == 0) {
+        std::cerr << "Database is not thread safe" << std::endl;
+    }
+
     int rc = sqlite3_open(filepath_.c_str(), &db_);
     if (rc != SQLITE_OK /* SUCCESS */) {
         throw std::runtime_error("Could not connect to the database");
