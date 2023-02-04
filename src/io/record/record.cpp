@@ -9,6 +9,8 @@ void Recording::saveSimulation(const Simulation& sim) {
     simulation::Simulation message;
     auto details = message.mutable_details();
 
+    details->set_photonslaunched(sim.launchedPhotons());
+
     auto radialRange = details->mutable_radialextent();
     radialRange->set_bins(BINS);
     radialRange->set_max(SIM_EXTENT);

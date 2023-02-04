@@ -100,13 +100,6 @@ class Simulation_SimulationDetails_Range final :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
-  }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-  }
-
   static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
     return GetDescriptor();
   }
@@ -288,13 +281,6 @@ class Simulation_SimulationDetails_Layer final :
       CopyFrom(from);
     }
     return *this;
-  }
-
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
-  }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
   }
 
   static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
@@ -510,13 +496,6 @@ class Simulation_SimulationDetails final :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
-  }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-  }
-
   static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
     return GetDescriptor();
   }
@@ -611,10 +590,10 @@ class Simulation_SimulationDetails final :
 
   enum : int {
     kLayersFieldNumber = 4,
-    kParameterRangeNameFieldNumber = 5,
     kRadialExtentFieldNumber = 1,
     kHeightExtentFieldNumber = 2,
     kTimeStampFieldNumber = 3,
+    kPhotonsLaunchedFieldNumber = 5,
   };
   // repeated .simulation.Simulation.SimulationDetails.Layer layers = 4;
   int layers_size() const;
@@ -633,24 +612,6 @@ class Simulation_SimulationDetails final :
   ::simulation::Simulation_SimulationDetails_Layer* add_layers();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::simulation::Simulation_SimulationDetails_Layer >&
       layers() const;
-
-  // optional string parameterRangeName = 5;
-  bool has_parameterrangename() const;
-  private:
-  bool _internal_has_parameterrangename() const;
-  public:
-  void clear_parameterrangename();
-  const std::string& parameterrangename() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_parameterrangename(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_parameterrangename();
-  PROTOBUF_NODISCARD std::string* release_parameterrangename();
-  void set_allocated_parameterrangename(std::string* parameterrangename);
-  private:
-  const std::string& _internal_parameterrangename() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_parameterrangename(const std::string& value);
-  std::string* _internal_mutable_parameterrangename();
-  public:
 
   // optional .simulation.Simulation.SimulationDetails.Range radialExtent = 1;
   bool has_radialextent() const;
@@ -706,6 +667,19 @@ class Simulation_SimulationDetails final :
       ::PROTOBUF_NAMESPACE_ID::Timestamp* timestamp);
   ::PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_timestamp();
 
+  // optional uint64 photonsLaunched = 5;
+  bool has_photonslaunched() const;
+  private:
+  bool _internal_has_photonslaunched() const;
+  public:
+  void clear_photonslaunched();
+  uint64_t photonslaunched() const;
+  void set_photonslaunched(uint64_t value);
+  private:
+  uint64_t _internal_photonslaunched() const;
+  void _internal_set_photonslaunched(uint64_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:simulation.Simulation.SimulationDetails)
  private:
   class _Internal;
@@ -717,10 +691,10 @@ class Simulation_SimulationDetails final :
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::simulation::Simulation_SimulationDetails_Layer > layers_;
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr parameterrangename_;
     ::simulation::Simulation_SimulationDetails_Range* radialextent_;
     ::simulation::Simulation_SimulationDetails_Range* heightextent_;
     ::PROTOBUF_NAMESPACE_ID::Timestamp* timestamp_;
+    uint64_t photonslaunched_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_simulation_2eproto;
@@ -756,13 +730,6 @@ class Simulation final :
       CopyFrom(from);
     }
     return *this;
-  }
-
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
-  }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
   }
 
   static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
@@ -1185,7 +1152,7 @@ inline void Simulation_SimulationDetails_Layer::set_g(double value) {
 
 // optional .simulation.Simulation.SimulationDetails.Range radialExtent = 1;
 inline bool Simulation_SimulationDetails::_internal_has_radialextent() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.radialextent_ != nullptr);
   return value;
 }
@@ -1194,7 +1161,7 @@ inline bool Simulation_SimulationDetails::has_radialextent() const {
 }
 inline void Simulation_SimulationDetails::clear_radialextent() {
   if (_impl_.radialextent_ != nullptr) _impl_.radialextent_->Clear();
-  _impl_._has_bits_[0] &= ~0x00000002u;
+  _impl_._has_bits_[0] &= ~0x00000001u;
 }
 inline const ::simulation::Simulation_SimulationDetails_Range& Simulation_SimulationDetails::_internal_radialextent() const {
   const ::simulation::Simulation_SimulationDetails_Range* p = _impl_.radialextent_;
@@ -1212,14 +1179,14 @@ inline void Simulation_SimulationDetails::unsafe_arena_set_allocated_radialexten
   }
   _impl_.radialextent_ = radialextent;
   if (radialextent) {
-    _impl_._has_bits_[0] |= 0x00000002u;
+    _impl_._has_bits_[0] |= 0x00000001u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000002u;
+    _impl_._has_bits_[0] &= ~0x00000001u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:simulation.Simulation.SimulationDetails.radialExtent)
 }
 inline ::simulation::Simulation_SimulationDetails_Range* Simulation_SimulationDetails::release_radialextent() {
-  _impl_._has_bits_[0] &= ~0x00000002u;
+  _impl_._has_bits_[0] &= ~0x00000001u;
   ::simulation::Simulation_SimulationDetails_Range* temp = _impl_.radialextent_;
   _impl_.radialextent_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -1235,13 +1202,13 @@ inline ::simulation::Simulation_SimulationDetails_Range* Simulation_SimulationDe
 }
 inline ::simulation::Simulation_SimulationDetails_Range* Simulation_SimulationDetails::unsafe_arena_release_radialextent() {
   // @@protoc_insertion_point(field_release:simulation.Simulation.SimulationDetails.radialExtent)
-  _impl_._has_bits_[0] &= ~0x00000002u;
+  _impl_._has_bits_[0] &= ~0x00000001u;
   ::simulation::Simulation_SimulationDetails_Range* temp = _impl_.radialextent_;
   _impl_.radialextent_ = nullptr;
   return temp;
 }
 inline ::simulation::Simulation_SimulationDetails_Range* Simulation_SimulationDetails::_internal_mutable_radialextent() {
-  _impl_._has_bits_[0] |= 0x00000002u;
+  _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.radialextent_ == nullptr) {
     auto* p = CreateMaybeMessage<::simulation::Simulation_SimulationDetails_Range>(GetArenaForAllocation());
     _impl_.radialextent_ = p;
@@ -1265,9 +1232,9 @@ inline void Simulation_SimulationDetails::set_allocated_radialextent(::simulatio
       radialextent = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, radialextent, submessage_arena);
     }
-    _impl_._has_bits_[0] |= 0x00000002u;
+    _impl_._has_bits_[0] |= 0x00000001u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000002u;
+    _impl_._has_bits_[0] &= ~0x00000001u;
   }
   _impl_.radialextent_ = radialextent;
   // @@protoc_insertion_point(field_set_allocated:simulation.Simulation.SimulationDetails.radialExtent)
@@ -1275,7 +1242,7 @@ inline void Simulation_SimulationDetails::set_allocated_radialextent(::simulatio
 
 // optional .simulation.Simulation.SimulationDetails.Range heightExtent = 2;
 inline bool Simulation_SimulationDetails::_internal_has_heightextent() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.heightextent_ != nullptr);
   return value;
 }
@@ -1284,7 +1251,7 @@ inline bool Simulation_SimulationDetails::has_heightextent() const {
 }
 inline void Simulation_SimulationDetails::clear_heightextent() {
   if (_impl_.heightextent_ != nullptr) _impl_.heightextent_->Clear();
-  _impl_._has_bits_[0] &= ~0x00000004u;
+  _impl_._has_bits_[0] &= ~0x00000002u;
 }
 inline const ::simulation::Simulation_SimulationDetails_Range& Simulation_SimulationDetails::_internal_heightextent() const {
   const ::simulation::Simulation_SimulationDetails_Range* p = _impl_.heightextent_;
@@ -1302,14 +1269,14 @@ inline void Simulation_SimulationDetails::unsafe_arena_set_allocated_heightexten
   }
   _impl_.heightextent_ = heightextent;
   if (heightextent) {
-    _impl_._has_bits_[0] |= 0x00000004u;
+    _impl_._has_bits_[0] |= 0x00000002u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000004u;
+    _impl_._has_bits_[0] &= ~0x00000002u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:simulation.Simulation.SimulationDetails.heightExtent)
 }
 inline ::simulation::Simulation_SimulationDetails_Range* Simulation_SimulationDetails::release_heightextent() {
-  _impl_._has_bits_[0] &= ~0x00000004u;
+  _impl_._has_bits_[0] &= ~0x00000002u;
   ::simulation::Simulation_SimulationDetails_Range* temp = _impl_.heightextent_;
   _impl_.heightextent_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -1325,13 +1292,13 @@ inline ::simulation::Simulation_SimulationDetails_Range* Simulation_SimulationDe
 }
 inline ::simulation::Simulation_SimulationDetails_Range* Simulation_SimulationDetails::unsafe_arena_release_heightextent() {
   // @@protoc_insertion_point(field_release:simulation.Simulation.SimulationDetails.heightExtent)
-  _impl_._has_bits_[0] &= ~0x00000004u;
+  _impl_._has_bits_[0] &= ~0x00000002u;
   ::simulation::Simulation_SimulationDetails_Range* temp = _impl_.heightextent_;
   _impl_.heightextent_ = nullptr;
   return temp;
 }
 inline ::simulation::Simulation_SimulationDetails_Range* Simulation_SimulationDetails::_internal_mutable_heightextent() {
-  _impl_._has_bits_[0] |= 0x00000004u;
+  _impl_._has_bits_[0] |= 0x00000002u;
   if (_impl_.heightextent_ == nullptr) {
     auto* p = CreateMaybeMessage<::simulation::Simulation_SimulationDetails_Range>(GetArenaForAllocation());
     _impl_.heightextent_ = p;
@@ -1355,9 +1322,9 @@ inline void Simulation_SimulationDetails::set_allocated_heightextent(::simulatio
       heightextent = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, heightextent, submessage_arena);
     }
-    _impl_._has_bits_[0] |= 0x00000004u;
+    _impl_._has_bits_[0] |= 0x00000002u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000004u;
+    _impl_._has_bits_[0] &= ~0x00000002u;
   }
   _impl_.heightextent_ = heightextent;
   // @@protoc_insertion_point(field_set_allocated:simulation.Simulation.SimulationDetails.heightExtent)
@@ -1365,7 +1332,7 @@ inline void Simulation_SimulationDetails::set_allocated_heightextent(::simulatio
 
 // optional .google.protobuf.Timestamp timeStamp = 3;
 inline bool Simulation_SimulationDetails::_internal_has_timestamp() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.timestamp_ != nullptr);
   return value;
 }
@@ -1388,14 +1355,14 @@ inline void Simulation_SimulationDetails::unsafe_arena_set_allocated_timestamp(
   }
   _impl_.timestamp_ = timestamp;
   if (timestamp) {
-    _impl_._has_bits_[0] |= 0x00000008u;
+    _impl_._has_bits_[0] |= 0x00000004u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000008u;
+    _impl_._has_bits_[0] &= ~0x00000004u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:simulation.Simulation.SimulationDetails.timeStamp)
 }
 inline ::PROTOBUF_NAMESPACE_ID::Timestamp* Simulation_SimulationDetails::release_timestamp() {
-  _impl_._has_bits_[0] &= ~0x00000008u;
+  _impl_._has_bits_[0] &= ~0x00000004u;
   ::PROTOBUF_NAMESPACE_ID::Timestamp* temp = _impl_.timestamp_;
   _impl_.timestamp_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -1411,13 +1378,13 @@ inline ::PROTOBUF_NAMESPACE_ID::Timestamp* Simulation_SimulationDetails::release
 }
 inline ::PROTOBUF_NAMESPACE_ID::Timestamp* Simulation_SimulationDetails::unsafe_arena_release_timestamp() {
   // @@protoc_insertion_point(field_release:simulation.Simulation.SimulationDetails.timeStamp)
-  _impl_._has_bits_[0] &= ~0x00000008u;
+  _impl_._has_bits_[0] &= ~0x00000004u;
   ::PROTOBUF_NAMESPACE_ID::Timestamp* temp = _impl_.timestamp_;
   _impl_.timestamp_ = nullptr;
   return temp;
 }
 inline ::PROTOBUF_NAMESPACE_ID::Timestamp* Simulation_SimulationDetails::_internal_mutable_timestamp() {
-  _impl_._has_bits_[0] |= 0x00000008u;
+  _impl_._has_bits_[0] |= 0x00000004u;
   if (_impl_.timestamp_ == nullptr) {
     auto* p = CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::Timestamp>(GetArenaForAllocation());
     _impl_.timestamp_ = p;
@@ -1442,9 +1409,9 @@ inline void Simulation_SimulationDetails::set_allocated_timestamp(::PROTOBUF_NAM
       timestamp = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, timestamp, submessage_arena);
     }
-    _impl_._has_bits_[0] |= 0x00000008u;
+    _impl_._has_bits_[0] |= 0x00000004u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000008u;
+    _impl_._has_bits_[0] &= ~0x00000004u;
   }
   _impl_.timestamp_ = timestamp;
   // @@protoc_insertion_point(field_set_allocated:simulation.Simulation.SimulationDetails.timeStamp)
@@ -1490,72 +1457,32 @@ Simulation_SimulationDetails::layers() const {
   return _impl_.layers_;
 }
 
-// optional string parameterRangeName = 5;
-inline bool Simulation_SimulationDetails::_internal_has_parameterrangename() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+// optional uint64 photonsLaunched = 5;
+inline bool Simulation_SimulationDetails::_internal_has_photonslaunched() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
-inline bool Simulation_SimulationDetails::has_parameterrangename() const {
-  return _internal_has_parameterrangename();
+inline bool Simulation_SimulationDetails::has_photonslaunched() const {
+  return _internal_has_photonslaunched();
 }
-inline void Simulation_SimulationDetails::clear_parameterrangename() {
-  _impl_.parameterrangename_.ClearToEmpty();
-  _impl_._has_bits_[0] &= ~0x00000001u;
+inline void Simulation_SimulationDetails::clear_photonslaunched() {
+  _impl_.photonslaunched_ = uint64_t{0u};
+  _impl_._has_bits_[0] &= ~0x00000008u;
 }
-inline const std::string& Simulation_SimulationDetails::parameterrangename() const {
-  // @@protoc_insertion_point(field_get:simulation.Simulation.SimulationDetails.parameterRangeName)
-  return _internal_parameterrangename();
+inline uint64_t Simulation_SimulationDetails::_internal_photonslaunched() const {
+  return _impl_.photonslaunched_;
 }
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void Simulation_SimulationDetails::set_parameterrangename(ArgT0&& arg0, ArgT... args) {
- _impl_._has_bits_[0] |= 0x00000001u;
- _impl_.parameterrangename_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:simulation.Simulation.SimulationDetails.parameterRangeName)
+inline uint64_t Simulation_SimulationDetails::photonslaunched() const {
+  // @@protoc_insertion_point(field_get:simulation.Simulation.SimulationDetails.photonsLaunched)
+  return _internal_photonslaunched();
 }
-inline std::string* Simulation_SimulationDetails::mutable_parameterrangename() {
-  std::string* _s = _internal_mutable_parameterrangename();
-  // @@protoc_insertion_point(field_mutable:simulation.Simulation.SimulationDetails.parameterRangeName)
-  return _s;
+inline void Simulation_SimulationDetails::_internal_set_photonslaunched(uint64_t value) {
+  _impl_._has_bits_[0] |= 0x00000008u;
+  _impl_.photonslaunched_ = value;
 }
-inline const std::string& Simulation_SimulationDetails::_internal_parameterrangename() const {
-  return _impl_.parameterrangename_.Get();
-}
-inline void Simulation_SimulationDetails::_internal_set_parameterrangename(const std::string& value) {
-  _impl_._has_bits_[0] |= 0x00000001u;
-  _impl_.parameterrangename_.Set(value, GetArenaForAllocation());
-}
-inline std::string* Simulation_SimulationDetails::_internal_mutable_parameterrangename() {
-  _impl_._has_bits_[0] |= 0x00000001u;
-  return _impl_.parameterrangename_.Mutable(GetArenaForAllocation());
-}
-inline std::string* Simulation_SimulationDetails::release_parameterrangename() {
-  // @@protoc_insertion_point(field_release:simulation.Simulation.SimulationDetails.parameterRangeName)
-  if (!_internal_has_parameterrangename()) {
-    return nullptr;
-  }
-  _impl_._has_bits_[0] &= ~0x00000001u;
-  auto* p = _impl_.parameterrangename_.Release();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.parameterrangename_.IsDefault()) {
-    _impl_.parameterrangename_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  return p;
-}
-inline void Simulation_SimulationDetails::set_allocated_parameterrangename(std::string* parameterrangename) {
-  if (parameterrangename != nullptr) {
-    _impl_._has_bits_[0] |= 0x00000001u;
-  } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
-  }
-  _impl_.parameterrangename_.SetAllocated(parameterrangename, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.parameterrangename_.IsDefault()) {
-    _impl_.parameterrangename_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:simulation.Simulation.SimulationDetails.parameterRangeName)
+inline void Simulation_SimulationDetails::set_photonslaunched(uint64_t value) {
+  _internal_set_photonslaunched(value);
+  // @@protoc_insertion_point(field_set:simulation.Simulation.SimulationDetails.photonsLaunched)
 }
 
 // -------------------------------------------------------------------

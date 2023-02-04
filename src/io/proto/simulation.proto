@@ -1,4 +1,4 @@
-syntax = "proto2";
+syntax = "proto3";
 
 package simulation;
 
@@ -26,6 +26,8 @@ message Simulation {
         }
 
         repeated Layer layers = 4;
+
+        optional uint64 photonsLaunched = 5;
     }
 
     optional SimulationDetails details = 1;

@@ -60,10 +60,10 @@ PROTOBUF_CONSTEXPR Simulation_SimulationDetails::Simulation_SimulationDetails(
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.layers_)*/{}
-  , /*decltype(_impl_.parameterrangename_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.radialextent_)*/nullptr
   , /*decltype(_impl_.heightextent_)*/nullptr
-  , /*decltype(_impl_.timestamp_)*/nullptr} {}
+  , /*decltype(_impl_.timestamp_)*/nullptr
+  , /*decltype(_impl_.photonslaunched_)*/uint64_t{0u}} {}
 struct Simulation_SimulationDetailsDefaultTypeInternal {
   PROTOBUF_CONSTEXPR Simulation_SimulationDetailsDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -133,12 +133,12 @@ const uint32_t TableStruct_simulation_2eproto::offsets[] PROTOBUF_SECTION_VARIAB
   PROTOBUF_FIELD_OFFSET(::simulation::Simulation_SimulationDetails, _impl_.heightextent_),
   PROTOBUF_FIELD_OFFSET(::simulation::Simulation_SimulationDetails, _impl_.timestamp_),
   PROTOBUF_FIELD_OFFSET(::simulation::Simulation_SimulationDetails, _impl_.layers_),
-  PROTOBUF_FIELD_OFFSET(::simulation::Simulation_SimulationDetails, _impl_.parameterrangename_),
+  PROTOBUF_FIELD_OFFSET(::simulation::Simulation_SimulationDetails, _impl_.photonslaunched_),
+  0,
   1,
   2,
-  3,
   ~0u,
-  0,
+  3,
   PROTOBUF_FIELD_OFFSET(::simulation::Simulation, _impl_._has_bits_),
   PROTOBUF_FIELD_OFFSET(::simulation::Simulation, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -168,28 +168,33 @@ static const ::_pb::Message* const file_default_instances[] = {
 
 const char descriptor_table_protodef_simulation_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\020simulation.proto\022\nsimulation\032\037google/p"
-  "rotobuf/timestamp.proto\"\241\004\n\nSimulation\0229"
+  "rotobuf/timestamp.proto\"\362\005\n\nSimulation\022>"
   "\n\007details\030\001 \001(\0132(.simulation.Simulation."
-  "SimulationDetails\022\027\n\013reflectance\030\002 \003(\001B\002"
-  "\020\001\022\026\n\nabsorption\030\003 \003(\001B\002\020\001\032\246\003\n\021Simulatio"
-  "nDetails\022D\n\014radialExtent\030\001 \001(\0132..simulat"
-  "ion.Simulation.SimulationDetails.Range\022D"
-  "\n\014heightExtent\030\002 \001(\0132..simulation.Simula"
-  "tion.SimulationDetails.Range\022-\n\ttimeStam"
-  "p\030\003 \001(\0132\032.google.protobuf.Timestamp\022>\n\006l"
-  "ayers\030\004 \003(\0132..simulation.Simulation.Simu"
-  "lationDetails.Layer\022\032\n\022parameterRangeNam"
-  "e\030\005 \001(\t\032/\n\005Range\022\013\n\003min\030\001 \001(\001\022\013\n\003max\030\002 \001"
-  "(\001\022\014\n\004bins\030\003 \001(\001\032I\n\005Layer\022\t\n\001n\030\001 \001(\001\022\016\n\006"
-  "height\030\002 \001(\001\022\014\n\004mu_a\030\003 \001(\001\022\014\n\004mu_s\030\004 \001(\001"
-  "\022\t\n\001g\030\005 \001(\001"
+  "SimulationDetailsH\000\210\001\001\022\027\n\013reflectance\030\002 "
+  "\003(\001B\002\020\001\022\026\n\nabsorption\030\003 \003(\001B\002\020\001\032\346\004\n\021Simu"
+  "lationDetails\022I\n\014radialExtent\030\001 \001(\0132..si"
+  "mulation.Simulation.SimulationDetails.Ra"
+  "ngeH\000\210\001\001\022I\n\014heightExtent\030\002 \001(\0132..simulat"
+  "ion.Simulation.SimulationDetails.RangeH\001"
+  "\210\001\001\0222\n\ttimeStamp\030\003 \001(\0132\032.google.protobuf"
+  ".TimestampH\002\210\001\001\022>\n\006layers\030\004 \003(\0132..simula"
+  "tion.Simulation.SimulationDetails.Layer\022"
+  "\034\n\017photonsLaunched\030\005 \001(\004H\003\210\001\001\032W\n\005Range\022\020"
+  "\n\003min\030\001 \001(\001H\000\210\001\001\022\020\n\003max\030\002 \001(\001H\001\210\001\001\022\021\n\004bi"
+  "ns\030\003 \001(\001H\002\210\001\001B\006\n\004_minB\006\n\004_maxB\007\n\005_bins\032\213"
+  "\001\n\005Layer\022\016\n\001n\030\001 \001(\001H\000\210\001\001\022\023\n\006height\030\002 \001(\001"
+  "H\001\210\001\001\022\021\n\004mu_a\030\003 \001(\001H\002\210\001\001\022\021\n\004mu_s\030\004 \001(\001H\003"
+  "\210\001\001\022\016\n\001g\030\005 \001(\001H\004\210\001\001B\004\n\002_nB\t\n\007_heightB\007\n\005"
+  "_mu_aB\007\n\005_mu_sB\004\n\002_gB\017\n\r_radialExtentB\017\n"
+  "\r_heightExtentB\014\n\n_timeStampB\022\n\020_photons"
+  "LaunchedB\n\n\010_detailsb\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_simulation_2eproto_deps[1] = {
   &::descriptor_table_google_2fprotobuf_2ftimestamp_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_simulation_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_simulation_2eproto = {
-    false, false, 611, descriptor_table_protodef_simulation_2eproto,
+    false, false, 828, descriptor_table_protodef_simulation_2eproto,
     "simulation.proto",
     &descriptor_table_simulation_2eproto_once, descriptor_table_simulation_2eproto_deps, 1, 4,
     schemas, file_default_instances, TableStruct_simulation_2eproto::offsets,
@@ -353,21 +358,20 @@ uint8_t* Simulation_SimulationDetails_Range::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _impl_._has_bits_[0];
   // optional double min = 1;
-  if (cached_has_bits & 0x00000001u) {
+  if (_internal_has_min()) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteDoubleToArray(1, this->_internal_min(), target);
   }
 
   // optional double max = 2;
-  if (cached_has_bits & 0x00000002u) {
+  if (_internal_has_max()) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteDoubleToArray(2, this->_internal_max(), target);
   }
 
   // optional double bins = 3;
-  if (cached_has_bits & 0x00000004u) {
+  if (_internal_has_bins()) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteDoubleToArray(3, this->_internal_bins(), target);
   }
@@ -646,33 +650,32 @@ uint8_t* Simulation_SimulationDetails_Layer::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _impl_._has_bits_[0];
   // optional double n = 1;
-  if (cached_has_bits & 0x00000001u) {
+  if (_internal_has_n()) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteDoubleToArray(1, this->_internal_n(), target);
   }
 
   // optional double height = 2;
-  if (cached_has_bits & 0x00000002u) {
+  if (_internal_has_height()) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteDoubleToArray(2, this->_internal_height(), target);
   }
 
   // optional double mu_a = 3;
-  if (cached_has_bits & 0x00000004u) {
+  if (_internal_has_mu_a()) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteDoubleToArray(3, this->_internal_mu_a(), target);
   }
 
   // optional double mu_s = 4;
-  if (cached_has_bits & 0x00000008u) {
+  if (_internal_has_mu_s()) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteDoubleToArray(4, this->_internal_mu_s(), target);
   }
 
   // optional double g = 5;
-  if (cached_has_bits & 0x00000010u) {
+  if (_internal_has_g()) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteDoubleToArray(5, this->_internal_g(), target);
   }
@@ -797,18 +800,18 @@ class Simulation_SimulationDetails::_Internal {
   using HasBits = decltype(std::declval<Simulation_SimulationDetails>()._impl_._has_bits_);
   static const ::simulation::Simulation_SimulationDetails_Range& radialextent(const Simulation_SimulationDetails* msg);
   static void set_has_radialextent(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
+    (*has_bits)[0] |= 1u;
   }
   static const ::simulation::Simulation_SimulationDetails_Range& heightextent(const Simulation_SimulationDetails* msg);
   static void set_has_heightextent(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
+    (*has_bits)[0] |= 2u;
   }
   static const ::PROTOBUF_NAMESPACE_ID::Timestamp& timestamp(const Simulation_SimulationDetails* msg);
   static void set_has_timestamp(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
+    (*has_bits)[0] |= 4u;
   }
-  static void set_has_parameterrangename(HasBits* has_bits) {
-    (*has_bits)[0] |= 1u;
+  static void set_has_photonslaunched(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
   }
 };
 
@@ -826,7 +829,7 @@ Simulation_SimulationDetails::_Internal::timestamp(const Simulation_SimulationDe
 }
 void Simulation_SimulationDetails::clear_timestamp() {
   if (_impl_.timestamp_ != nullptr) _impl_.timestamp_->Clear();
-  _impl_._has_bits_[0] &= ~0x00000008u;
+  _impl_._has_bits_[0] &= ~0x00000004u;
 }
 Simulation_SimulationDetails::Simulation_SimulationDetails(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -841,20 +844,12 @@ Simulation_SimulationDetails::Simulation_SimulationDetails(const Simulation_Simu
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.layers_){from._impl_.layers_}
-    , decltype(_impl_.parameterrangename_){}
     , decltype(_impl_.radialextent_){nullptr}
     , decltype(_impl_.heightextent_){nullptr}
-    , decltype(_impl_.timestamp_){nullptr}};
+    , decltype(_impl_.timestamp_){nullptr}
+    , decltype(_impl_.photonslaunched_){}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  _impl_.parameterrangename_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.parameterrangename_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_parameterrangename()) {
-    _this->_impl_.parameterrangename_.Set(from._internal_parameterrangename(), 
-      _this->GetArenaForAllocation());
-  }
   if (from._internal_has_radialextent()) {
     _this->_impl_.radialextent_ = new ::simulation::Simulation_SimulationDetails_Range(*from._impl_.radialextent_);
   }
@@ -864,6 +859,7 @@ Simulation_SimulationDetails::Simulation_SimulationDetails(const Simulation_Simu
   if (from._internal_has_timestamp()) {
     _this->_impl_.timestamp_ = new ::PROTOBUF_NAMESPACE_ID::Timestamp(*from._impl_.timestamp_);
   }
+  _this->_impl_.photonslaunched_ = from._impl_.photonslaunched_;
   // @@protoc_insertion_point(copy_constructor:simulation.Simulation.SimulationDetails)
 }
 
@@ -875,15 +871,11 @@ inline void Simulation_SimulationDetails::SharedCtor(
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.layers_){arena}
-    , decltype(_impl_.parameterrangename_){}
     , decltype(_impl_.radialextent_){nullptr}
     , decltype(_impl_.heightextent_){nullptr}
     , decltype(_impl_.timestamp_){nullptr}
+    , decltype(_impl_.photonslaunched_){uint64_t{0u}}
   };
-  _impl_.parameterrangename_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.parameterrangename_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 Simulation_SimulationDetails::~Simulation_SimulationDetails() {
@@ -898,7 +890,6 @@ Simulation_SimulationDetails::~Simulation_SimulationDetails() {
 inline void Simulation_SimulationDetails::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.layers_.~RepeatedPtrField();
-  _impl_.parameterrangename_.Destroy();
   if (this != internal_default_instance()) delete _impl_.radialextent_;
   if (this != internal_default_instance()) delete _impl_.heightextent_;
   if (this != internal_default_instance()) delete _impl_.timestamp_;
@@ -916,23 +907,21 @@ void Simulation_SimulationDetails::Clear() {
 
   _impl_.layers_.Clear();
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _impl_.parameterrangename_.ClearNonDefaultToEmpty();
-    }
-    if (cached_has_bits & 0x00000002u) {
       GOOGLE_DCHECK(_impl_.radialextent_ != nullptr);
       _impl_.radialextent_->Clear();
     }
-    if (cached_has_bits & 0x00000004u) {
+    if (cached_has_bits & 0x00000002u) {
       GOOGLE_DCHECK(_impl_.heightextent_ != nullptr);
       _impl_.heightextent_->Clear();
     }
-    if (cached_has_bits & 0x00000008u) {
+    if (cached_has_bits & 0x00000004u) {
       GOOGLE_DCHECK(_impl_.timestamp_ != nullptr);
       _impl_.timestamp_->Clear();
     }
   }
+  _impl_.photonslaunched_ = uint64_t{0u};
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -981,15 +970,12 @@ const char* Simulation_SimulationDetails::_InternalParse(const char* ptr, ::_pbi
         } else
           goto handle_unusual;
         continue;
-      // optional string parameterRangeName = 5;
+      // optional uint64 photonsLaunched = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
-          auto str = _internal_mutable_parameterrangename();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          _Internal::set_has_photonslaunched(&has_bits);
+          _impl_.photonslaunched_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-          #ifndef NDEBUG
-          ::_pbi::VerifyUTF8(str, "simulation.Simulation.SimulationDetails.parameterRangeName");
-          #endif  // !NDEBUG
         } else
           goto handle_unusual;
         continue;
@@ -1023,23 +1009,22 @@ uint8_t* Simulation_SimulationDetails::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _impl_._has_bits_[0];
   // optional .simulation.Simulation.SimulationDetails.Range radialExtent = 1;
-  if (cached_has_bits & 0x00000002u) {
+  if (_internal_has_radialextent()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::radialextent(this),
         _Internal::radialextent(this).GetCachedSize(), target, stream);
   }
 
   // optional .simulation.Simulation.SimulationDetails.Range heightExtent = 2;
-  if (cached_has_bits & 0x00000004u) {
+  if (_internal_has_heightextent()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::heightextent(this),
         _Internal::heightextent(this).GetCachedSize(), target, stream);
   }
 
   // optional .google.protobuf.Timestamp timeStamp = 3;
-  if (cached_has_bits & 0x00000008u) {
+  if (_internal_has_timestamp()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(3, _Internal::timestamp(this),
         _Internal::timestamp(this).GetCachedSize(), target, stream);
@@ -1053,14 +1038,10 @@ uint8_t* Simulation_SimulationDetails::_InternalSerialize(
         InternalWriteMessage(4, repfield, repfield.GetCachedSize(), target, stream);
   }
 
-  // optional string parameterRangeName = 5;
-  if (cached_has_bits & 0x00000001u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_parameterrangename().data(), static_cast<int>(this->_internal_parameterrangename().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "simulation.Simulation.SimulationDetails.parameterRangeName");
-    target = stream->WriteStringMaybeAliased(
-        5, this->_internal_parameterrangename(), target);
+  // optional uint64 photonsLaunched = 5;
+  if (_internal_has_photonslaunched()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(5, this->_internal_photonslaunched(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1088,32 +1069,30 @@ size_t Simulation_SimulationDetails::ByteSizeLong() const {
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
-    // optional string parameterRangeName = 5;
-    if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_parameterrangename());
-    }
-
     // optional .simulation.Simulation.SimulationDetails.Range radialExtent = 1;
-    if (cached_has_bits & 0x00000002u) {
+    if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.radialextent_);
     }
 
     // optional .simulation.Simulation.SimulationDetails.Range heightExtent = 2;
-    if (cached_has_bits & 0x00000004u) {
+    if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.heightextent_);
     }
 
     // optional .google.protobuf.Timestamp timeStamp = 3;
-    if (cached_has_bits & 0x00000008u) {
+    if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.timestamp_);
+    }
+
+    // optional uint64 photonsLaunched = 5;
+    if (cached_has_bits & 0x00000008u) {
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_photonslaunched());
     }
 
   }
@@ -1139,20 +1118,21 @@ void Simulation_SimulationDetails::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& t
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      _this->_internal_set_parameterrangename(from._internal_parameterrangename());
-    }
-    if (cached_has_bits & 0x00000002u) {
       _this->_internal_mutable_radialextent()->::simulation::Simulation_SimulationDetails_Range::MergeFrom(
           from._internal_radialextent());
     }
-    if (cached_has_bits & 0x00000004u) {
+    if (cached_has_bits & 0x00000002u) {
       _this->_internal_mutable_heightextent()->::simulation::Simulation_SimulationDetails_Range::MergeFrom(
           from._internal_heightextent());
     }
-    if (cached_has_bits & 0x00000008u) {
+    if (cached_has_bits & 0x00000004u) {
       _this->_internal_mutable_timestamp()->::PROTOBUF_NAMESPACE_ID::Timestamp::MergeFrom(
           from._internal_timestamp());
     }
+    if (cached_has_bits & 0x00000008u) {
+      _this->_impl_.photonslaunched_ = from._impl_.photonslaunched_;
+    }
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -1170,18 +1150,12 @@ bool Simulation_SimulationDetails::IsInitialized() const {
 
 void Simulation_SimulationDetails::InternalSwap(Simulation_SimulationDetails* other) {
   using std::swap;
-  auto* lhs_arena = GetArenaForAllocation();
-  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   _impl_.layers_.InternalSwap(&other->_impl_.layers_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.parameterrangename_, lhs_arena,
-      &other->_impl_.parameterrangename_, rhs_arena
-  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Simulation_SimulationDetails, _impl_.timestamp_)
-      + sizeof(Simulation_SimulationDetails::_impl_.timestamp_)
+      PROTOBUF_FIELD_OFFSET(Simulation_SimulationDetails, _impl_.photonslaunched_)
+      + sizeof(Simulation_SimulationDetails::_impl_.photonslaunched_)
       - PROTOBUF_FIELD_OFFSET(Simulation_SimulationDetails, _impl_.radialextent_)>(
           reinterpret_cast<char*>(&_impl_.radialextent_),
           reinterpret_cast<char*>(&other->_impl_.radialextent_));
@@ -1348,9 +1322,8 @@ uint8_t* Simulation::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _impl_._has_bits_[0];
   // optional .simulation.Simulation.SimulationDetails details = 1;
-  if (cached_has_bits & 0x00000001u) {
+  if (_internal_has_details()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::details(this),
         _Internal::details(this).GetCachedSize(), target, stream);
