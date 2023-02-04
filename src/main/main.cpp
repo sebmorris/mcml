@@ -39,11 +39,14 @@ void verificationModels() {
     /*
         three layers
     */
-    layers.emplace_back(BaseLayerOptions(1.5, 0.01, 10), 20, 0.9);
-    layers.emplace_back(BaseLayerOptions(1, 0.001, 5), 0.1, 0.9);
-    layers.emplace_back(BaseLayerOptions(0.5, 0.005), 50, 0.8);
-    
-    Material material(layers, 1);
+    //layers.emplace_back(BaseLayerOptions(1.5, 0.01, 10), 20, 0.9);
+    //layers.emplace_back(BaseLayerOptions(1, 0.001, 5), 0.1, 0.9);
+    //layers.emplace_back(BaseLayerOptions(0.5, 0.005), 50, 0.8);
+
+    std::vector<Random> randoms = manyRandoms(manySeeds(1));
+
+    //Material material(layers, 1);
+    Material material = sampleMaterial(randoms[0]);
     cout << material;
 
     for (auto b : material.boundaries_) {
@@ -52,11 +55,6 @@ void verificationModels() {
 
     vector<double> trackedDistances{};
     double trackingInterval = 0.5;
-    layers.emplace_back(BaseLayerOptions(1.5, 0.01, 10), 20, 0.9);
-    layers.emplace_back(BaseLayerOptions(1, 0.001, 5), 0.1, 0.9);
-    layers.emplace_back(BaseLayerOptions(0.5, 0.005), 50, 0.8);
-
-    std::vector<Random> randoms = manyRandoms(manySeeds(1));
 
     Simulation simulation(material, trackedDistances, trackingInterval, randoms[0]);
 
@@ -69,7 +67,7 @@ void verificationModels() {
     }
     cout << std::endl << "Done, " << simulation.launchedPhotons() << " photons used" << std::endl;
 
-    /*std::ofstream outRef("reflectance_verification.csv");
+    std::ofstream outRef("reflectance_verification.csv");
     csvRowString(outRef, simulation.reflectance());
 
     std::ofstream outAbs("absorption_verification.csv");
@@ -81,7 +79,7 @@ void verificationModels() {
         std::string roundedDistance = to_string((int)round(trackedDistances[i]));
         std::ofstream outTracked("absorption_verification_" + roundedDistance + "mm.csv");
         csvGridString(outTracked, trackedAbs[i]);
-    }*/
+    }
 
     Recording recorder("/home/sebastian/Projects/mcml-simulation/build/test.db");
 
@@ -90,12 +88,12 @@ void verificationModels() {
 
 void randomSampling(Random random, Recording recorder) {
     for (int i = 0; i < SIMULATIONS_PER_THREAD; i++) {
-        Material mat = sampleFourLayerMaterial(random);
+        Material mat = sampleMaterial(random);
         vector<double> trackedDistances;
         const double trackingInterval{0.5};
         Simulation sim(mat, trackedDistances, trackingInterval, random);
 
-        int N = 1000000;
+        int N = 10;
         for (int i = 0; i < N; i++) {
             sim.nextPhoton();
         }
@@ -125,7 +123,8 @@ int main(int argc, char** argv) {
             return -1;
         }
 
-        unsigned int noThreads = std::thread::hardware_concurrency();
+        //unsigned int noThreads = std::thread::hardware_concurrency();
+        unsigned int noThreads = 1;
 
         vector<Random> randoms = manyRandoms(manySeeds(noThreads));
 
