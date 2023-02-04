@@ -6,6 +6,7 @@
 #include <cmath>
 #include <algorithm>
 #include <stack>
+#include <cstdint>
 
 #include "../cartvec/cartvec.hpp"
 #include "../layer/layer.hpp"
@@ -48,13 +49,16 @@ class Simulation {
         using boundary_it = std::vector<Boundary>::iterator;
     private:
         // simulation history
-        unsigned int photonsLaunched_;
+        uint64_t photonsLaunched_;
         BulkTracker totalAbsorption_;
         RadialTracker reflectance_;
 
         const bool tracking_;
         double trackingInterval_;
         std::vector<TrackedDistance> trackedDistances_;
+
+        // random generation
+        Random random_;
 
         // physical situation
         Material material_;
@@ -83,7 +87,7 @@ class Simulation {
         void escape(Boundary& boundary);
     public:
         Simulation() = delete;
-        Simulation(Material material, std::vector<double> trackedDistances, double trackingInterval);
+        Simulation(Material material, std::vector<double> trackedDistances, double trackingInterval, Random);
 
         // maybe have these return the instance
         void next();
@@ -95,7 +99,7 @@ class Simulation {
         RadialTracker::row reflectance() const;
         BulkTracker::grid absorption() const;
         std::vector<BulkTracker::grid> trackedAbsorption() const;
-        unsigned int launchedPhotons() const;
+        uint64_t launchedPhotons() const;
         const Material& getMaterial() const;
 };
 

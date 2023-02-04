@@ -6,9 +6,10 @@ using std::vector;
 
 // Probably want another one with double width, double height, size_type bins
 
-Simulation::Simulation(Material material, vector<double> trackedDistances, double trackingInterval) :
+Simulation::Simulation(Material material, vector<double> trackedDistances, double trackingInterval, Random random) :
 material_(material), trackingInterval_(trackingInterval), tracking_(!trackedDistances.empty()),
-totalAbsorption_(BINS, BINS, SIM_EXTENT, SIM_EXTENT), reflectance_(BINS, SIM_EXTENT) {
+totalAbsorption_(BINS, BINS, SIM_EXTENT, SIM_EXTENT), reflectance_(BINS, SIM_EXTENT),
+random_(random) {
     launch();
     photonsLaunched_ = 1;
 
@@ -52,7 +53,7 @@ void Simulation::next() {
 void Simulation::hop() {
     double step;
     if (stepLeft_ == 0) {
-        step = -std::log(sim_random()) / currentLayer_->interactionRate();
+        step = -std::log(random_()) / currentLayer_->interactionRate();
     } else {
         step = stepLeft_ / currentLayer_->interactionRate();
         stepLeft_ = 0; // the hitBoundary function will reassign stepLeft_ if multiple layers are traversed
@@ -113,7 +114,7 @@ void Simulation::flipDirection() {
 
 void Simulation::reflect(Boundary& boundary) {
     double R = boundary.reflect(currentPhoton_.direction());
-    double rand = sim_random();
+    double rand = random_();
 
     if (rand > R) {
         // transmit
@@ -165,12 +166,12 @@ void Simulation::recordDrop() {
 }
 
 void Simulation::interact() {
-    currentLayer_->interact(currentPhoton_, sim_random);
+    currentLayer_->interact(currentPhoton_, random_);
 }
 
 void Simulation::rouletteTerminate() {
     if (currentPhoton_.weight() < TERMINATION_THRESHOLD) {
-        if (sim_random() < TERMINATION_CHANCE) {
+        if (random_() < TERMINATION_CHANCE) {
             currentPhoton_.setWeight(currentPhoton_.weight() / TERMINATION_CHANCE);
         } else {
             currentPhoton_.setWeight(DEAD);
@@ -178,7 +179,7 @@ void Simulation::rouletteTerminate() {
     }
 }
 
-unsigned int Simulation::launchedPhotons() const {
+uint64_t Simulation::launchedPhotons() const {
     return photonsLaunched_;
 }
 
