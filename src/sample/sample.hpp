@@ -1,4 +1,5 @@
 #ifndef SAMPLE_H
+#define SAMPLE_H
 
 #include <vector>
 
@@ -20,16 +21,15 @@ struct LayerParameterValues {
     double height;
 };
 
-Layer sim_random_parameter_values(LayerParameterValues lower, LayerParameterValues upper, bool infinite);
+Layer sim_random_parameter_values(LayerParameterValues lower, LayerParameterValues upper, bool infinite, Random);
 
-const size_t numLayers = 4;
-const LayerParameterValues layerParameterRanges[4][2] = {
-    { LayerParameterValues{0, 1, 2, 3},     LayerParameterValues{0, 1, 2, 3} },
-    { LayerParameterValues{0, 1, 2, 3},     LayerParameterValues{0, 1, 2, 3} },
-    { LayerParameterValues{0, 1, 2, 3},     LayerParameterValues{0, 1, 2, 3} },
-    { LayerParameterValues{0, 1, 2},        LayerParameterValues{0, 1, 2} }
+const size_t numLayers = 3;
+const LayerParameterValues layerParameterRanges[numLayers][2] = {
+    { LayerParameterValues{1.33, 0.9, 0.0015,   1,      5},     LayerParameterValues{1.5, 0.9, 1,       100,    15} },
+    { LayerParameterValues{1.33, 0.9, 0,        0.2,    1},     LayerParameterValues{1.5, 0.9, 0,       0.2,    5} }, // csf broadly fixed layer
+    { LayerParameterValues{1.33, 0.9, 0.0015, 1},     LayerParameterValues{1.5, 0.9, 1, 100} } // semi-infinite
 };
 
-Material sampleFourLayerMaterial(double nAir = 1);
+Material sampleMaterial(Random, double nAir = 1);
 
 #endif
