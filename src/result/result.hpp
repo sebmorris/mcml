@@ -8,7 +8,7 @@
 #include <algorithm>
 
 #include "../cartvec/cartvec.hpp"
-#include "../constants/constants.h"
+#include "../constants/constants.hpp"
 
 struct RadialTracker {
     public:

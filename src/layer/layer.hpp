@@ -6,7 +6,7 @@
 #include <memory>
 #include <stdexcept>
 
-#include "../constants/constants.h"
+#include "../constants/constants.hpp"
 #include "../photon/photon.hpp"
 #include "../random/random.hpp"
 

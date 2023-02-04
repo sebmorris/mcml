@@ -20,7 +20,7 @@ using std::round;
 #include "../sample/sample.hpp"
 #include "../io/record/record.hpp"
 #include "../random/random.hpp"
-#include "../constants/constants.h"
+#include "../constants/constants.hpp"
 
 void verificationModels() {
     cout << "Running verification models" << std::endl;

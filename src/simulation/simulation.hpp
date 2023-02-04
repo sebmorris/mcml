@@ -14,7 +14,7 @@
 #include "../material/boundary.hpp"
 #include "../material/material.hpp"
 #include "../result/result.hpp"
-#include "../constants/constants.h"
+#include "../constants/constants.hpp"
 #include "../random/random.hpp"
 
 const double TERMINATION_THRESHOLD = 1e-4;
