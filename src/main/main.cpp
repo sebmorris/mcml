@@ -123,8 +123,7 @@ int main(int argc, char** argv) {
             return -1;
         }
 
-        //unsigned int noThreads = std::thread::hardware_concurrency();
-        unsigned int noThreads = 1;
+        unsigned int noThreads = std::thread::hardware_concurrency();
 
         vector<Random> randoms = manyRandoms(manySeeds(noThreads));
 
@@ -140,6 +139,14 @@ int main(int argc, char** argv) {
         for (auto& thread : threads) {
             thread.join();
         }
+
+        return 0;
+    }
+
+    if (strcmp(argv[1], "hardware-concurrency") == 0) {
+        unsigned int noThreads = std::thread::hardware_concurrency();
+
+        cout << "Hardware concurrency supports " << noThreads << " threads" << std::endl;
 
         return 0;
     }
