@@ -10,7 +10,7 @@ SRCS := $(shell find $(SRC_DIRS) -name '*.cpp' -or -name '*.c' -or -name '*.cc')
 
 # String substitution for every C/C++ file.
 # As an example, hello.cpp turns into ./build/hello.cpp.o
-OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
+OBJS := $(SRCS:./%=$(BUILD_DIR)/%.o)
 
 # String substitution (suffix version without %).
 # As an example, ./build/hello.cpp.o turns into ./build/hello.cpp.d
@@ -23,7 +23,7 @@ INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 
 # The -MMD and -MP flags together generate Makefiles for us!
 # These files will have .d instead of .o as the output.
-CPPFLAGS := $(INC_FLAGS) -MMD -MP
+CPPFLAGS := $(INC_FLAGS) -MMD -MP -O3
 
 LDFLAGS = -L/usr/lib64
 LDLIBS = -lprotobuf
