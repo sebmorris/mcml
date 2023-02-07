@@ -27,7 +27,7 @@ PROTOBUF_CONSTEXPR Simulation_SimulationDetails_Range::Simulation_SimulationDeta
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.min_)*/0
   , /*decltype(_impl_.max_)*/0
-  , /*decltype(_impl_.bins_)*/0} {}
+  , /*decltype(_impl_.bins_)*/0u} {}
 struct Simulation_SimulationDetails_RangeDefaultTypeInternal {
   PROTOBUF_CONSTEXPR Simulation_SimulationDetails_RangeDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -181,7 +181,7 @@ const char descriptor_table_protodef_simulation_2eproto[] PROTOBUF_SECTION_VARIA
   "tion.Simulation.SimulationDetails.Layer\022"
   "\034\n\017photonsLaunched\030\005 \001(\004H\003\210\001\001\032W\n\005Range\022\020"
   "\n\003min\030\001 \001(\001H\000\210\001\001\022\020\n\003max\030\002 \001(\001H\001\210\001\001\022\021\n\004bi"
-  "ns\030\003 \001(\001H\002\210\001\001B\006\n\004_minB\006\n\004_maxB\007\n\005_bins\032\213"
+  "ns\030\003 \001(\rH\002\210\001\001B\006\n\004_minB\006\n\004_maxB\007\n\005_bins\032\213"
   "\001\n\005Layer\022\016\n\001n\030\001 \001(\001H\000\210\001\001\022\023\n\006height\030\002 \001(\001"
   "H\001\210\001\001\022\021\n\004mu_a\030\003 \001(\001H\002\210\001\001\022\021\n\004mu_s\030\004 \001(\001H\003"
   "\210\001\001\022\016\n\001g\030\005 \001(\001H\004\210\001\001B\004\n\002_nB\t\n\007_heightB\007\n\005"
@@ -257,7 +257,7 @@ inline void Simulation_SimulationDetails_Range::SharedCtor(
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.min_){0}
     , decltype(_impl_.max_){0}
-    , decltype(_impl_.bins_){0}
+    , decltype(_impl_.bins_){0u}
   };
 }
 
@@ -319,12 +319,12 @@ const char* Simulation_SimulationDetails_Range::_InternalParse(const char* ptr, 
         } else
           goto handle_unusual;
         continue;
-      // optional double bins = 3;
+      // optional uint32 bins = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 25)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_bins(&has_bits);
-          _impl_.bins_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
-          ptr += sizeof(double);
+          _impl_.bins_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -370,10 +370,10 @@ uint8_t* Simulation_SimulationDetails_Range::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteDoubleToArray(2, this->_internal_max(), target);
   }
 
-  // optional double bins = 3;
+  // optional uint32 bins = 3;
   if (_internal_has_bins()) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteDoubleToArray(3, this->_internal_bins(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_bins(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -404,9 +404,9 @@ size_t Simulation_SimulationDetails_Range::ByteSizeLong() const {
       total_size += 1 + 8;
     }
 
-    // optional double bins = 3;
+    // optional uint32 bins = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 + 8;
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_bins());
     }
 
   }

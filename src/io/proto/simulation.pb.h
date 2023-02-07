@@ -220,17 +220,17 @@ class Simulation_SimulationDetails_Range final :
   void _internal_set_max(double value);
   public:
 
-  // optional double bins = 3;
+  // optional uint32 bins = 3;
   bool has_bins() const;
   private:
   bool _internal_has_bins() const;
   public:
   void clear_bins();
-  double bins() const;
-  void set_bins(double value);
+  uint32_t bins() const;
+  void set_bins(uint32_t value);
   private:
-  double _internal_bins() const;
-  void _internal_set_bins(double value);
+  uint32_t _internal_bins() const;
+  void _internal_set_bins(uint32_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:simulation.Simulation.SimulationDetails.Range)
@@ -245,7 +245,7 @@ class Simulation_SimulationDetails_Range final :
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     double min_;
     double max_;
-    double bins_;
+    uint32_t bins_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_simulation_2eproto;
@@ -974,7 +974,7 @@ inline void Simulation_SimulationDetails_Range::set_max(double value) {
   // @@protoc_insertion_point(field_set:simulation.Simulation.SimulationDetails.Range.max)
 }
 
-// optional double bins = 3;
+// optional uint32 bins = 3;
 inline bool Simulation_SimulationDetails_Range::_internal_has_bins() const {
   bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
   return value;
@@ -983,21 +983,21 @@ inline bool Simulation_SimulationDetails_Range::has_bins() const {
   return _internal_has_bins();
 }
 inline void Simulation_SimulationDetails_Range::clear_bins() {
-  _impl_.bins_ = 0;
+  _impl_.bins_ = 0u;
   _impl_._has_bits_[0] &= ~0x00000004u;
 }
-inline double Simulation_SimulationDetails_Range::_internal_bins() const {
+inline uint32_t Simulation_SimulationDetails_Range::_internal_bins() const {
   return _impl_.bins_;
 }
-inline double Simulation_SimulationDetails_Range::bins() const {
+inline uint32_t Simulation_SimulationDetails_Range::bins() const {
   // @@protoc_insertion_point(field_get:simulation.Simulation.SimulationDetails.Range.bins)
   return _internal_bins();
 }
-inline void Simulation_SimulationDetails_Range::_internal_set_bins(double value) {
+inline void Simulation_SimulationDetails_Range::_internal_set_bins(uint32_t value) {
   _impl_._has_bits_[0] |= 0x00000004u;
   _impl_.bins_ = value;
 }
-inline void Simulation_SimulationDetails_Range::set_bins(double value) {
+inline void Simulation_SimulationDetails_Range::set_bins(uint32_t value) {
   _internal_set_bins(value);
   // @@protoc_insertion_point(field_set:simulation.Simulation.SimulationDetails.Range.bins)
 }

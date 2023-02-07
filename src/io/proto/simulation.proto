@@ -9,7 +9,7 @@ message Simulation {
         message Range {
             optional double min = 1;
             optional double max = 2;
-            optional double bins = 3;
+            optional uint32 bins = 3;
         }
 
         optional Range radialExtent = 1;
