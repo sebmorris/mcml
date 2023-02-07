@@ -22,6 +22,16 @@ using std::round;
 #include "../random/random.hpp"
 #include "../constants/constants.hpp"
 
+// maybe move this into Simulation.hpp
+void runSimulation(Simulation& sim) {
+    for (uint64_t i = 0; i < PHOTONS_PER_SIMULATION; i++) {
+        if (i % PHOTONS_PER_REPORT == 0) {
+            cout << "Done " << std::ceil((i / (double)PHOTONS_PER_SIMULATION) * 1e4) / 100 << "%" << std::endl;
+        }
+        sim.nextPhoton();
+    }
+}
+
 void verificationModels() {
     cout << "Running verification models" << std::endl;
 
@@ -58,13 +68,7 @@ void verificationModels() {
 
     Simulation simulation(material, trackedDistances, trackingInterval, randoms[0]);
 
-    int N = 10;
-    for (int i = 0; i < N; i++) {
-        if (i % 1000 == 0) {
-            cout << "Done " << std::ceil(1e4*i / N) / 100 << "%\n";
-        }
-        simulation.nextPhoton();
-    }
+    runSimulation(simulation);
     cout << std::endl << "Done, " << simulation.launchedPhotons() << " photons used" << std::endl;
 
     std::ofstream outRef("reflectance_verification.csv");
@@ -93,11 +97,7 @@ void randomSampling(Random random, Recording recorder) {
         const double trackingInterval{0.5};
         Simulation sim(mat, trackedDistances, trackingInterval, random);
 
-        int N = 10;
-        for (int i = 0; i < N; i++) {
-            sim.nextPhoton();
-        }
-
+        runSimulation(sim);
         cout << "Done the " << i << "th simulation on one thread" << std::endl;
 
         recorder.saveSimulation(sim);
@@ -124,10 +124,11 @@ int main(int argc, char** argv) {
         }
 
         unsigned int noThreads = std::thread::hardware_concurrency();
+        //unsigned int noThreads = 1;
 
         vector<Random> randoms = manyRandoms(manySeeds(noThreads));
 
-        Recording recorder("/home/sebastian/Projects/mcml-simulation/build/test.db");
+        Recording recorder(argv[2]);
         vector<std::thread> threads;
         threads.reserve(randoms.size());
 
