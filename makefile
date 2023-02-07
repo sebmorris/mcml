@@ -26,7 +26,7 @@ INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 CPPFLAGS := $(INC_FLAGS) -MMD -MP -O3
 
 LDFLAGS = -L/usr/lib64
-LDLIBS = -lprotobuf
+LDLIBS = -pthread -ldl -lprotobuf
 
 # The final build step.
 $(BUILD_DIR)/$(TARGET_EXEC): $(OBJS)
