@@ -16,7 +16,7 @@ Layer sim_random_parameter_values(LayerParameterValues lower, LayerParameterValu
     if (!infinite) {
         double height = random.random_between(lower.height, upper.height);
         baseLayer.height = height;
-        baseLayer.infinite = true;
+        baseLayer.infinite = false;
     }
 
     return Layer{baseLayer, mu_s, g};
