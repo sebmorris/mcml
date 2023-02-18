@@ -21,7 +21,7 @@ const double TERMINATION_THRESHOLD = 1e-4;
 const double TERMINATION_CHANCE = 0.1;
 
 const double SIM_EXTENT = 50;
-const unsigned int BINS = 100;
+const uint32_t BINS = 100;
 
 struct AbsorptionEvent {
     CartVec position_;
