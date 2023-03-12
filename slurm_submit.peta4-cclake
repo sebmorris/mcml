@@ -24,14 +24,12 @@
 #SBATCH --time=02:00:00
 #! What types of email messages do you wish to receive?
 #SBATCH --mail-type=NONE
-#! Uncomment this to prevent the job from being requeued (e.g. if
-#! interrupted by node failure or system downtime):
+#! Prevents the job from being requeued in the case of failure
 #SBATCH --no-requeue
 
 #! sbatch directives end here (put any additional directives above this line)
 
 #! Notes:
-#! Charging is determined by cpu number*walltime.
 #! The --ntasks value refers to the number of tasks to be launched by SLURM only. This
 #! usually equates to the number of MPI tasks launched. Reduce this from nodes*56 if
 #! demanded by memory requirements, or if OMP_NUM_THREADS>1.
@@ -55,15 +53,16 @@ module load rhel7/default-ccl              # REQUIRED - loads the basic environm
 module load gcc-7.2.0-gcc-4.8.5-pqn7o2k    # Enable C/C++ compiler - if we need it
 
 #! adding to the library path
-LD_LIBRARY_PATH="/...:$LD_LIBRARY_PATH"
+LD_LIBRARY_PATH="/home/sm2357/lib:$LD_LIBRARY_PATH"
 
 #! Insert additional module load commands after this line if needed:
 
 #! Full path to application executable: 
-application=""
+#! Must already be built (with make)
+application="/home/sm2357/mcml/build/main"
 
 #! Run options for the application:
-options=""
+options="random-simulations /home/sm2357/output.db"
 
 #! Work directory (i.e. where the job will run):
 workdir="$SLURM_SUBMIT_DIR"  # The value of SLURM_SUBMIT_DIR sets workdir to the directory
