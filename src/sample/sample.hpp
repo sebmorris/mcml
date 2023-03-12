@@ -36,8 +36,6 @@ const LayerParameterValues layerParameterRanges[numLayers][2] = {
     { LayerParameterValues{1.4, 0.9, 0.0015, 1},     LayerParameterValues{1.4, 0.9, 1, 100} } // semi-infinite
 };
 
-const 
-
 Material sampleMaterial(Random, double nAir = 1);
 
 #endif
