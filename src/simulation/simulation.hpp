@@ -103,4 +103,6 @@ class Simulation {
         const Material& getMaterial() const;
 };
 
+void runSimulation(Simulation&);
+
 #endif

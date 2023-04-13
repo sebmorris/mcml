@@ -20,11 +20,16 @@ random_(random) {
 };
 
 void Simulation::nextPhoton() {
+    cout << "rate" << std::endl;
+    cout << material_.getLayer(CartVec{0, 0, -1});
+    cout << "interaction rate " << currentLayer_->interactionRate() << std::endl;
     if (currentPhoton_.weight() == DEAD) {
         photonsLaunched_++;
         launch();
+        cout << "created";
     }
     while (currentPhoton_.weight() != DEAD) {
+        cout << "doing first" << std::endl;
         next();
     }
 }
@@ -40,6 +45,8 @@ void Simulation::launch() {
 
 void Simulation::next() {
     hop();
+
+    cout << "hopped";
 
     if (hitBoundary()) {
         safeProcessBoundaries();
@@ -208,4 +215,13 @@ vector<BulkTracker::grid> Simulation::trackedAbsorption() const {
 
 const Material& Simulation::getMaterial() const {
     return material_;
+}
+
+void runSimulation(Simulation& sim) {
+    for (uint64_t i = 0; i < PHOTONS_PER_SIMULATION; i++) {
+        if (i % PHOTONS_PER_REPORT == 0) {
+            cout << "Done " << std::ceil((i / (double)PHOTONS_PER_SIMULATION) * 1e4) / 100 << "%" << std::endl;
+        }
+        sim.nextPhoton();
+    }
 }
