@@ -20,16 +20,11 @@ random_(random) {
 };
 
 void Simulation::nextPhoton() {
-    cout << "rate" << std::endl;
-    cout << material_.getLayer(CartVec{0, 0, -1});
-    cout << "interaction rate " << currentLayer_->interactionRate() << std::endl;
     if (currentPhoton_.weight() == DEAD) {
         photonsLaunched_++;
         launch();
-        cout << "created";
     }
     while (currentPhoton_.weight() != DEAD) {
-        cout << "doing first" << std::endl;
         next();
     }
 }
@@ -45,8 +40,6 @@ void Simulation::launch() {
 
 void Simulation::next() {
     hop();
-
-    cout << "hopped";
 
     if (hitBoundary()) {
         safeProcessBoundaries();
