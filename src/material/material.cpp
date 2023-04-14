@@ -16,8 +16,11 @@ Material::Material(vector<Layer> layers, double nAir) : layers_(layers) {
 
 const int Material::getLayerIndex(const CartVec& position) const {
     auto lower = std::lower_bound(boundaries_.begin(), boundaries_.end(), position.z(),
-        [](const Boundary& b, double value) { return b.z < value; }
+        [](const Boundary& b, double value) { return b.z > value; }
     );
+    if (boundaries_.end() == lower) {
+        throw std::out_of_range("Check the final layer is infinite");
+    }
     int layerIndex = std::distance(boundaries_.begin(), lower);
     return layerIndex;
 }
