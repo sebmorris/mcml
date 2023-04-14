@@ -19,6 +19,19 @@ double Random::random_between(double lower, double upper) {
     return lower + (upper - lower) * (*this)();
 }
 
+double Random::jeffreys_random_between(double lower, double upper) {
+    double recip_norm = std::log(upper) - std::log(lower);
+    double sample = std::exp((*this)()*recip_norm + std::log(lower));
+
+    return sample;
+}
+
+double Random::random_beta(double a, double b) {
+    auto dist = sftrabbit::beta_distribution<double>{a, b};
+
+    return dist(*this);
+}
+
 std::vector<std::uint_fast32_t> manySeeds(std::size_t n) {
     std::vector<std::uint_fast32_t> seeds(n);
     std::seed_seq seq{std::random_device()()};

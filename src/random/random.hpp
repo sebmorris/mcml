@@ -6,6 +6,8 @@
 #include <memory>
 #include <cstdint>
 #include <vector>
+#include <cmath>
+#include <beta.hpp>
 
 struct RandomInternals {
     std::default_random_engine gen;
@@ -23,6 +25,11 @@ class Random {
 
         double operator()();
         double random_between(double, double);
+        double jeffreys_random_between(double, double);
+        double random_beta(double a, double b);
+
+        static double min() { return 0.0; }
+        static double max() { return 1.0; }
 };
 
 std::vector<std::uint_fast32_t> manySeeds(std::size_t);
