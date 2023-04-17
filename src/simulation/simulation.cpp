@@ -31,9 +31,9 @@ void Simulation::nextPhoton() {
 
 void Simulation::launch() {
     // essentially a reset function
-    upperBoundary_ = begin(material_.boundaries_);
-    currentLayer_ = begin(material_.layers_);
-    currentPhoton_ = Photon(ALIVE - upperBoundary_->rSpecular());
+    upperBoundary_ = 0;
+    currentLayer_ = 0;
+    currentPhoton_ = Photon(ALIVE - upperBoundary().rSpecular());
     stepLeft_ = 0;
     absorptionHistory_ = std::stack<AbsorptionEvent>();
 }
@@ -53,9 +53,9 @@ void Simulation::next() {
 void Simulation::hop() {
     double step;
     if (stepLeft_ == 0) {
-        step = -std::log(random_()) / currentLayer_->interactionRate();
+        step = -std::log(random_()) / currentLayer().interactionRate();
     } else {
-        step = stepLeft_ / currentLayer_->interactionRate();
+        step = stepLeft_ / currentLayer().interactionRate();
         stepLeft_ = 0; // the hitBoundary function will reassign stepLeft_ if multiple layers are traversed
     }
 
@@ -63,8 +63,8 @@ void Simulation::hop() {
 }
 
 bool Simulation::hitBoundary() const {
-    if (currentPhoton_.direction().z() > 0 && currentPhoton_.position().z() > upperBoundary_->z) return true;
-    if (currentPhoton_.direction().z() < 0 && currentLayer_->isFinite() && currentPhoton_.position().z() < upperBoundary_[1].z) return true;
+    if (currentPhoton_.direction().z() > 0 && currentPhoton_.position().z() > upperBoundary().z) return true;
+    if (currentPhoton_.direction().z() < 0 && currentLayer().isFinite() && currentPhoton_.position().z() < lowerBoundary().z) return true;
 
     return false;
 }
@@ -72,7 +72,7 @@ bool Simulation::hitBoundary() const {
 double Simulation::stepLeft(double stepped, double target) const {
     double reqStep = (target - currentPhoton_.position().z()) / currentPhoton_.direction().z();
     double dimfulStepLeft = stepped - reqStep;
-    double dimlessStepLeft = dimfulStepLeft * currentLayer_->interactionRate();
+    double dimlessStepLeft = dimfulStepLeft * currentLayer().interactionRate();
 
     return dimlessStepLeft;
 }
@@ -80,27 +80,29 @@ double Simulation::stepLeft(double stepped, double target) const {
 // assumes we have already hit a boundary
 void Simulation::safeProcessBoundaries() {
     bool tryingToEscape = false;
-    boundary_it hitBoundary;
+    boundary_i hitBoundaryIndex;
 
     // this whole block could be replaced with a single ternary if we sacrifice should never reach
-    if (currentPhoton_.position().z() > upperBoundary_->z) {
-        hitBoundary = upperBoundary_;
-        tryingToEscape = upperBoundary_ == begin(material_.boundaries_);
-    } else if (currentLayer_->isFinite()) {
-        hitBoundary = upperBoundary_ + 1; // there must be a lower a boundary if we hit it 
+    if (currentPhoton_.position().z() > upperBoundary().z) {
+        hitBoundaryIndex = upperBoundary_;
+        tryingToEscape = upperBoundary_ == 0;
+    } else if (currentLayer().isFinite()) {
+        hitBoundaryIndex = upperBoundary_ + 1; // there must be a lower a boundary if we hit it 
     } else {
         cout << "Should never reach" << std::endl;
     }
 
     double lastStep = currentPhoton_.unstep();
 
-    stepLeft_ = stepLeft(lastStep, hitBoundary->z);
-    currentPhoton_.stepToHeight(hitBoundary->z);
+    const Boundary& hitBoundary = boundaryAt(hitBoundaryIndex);
+
+    stepLeft_ = stepLeft(lastStep, hitBoundary.z);
+    currentPhoton_.stepToHeight(hitBoundary.z);
 
     if (tryingToEscape) {
-        escape(*upperBoundary_);
+        escape(upperBoundary());
     } else {
-        reflect(*hitBoundary);
+        reflect(hitBoundary);
     }
 }
 
@@ -112,7 +114,7 @@ void Simulation::flipDirection() {
     );
 }
 
-void Simulation::reflect(Boundary& boundary) {
+void Simulation::reflect(const Boundary& boundary) {
     double R = boundary.reflect(currentPhoton_.direction());
     double rand = random_();
 
@@ -132,7 +134,7 @@ void Simulation::reflect(Boundary& boundary) {
     }
 }
 
-void Simulation::escape(Boundary& boundary) {
+void Simulation::escape(const Boundary& boundary) {
     double R = boundary.reflect(currentPhoton_.direction());
 
     // implements partial reflection
@@ -159,14 +161,14 @@ void Simulation::safeTrack(double amount) {
 }
 
 void Simulation::recordDrop() {
-    double amount = currentLayer_->dropFrac()*currentPhoton_.weight();
+    double amount = currentLayer().dropFrac()*currentPhoton_.weight();
 
     totalAbsorption_.rawDrop(amount, currentPhoton_.position());
     if (tracking_) absorptionHistory_.emplace(amount, currentPhoton_.position());
 }
 
 void Simulation::interact() {
-    currentLayer_->interact(currentPhoton_, random_);
+    currentLayer().interact(currentPhoton_, random_);
 }
 
 void Simulation::rouletteTerminate() {
@@ -217,4 +219,20 @@ void runSimulation(Simulation& sim) {
         }
         sim.nextPhoton();
     }
+}
+
+const Boundary& Simulation::upperBoundary() const {
+    return material_.boundaries_.at(upperBoundary_);
+}
+
+const Boundary& Simulation::lowerBoundary() const {
+    return material_.boundaries_.at(upperBoundary_ + 1);
+}
+
+const Boundary& Simulation::boundaryAt(boundary_i i) const {
+    return material_.boundaries_.at(i);
+}
+
+const Layer& Simulation::currentLayer() const {
+    return material_.layers_.at(currentLayer_);
 }

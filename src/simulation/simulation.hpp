@@ -45,8 +45,10 @@ bool operator==(double, const TrackedDistance&);
 
 class Simulation {
     public:
-        using layer_it = std::vector<Layer>::iterator;
-        using boundary_it = std::vector<Boundary>::iterator;
+        using layer_i = std::size_t;
+        using boundary_i = std::size_t;
+
+        layer_i currentLayer_;
     private:
         // simulation history
         uint64_t photonsLaunched_;
@@ -68,8 +70,7 @@ class Simulation {
         // for tracking
         std::stack<AbsorptionEvent> absorptionHistory_; // tracks current Photon's abs history
 
-        layer_it currentLayer_;
-        boundary_it upperBoundary_;
+        boundary_i upperBoundary_;
 
         void launch();
         void hop();
@@ -83,11 +84,16 @@ class Simulation {
         void recordDrop();
         void safeTrack(double amount);
 
-        void reflect(Boundary& boundary);
-        void escape(Boundary& boundary);
+        void reflect(const Boundary& boundary);
+        void escape(const Boundary& boundary);
     public:
         Simulation() = delete;
         Simulation(Material material, std::vector<double> trackedDistances, double trackingInterval, Random);
+
+        const Boundary& upperBoundary() const;
+        const Boundary& lowerBoundary() const;
+        const Boundary& boundaryAt(boundary_i) const;
+        const Layer& currentLayer() const;
 
         // maybe have these return the instance
         void next();
