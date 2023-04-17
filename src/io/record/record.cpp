@@ -5,7 +5,7 @@ using std::cout;
 
 Recording::Recording(const string& filepath) : db_(filepath) {  }
 
-void Recording::saveSimulation(const Simulation& sim) {
+simulation::Simulation Recording::proto(const Simulation& sim) {
     simulation::Simulation message;
     auto details = message.mutable_details();
 
@@ -50,8 +50,65 @@ void Recording::saveSimulation(const Simulation& sim) {
         message.add_reflectance(e);
     }
 
+    return message;
+}
+
+simulation::ParameterSimulation Recording::proto(const ParameterSimulation& sims) {
+    simulation::ParameterSimulation message;
+
+    for (auto sim : sims.simulations_) {
+        auto sim_ptr = message.add_simulations();
+        *sim_ptr = proto(sim); 
+    }
+
+    for (auto layer : sims.layers_) {
+        auto layer_ptr = message.add_layers();
+        proto(layer_ptr, layer);
+    }
+
+    for (auto wl : wavelengths) {
+        message.add_wavelengths(wl);
+    }
+
+    return message;
+}
+
+void Recording::proto(simulation::ParameterSimulation_Layer* const target, const ParameterSimulationLayerOptions& options) {
+    target->set_height(options.height);
+    target->set_n(options.n);
+    target->set_g(options.g);
+
+    target->set_a(options.a);
+    target->set_b(options.b);
+
+    if (options.constantLayer) {
+        target->set_mu_a(options.mu_a);
+        target->set_mu_s(options.mu_s);
+    } else if (options.concentrationLayer) {
+        target->set_cblood(options.cBlood);
+        target->set_foxy(options.fOxy);
+        target->set_flipid(options.fLipid);
+        target->set_fwater(options.fWater);
+    } else {
+        throw std::invalid_argument("Options describes neither a constant nor concentration layer");
+    }
+}
+
+void Recording::save(const ParameterSimulation& sims) {
+    auto message = proto(sims);
     const string serializedMessage = message.SerializeAsString();
 
+    db_.archive(serializedMessage);
+}
+
+void Recording::save(const Simulation& sim) {
+    auto message = proto(sim);
+    const string serializedMessage = message.SerializeAsString();
+
+    db_.archive(serializedMessage);
+}
+
+void Recording::save(const std::string& serializedMessage) {
     if (serializedMessage == "") {
         throw std::runtime_error("Something went wrong serializing message");
     }

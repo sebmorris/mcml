@@ -46,6 +46,12 @@ struct TableStruct_simulation_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_simulation_2eproto;
 namespace simulation {
+class ParameterSimulation;
+struct ParameterSimulationDefaultTypeInternal;
+extern ParameterSimulationDefaultTypeInternal _ParameterSimulation_default_instance_;
+class ParameterSimulation_Layer;
+struct ParameterSimulation_LayerDefaultTypeInternal;
+extern ParameterSimulation_LayerDefaultTypeInternal _ParameterSimulation_Layer_default_instance_;
 class Simulation;
 struct SimulationDefaultTypeInternal;
 extern SimulationDefaultTypeInternal _Simulation_default_instance_;
@@ -60,6 +66,8 @@ struct Simulation_SimulationDetails_RangeDefaultTypeInternal;
 extern Simulation_SimulationDetails_RangeDefaultTypeInternal _Simulation_SimulationDetails_Range_default_instance_;
 }  // namespace simulation
 PROTOBUF_NAMESPACE_OPEN
+template<> ::simulation::ParameterSimulation* Arena::CreateMaybeMessage<::simulation::ParameterSimulation>(Arena*);
+template<> ::simulation::ParameterSimulation_Layer* Arena::CreateMaybeMessage<::simulation::ParameterSimulation_Layer>(Arena*);
 template<> ::simulation::Simulation* Arena::CreateMaybeMessage<::simulation::Simulation>(Arena*);
 template<> ::simulation::Simulation_SimulationDetails* Arena::CreateMaybeMessage<::simulation::Simulation_SimulationDetails>(Arena*);
 template<> ::simulation::Simulation_SimulationDetails_Layer* Arena::CreateMaybeMessage<::simulation::Simulation_SimulationDetails_Layer>(Arena*);
@@ -907,6 +915,512 @@ class Simulation final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_simulation_2eproto;
 };
+// -------------------------------------------------------------------
+
+class ParameterSimulation_Layer final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:simulation.ParameterSimulation.Layer) */ {
+ public:
+  inline ParameterSimulation_Layer() : ParameterSimulation_Layer(nullptr) {}
+  ~ParameterSimulation_Layer() override;
+  explicit PROTOBUF_CONSTEXPR ParameterSimulation_Layer(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ParameterSimulation_Layer(const ParameterSimulation_Layer& from);
+  ParameterSimulation_Layer(ParameterSimulation_Layer&& from) noexcept
+    : ParameterSimulation_Layer() {
+    *this = ::std::move(from);
+  }
+
+  inline ParameterSimulation_Layer& operator=(const ParameterSimulation_Layer& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ParameterSimulation_Layer& operator=(ParameterSimulation_Layer&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const ParameterSimulation_Layer& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ParameterSimulation_Layer* internal_default_instance() {
+    return reinterpret_cast<const ParameterSimulation_Layer*>(
+               &_ParameterSimulation_Layer_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(ParameterSimulation_Layer& a, ParameterSimulation_Layer& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ParameterSimulation_Layer* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ParameterSimulation_Layer* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ParameterSimulation_Layer* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ParameterSimulation_Layer>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const ParameterSimulation_Layer& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const ParameterSimulation_Layer& from) {
+    ParameterSimulation_Layer::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ParameterSimulation_Layer* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "simulation.ParameterSimulation.Layer";
+  }
+  protected:
+  explicit ParameterSimulation_Layer(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNFieldNumber = 1,
+    kHeightFieldNumber = 2,
+    kGFieldNumber = 3,
+    kMuAFieldNumber = 4,
+    kMuSFieldNumber = 5,
+    kAFieldNumber = 6,
+    kBFieldNumber = 7,
+    kCBloodFieldNumber = 8,
+    kFOxyFieldNumber = 9,
+    kFWaterFieldNumber = 10,
+    kFLipidFieldNumber = 11,
+  };
+  // optional double n = 1;
+  bool has_n() const;
+  private:
+  bool _internal_has_n() const;
+  public:
+  void clear_n();
+  double n() const;
+  void set_n(double value);
+  private:
+  double _internal_n() const;
+  void _internal_set_n(double value);
+  public:
+
+  // optional double height = 2;
+  bool has_height() const;
+  private:
+  bool _internal_has_height() const;
+  public:
+  void clear_height();
+  double height() const;
+  void set_height(double value);
+  private:
+  double _internal_height() const;
+  void _internal_set_height(double value);
+  public:
+
+  // optional double g = 3;
+  bool has_g() const;
+  private:
+  bool _internal_has_g() const;
+  public:
+  void clear_g();
+  double g() const;
+  void set_g(double value);
+  private:
+  double _internal_g() const;
+  void _internal_set_g(double value);
+  public:
+
+  // optional double mu_a = 4;
+  bool has_mu_a() const;
+  private:
+  bool _internal_has_mu_a() const;
+  public:
+  void clear_mu_a();
+  double mu_a() const;
+  void set_mu_a(double value);
+  private:
+  double _internal_mu_a() const;
+  void _internal_set_mu_a(double value);
+  public:
+
+  // optional double mu_s = 5;
+  bool has_mu_s() const;
+  private:
+  bool _internal_has_mu_s() const;
+  public:
+  void clear_mu_s();
+  double mu_s() const;
+  void set_mu_s(double value);
+  private:
+  double _internal_mu_s() const;
+  void _internal_set_mu_s(double value);
+  public:
+
+  // optional double a = 6;
+  bool has_a() const;
+  private:
+  bool _internal_has_a() const;
+  public:
+  void clear_a();
+  double a() const;
+  void set_a(double value);
+  private:
+  double _internal_a() const;
+  void _internal_set_a(double value);
+  public:
+
+  // optional double b = 7;
+  bool has_b() const;
+  private:
+  bool _internal_has_b() const;
+  public:
+  void clear_b();
+  double b() const;
+  void set_b(double value);
+  private:
+  double _internal_b() const;
+  void _internal_set_b(double value);
+  public:
+
+  // optional double cBlood = 8;
+  bool has_cblood() const;
+  private:
+  bool _internal_has_cblood() const;
+  public:
+  void clear_cblood();
+  double cblood() const;
+  void set_cblood(double value);
+  private:
+  double _internal_cblood() const;
+  void _internal_set_cblood(double value);
+  public:
+
+  // optional double fOxy = 9;
+  bool has_foxy() const;
+  private:
+  bool _internal_has_foxy() const;
+  public:
+  void clear_foxy();
+  double foxy() const;
+  void set_foxy(double value);
+  private:
+  double _internal_foxy() const;
+  void _internal_set_foxy(double value);
+  public:
+
+  // optional double fWater = 10;
+  bool has_fwater() const;
+  private:
+  bool _internal_has_fwater() const;
+  public:
+  void clear_fwater();
+  double fwater() const;
+  void set_fwater(double value);
+  private:
+  double _internal_fwater() const;
+  void _internal_set_fwater(double value);
+  public:
+
+  // optional double fLipid = 11;
+  bool has_flipid() const;
+  private:
+  bool _internal_has_flipid() const;
+  public:
+  void clear_flipid();
+  double flipid() const;
+  void set_flipid(double value);
+  private:
+  double _internal_flipid() const;
+  void _internal_set_flipid(double value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:simulation.ParameterSimulation.Layer)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    double n_;
+    double height_;
+    double g_;
+    double mu_a_;
+    double mu_s_;
+    double a_;
+    double b_;
+    double cblood_;
+    double foxy_;
+    double fwater_;
+    double flipid_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_simulation_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ParameterSimulation final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:simulation.ParameterSimulation) */ {
+ public:
+  inline ParameterSimulation() : ParameterSimulation(nullptr) {}
+  ~ParameterSimulation() override;
+  explicit PROTOBUF_CONSTEXPR ParameterSimulation(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ParameterSimulation(const ParameterSimulation& from);
+  ParameterSimulation(ParameterSimulation&& from) noexcept
+    : ParameterSimulation() {
+    *this = ::std::move(from);
+  }
+
+  inline ParameterSimulation& operator=(const ParameterSimulation& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ParameterSimulation& operator=(ParameterSimulation&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const ParameterSimulation& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ParameterSimulation* internal_default_instance() {
+    return reinterpret_cast<const ParameterSimulation*>(
+               &_ParameterSimulation_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(ParameterSimulation& a, ParameterSimulation& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ParameterSimulation* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ParameterSimulation* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ParameterSimulation* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ParameterSimulation>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const ParameterSimulation& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const ParameterSimulation& from) {
+    ParameterSimulation::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ParameterSimulation* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "simulation.ParameterSimulation";
+  }
+  protected:
+  explicit ParameterSimulation(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef ParameterSimulation_Layer Layer;
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSimulationsFieldNumber = 1,
+    kLayersFieldNumber = 2,
+    kWavelengthsFieldNumber = 3,
+  };
+  // repeated .simulation.Simulation simulations = 1;
+  int simulations_size() const;
+  private:
+  int _internal_simulations_size() const;
+  public:
+  void clear_simulations();
+  ::simulation::Simulation* mutable_simulations(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::simulation::Simulation >*
+      mutable_simulations();
+  private:
+  const ::simulation::Simulation& _internal_simulations(int index) const;
+  ::simulation::Simulation* _internal_add_simulations();
+  public:
+  const ::simulation::Simulation& simulations(int index) const;
+  ::simulation::Simulation* add_simulations();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::simulation::Simulation >&
+      simulations() const;
+
+  // repeated .simulation.ParameterSimulation.Layer layers = 2;
+  int layers_size() const;
+  private:
+  int _internal_layers_size() const;
+  public:
+  void clear_layers();
+  ::simulation::ParameterSimulation_Layer* mutable_layers(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::simulation::ParameterSimulation_Layer >*
+      mutable_layers();
+  private:
+  const ::simulation::ParameterSimulation_Layer& _internal_layers(int index) const;
+  ::simulation::ParameterSimulation_Layer* _internal_add_layers();
+  public:
+  const ::simulation::ParameterSimulation_Layer& layers(int index) const;
+  ::simulation::ParameterSimulation_Layer* add_layers();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::simulation::ParameterSimulation_Layer >&
+      layers() const;
+
+  // repeated double wavelengths = 3;
+  int wavelengths_size() const;
+  private:
+  int _internal_wavelengths_size() const;
+  public:
+  void clear_wavelengths();
+  private:
+  double _internal_wavelengths(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+      _internal_wavelengths() const;
+  void _internal_add_wavelengths(double value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+      _internal_mutable_wavelengths();
+  public:
+  double wavelengths(int index) const;
+  void set_wavelengths(int index, double value);
+  void add_wavelengths(double value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+      wavelengths() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+      mutable_wavelengths();
+
+  // @@protoc_insertion_point(class_scope:simulation.ParameterSimulation)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::simulation::Simulation > simulations_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::simulation::ParameterSimulation_Layer > layers_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedField< double > wavelengths_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_simulation_2eproto;
+};
 // ===================================================================
 
 
@@ -1673,9 +2187,456 @@ Simulation::mutable_absorption() {
   return _internal_mutable_absorption();
 }
 
+// -------------------------------------------------------------------
+
+// ParameterSimulation_Layer
+
+// optional double n = 1;
+inline bool ParameterSimulation_Layer::_internal_has_n() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool ParameterSimulation_Layer::has_n() const {
+  return _internal_has_n();
+}
+inline void ParameterSimulation_Layer::clear_n() {
+  _impl_.n_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline double ParameterSimulation_Layer::_internal_n() const {
+  return _impl_.n_;
+}
+inline double ParameterSimulation_Layer::n() const {
+  // @@protoc_insertion_point(field_get:simulation.ParameterSimulation.Layer.n)
+  return _internal_n();
+}
+inline void ParameterSimulation_Layer::_internal_set_n(double value) {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.n_ = value;
+}
+inline void ParameterSimulation_Layer::set_n(double value) {
+  _internal_set_n(value);
+  // @@protoc_insertion_point(field_set:simulation.ParameterSimulation.Layer.n)
+}
+
+// optional double height = 2;
+inline bool ParameterSimulation_Layer::_internal_has_height() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool ParameterSimulation_Layer::has_height() const {
+  return _internal_has_height();
+}
+inline void ParameterSimulation_Layer::clear_height() {
+  _impl_.height_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000002u;
+}
+inline double ParameterSimulation_Layer::_internal_height() const {
+  return _impl_.height_;
+}
+inline double ParameterSimulation_Layer::height() const {
+  // @@protoc_insertion_point(field_get:simulation.ParameterSimulation.Layer.height)
+  return _internal_height();
+}
+inline void ParameterSimulation_Layer::_internal_set_height(double value) {
+  _impl_._has_bits_[0] |= 0x00000002u;
+  _impl_.height_ = value;
+}
+inline void ParameterSimulation_Layer::set_height(double value) {
+  _internal_set_height(value);
+  // @@protoc_insertion_point(field_set:simulation.ParameterSimulation.Layer.height)
+}
+
+// optional double g = 3;
+inline bool ParameterSimulation_Layer::_internal_has_g() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool ParameterSimulation_Layer::has_g() const {
+  return _internal_has_g();
+}
+inline void ParameterSimulation_Layer::clear_g() {
+  _impl_.g_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000004u;
+}
+inline double ParameterSimulation_Layer::_internal_g() const {
+  return _impl_.g_;
+}
+inline double ParameterSimulation_Layer::g() const {
+  // @@protoc_insertion_point(field_get:simulation.ParameterSimulation.Layer.g)
+  return _internal_g();
+}
+inline void ParameterSimulation_Layer::_internal_set_g(double value) {
+  _impl_._has_bits_[0] |= 0x00000004u;
+  _impl_.g_ = value;
+}
+inline void ParameterSimulation_Layer::set_g(double value) {
+  _internal_set_g(value);
+  // @@protoc_insertion_point(field_set:simulation.ParameterSimulation.Layer.g)
+}
+
+// optional double mu_a = 4;
+inline bool ParameterSimulation_Layer::_internal_has_mu_a() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool ParameterSimulation_Layer::has_mu_a() const {
+  return _internal_has_mu_a();
+}
+inline void ParameterSimulation_Layer::clear_mu_a() {
+  _impl_.mu_a_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000008u;
+}
+inline double ParameterSimulation_Layer::_internal_mu_a() const {
+  return _impl_.mu_a_;
+}
+inline double ParameterSimulation_Layer::mu_a() const {
+  // @@protoc_insertion_point(field_get:simulation.ParameterSimulation.Layer.mu_a)
+  return _internal_mu_a();
+}
+inline void ParameterSimulation_Layer::_internal_set_mu_a(double value) {
+  _impl_._has_bits_[0] |= 0x00000008u;
+  _impl_.mu_a_ = value;
+}
+inline void ParameterSimulation_Layer::set_mu_a(double value) {
+  _internal_set_mu_a(value);
+  // @@protoc_insertion_point(field_set:simulation.ParameterSimulation.Layer.mu_a)
+}
+
+// optional double mu_s = 5;
+inline bool ParameterSimulation_Layer::_internal_has_mu_s() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline bool ParameterSimulation_Layer::has_mu_s() const {
+  return _internal_has_mu_s();
+}
+inline void ParameterSimulation_Layer::clear_mu_s() {
+  _impl_.mu_s_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000010u;
+}
+inline double ParameterSimulation_Layer::_internal_mu_s() const {
+  return _impl_.mu_s_;
+}
+inline double ParameterSimulation_Layer::mu_s() const {
+  // @@protoc_insertion_point(field_get:simulation.ParameterSimulation.Layer.mu_s)
+  return _internal_mu_s();
+}
+inline void ParameterSimulation_Layer::_internal_set_mu_s(double value) {
+  _impl_._has_bits_[0] |= 0x00000010u;
+  _impl_.mu_s_ = value;
+}
+inline void ParameterSimulation_Layer::set_mu_s(double value) {
+  _internal_set_mu_s(value);
+  // @@protoc_insertion_point(field_set:simulation.ParameterSimulation.Layer.mu_s)
+}
+
+// optional double a = 6;
+inline bool ParameterSimulation_Layer::_internal_has_a() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000020u) != 0;
+  return value;
+}
+inline bool ParameterSimulation_Layer::has_a() const {
+  return _internal_has_a();
+}
+inline void ParameterSimulation_Layer::clear_a() {
+  _impl_.a_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000020u;
+}
+inline double ParameterSimulation_Layer::_internal_a() const {
+  return _impl_.a_;
+}
+inline double ParameterSimulation_Layer::a() const {
+  // @@protoc_insertion_point(field_get:simulation.ParameterSimulation.Layer.a)
+  return _internal_a();
+}
+inline void ParameterSimulation_Layer::_internal_set_a(double value) {
+  _impl_._has_bits_[0] |= 0x00000020u;
+  _impl_.a_ = value;
+}
+inline void ParameterSimulation_Layer::set_a(double value) {
+  _internal_set_a(value);
+  // @@protoc_insertion_point(field_set:simulation.ParameterSimulation.Layer.a)
+}
+
+// optional double b = 7;
+inline bool ParameterSimulation_Layer::_internal_has_b() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000040u) != 0;
+  return value;
+}
+inline bool ParameterSimulation_Layer::has_b() const {
+  return _internal_has_b();
+}
+inline void ParameterSimulation_Layer::clear_b() {
+  _impl_.b_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000040u;
+}
+inline double ParameterSimulation_Layer::_internal_b() const {
+  return _impl_.b_;
+}
+inline double ParameterSimulation_Layer::b() const {
+  // @@protoc_insertion_point(field_get:simulation.ParameterSimulation.Layer.b)
+  return _internal_b();
+}
+inline void ParameterSimulation_Layer::_internal_set_b(double value) {
+  _impl_._has_bits_[0] |= 0x00000040u;
+  _impl_.b_ = value;
+}
+inline void ParameterSimulation_Layer::set_b(double value) {
+  _internal_set_b(value);
+  // @@protoc_insertion_point(field_set:simulation.ParameterSimulation.Layer.b)
+}
+
+// optional double cBlood = 8;
+inline bool ParameterSimulation_Layer::_internal_has_cblood() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000080u) != 0;
+  return value;
+}
+inline bool ParameterSimulation_Layer::has_cblood() const {
+  return _internal_has_cblood();
+}
+inline void ParameterSimulation_Layer::clear_cblood() {
+  _impl_.cblood_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000080u;
+}
+inline double ParameterSimulation_Layer::_internal_cblood() const {
+  return _impl_.cblood_;
+}
+inline double ParameterSimulation_Layer::cblood() const {
+  // @@protoc_insertion_point(field_get:simulation.ParameterSimulation.Layer.cBlood)
+  return _internal_cblood();
+}
+inline void ParameterSimulation_Layer::_internal_set_cblood(double value) {
+  _impl_._has_bits_[0] |= 0x00000080u;
+  _impl_.cblood_ = value;
+}
+inline void ParameterSimulation_Layer::set_cblood(double value) {
+  _internal_set_cblood(value);
+  // @@protoc_insertion_point(field_set:simulation.ParameterSimulation.Layer.cBlood)
+}
+
+// optional double fOxy = 9;
+inline bool ParameterSimulation_Layer::_internal_has_foxy() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000100u) != 0;
+  return value;
+}
+inline bool ParameterSimulation_Layer::has_foxy() const {
+  return _internal_has_foxy();
+}
+inline void ParameterSimulation_Layer::clear_foxy() {
+  _impl_.foxy_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000100u;
+}
+inline double ParameterSimulation_Layer::_internal_foxy() const {
+  return _impl_.foxy_;
+}
+inline double ParameterSimulation_Layer::foxy() const {
+  // @@protoc_insertion_point(field_get:simulation.ParameterSimulation.Layer.fOxy)
+  return _internal_foxy();
+}
+inline void ParameterSimulation_Layer::_internal_set_foxy(double value) {
+  _impl_._has_bits_[0] |= 0x00000100u;
+  _impl_.foxy_ = value;
+}
+inline void ParameterSimulation_Layer::set_foxy(double value) {
+  _internal_set_foxy(value);
+  // @@protoc_insertion_point(field_set:simulation.ParameterSimulation.Layer.fOxy)
+}
+
+// optional double fWater = 10;
+inline bool ParameterSimulation_Layer::_internal_has_fwater() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000200u) != 0;
+  return value;
+}
+inline bool ParameterSimulation_Layer::has_fwater() const {
+  return _internal_has_fwater();
+}
+inline void ParameterSimulation_Layer::clear_fwater() {
+  _impl_.fwater_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000200u;
+}
+inline double ParameterSimulation_Layer::_internal_fwater() const {
+  return _impl_.fwater_;
+}
+inline double ParameterSimulation_Layer::fwater() const {
+  // @@protoc_insertion_point(field_get:simulation.ParameterSimulation.Layer.fWater)
+  return _internal_fwater();
+}
+inline void ParameterSimulation_Layer::_internal_set_fwater(double value) {
+  _impl_._has_bits_[0] |= 0x00000200u;
+  _impl_.fwater_ = value;
+}
+inline void ParameterSimulation_Layer::set_fwater(double value) {
+  _internal_set_fwater(value);
+  // @@protoc_insertion_point(field_set:simulation.ParameterSimulation.Layer.fWater)
+}
+
+// optional double fLipid = 11;
+inline bool ParameterSimulation_Layer::_internal_has_flipid() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000400u) != 0;
+  return value;
+}
+inline bool ParameterSimulation_Layer::has_flipid() const {
+  return _internal_has_flipid();
+}
+inline void ParameterSimulation_Layer::clear_flipid() {
+  _impl_.flipid_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000400u;
+}
+inline double ParameterSimulation_Layer::_internal_flipid() const {
+  return _impl_.flipid_;
+}
+inline double ParameterSimulation_Layer::flipid() const {
+  // @@protoc_insertion_point(field_get:simulation.ParameterSimulation.Layer.fLipid)
+  return _internal_flipid();
+}
+inline void ParameterSimulation_Layer::_internal_set_flipid(double value) {
+  _impl_._has_bits_[0] |= 0x00000400u;
+  _impl_.flipid_ = value;
+}
+inline void ParameterSimulation_Layer::set_flipid(double value) {
+  _internal_set_flipid(value);
+  // @@protoc_insertion_point(field_set:simulation.ParameterSimulation.Layer.fLipid)
+}
+
+// -------------------------------------------------------------------
+
+// ParameterSimulation
+
+// repeated .simulation.Simulation simulations = 1;
+inline int ParameterSimulation::_internal_simulations_size() const {
+  return _impl_.simulations_.size();
+}
+inline int ParameterSimulation::simulations_size() const {
+  return _internal_simulations_size();
+}
+inline void ParameterSimulation::clear_simulations() {
+  _impl_.simulations_.Clear();
+}
+inline ::simulation::Simulation* ParameterSimulation::mutable_simulations(int index) {
+  // @@protoc_insertion_point(field_mutable:simulation.ParameterSimulation.simulations)
+  return _impl_.simulations_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::simulation::Simulation >*
+ParameterSimulation::mutable_simulations() {
+  // @@protoc_insertion_point(field_mutable_list:simulation.ParameterSimulation.simulations)
+  return &_impl_.simulations_;
+}
+inline const ::simulation::Simulation& ParameterSimulation::_internal_simulations(int index) const {
+  return _impl_.simulations_.Get(index);
+}
+inline const ::simulation::Simulation& ParameterSimulation::simulations(int index) const {
+  // @@protoc_insertion_point(field_get:simulation.ParameterSimulation.simulations)
+  return _internal_simulations(index);
+}
+inline ::simulation::Simulation* ParameterSimulation::_internal_add_simulations() {
+  return _impl_.simulations_.Add();
+}
+inline ::simulation::Simulation* ParameterSimulation::add_simulations() {
+  ::simulation::Simulation* _add = _internal_add_simulations();
+  // @@protoc_insertion_point(field_add:simulation.ParameterSimulation.simulations)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::simulation::Simulation >&
+ParameterSimulation::simulations() const {
+  // @@protoc_insertion_point(field_list:simulation.ParameterSimulation.simulations)
+  return _impl_.simulations_;
+}
+
+// repeated .simulation.ParameterSimulation.Layer layers = 2;
+inline int ParameterSimulation::_internal_layers_size() const {
+  return _impl_.layers_.size();
+}
+inline int ParameterSimulation::layers_size() const {
+  return _internal_layers_size();
+}
+inline void ParameterSimulation::clear_layers() {
+  _impl_.layers_.Clear();
+}
+inline ::simulation::ParameterSimulation_Layer* ParameterSimulation::mutable_layers(int index) {
+  // @@protoc_insertion_point(field_mutable:simulation.ParameterSimulation.layers)
+  return _impl_.layers_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::simulation::ParameterSimulation_Layer >*
+ParameterSimulation::mutable_layers() {
+  // @@protoc_insertion_point(field_mutable_list:simulation.ParameterSimulation.layers)
+  return &_impl_.layers_;
+}
+inline const ::simulation::ParameterSimulation_Layer& ParameterSimulation::_internal_layers(int index) const {
+  return _impl_.layers_.Get(index);
+}
+inline const ::simulation::ParameterSimulation_Layer& ParameterSimulation::layers(int index) const {
+  // @@protoc_insertion_point(field_get:simulation.ParameterSimulation.layers)
+  return _internal_layers(index);
+}
+inline ::simulation::ParameterSimulation_Layer* ParameterSimulation::_internal_add_layers() {
+  return _impl_.layers_.Add();
+}
+inline ::simulation::ParameterSimulation_Layer* ParameterSimulation::add_layers() {
+  ::simulation::ParameterSimulation_Layer* _add = _internal_add_layers();
+  // @@protoc_insertion_point(field_add:simulation.ParameterSimulation.layers)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::simulation::ParameterSimulation_Layer >&
+ParameterSimulation::layers() const {
+  // @@protoc_insertion_point(field_list:simulation.ParameterSimulation.layers)
+  return _impl_.layers_;
+}
+
+// repeated double wavelengths = 3;
+inline int ParameterSimulation::_internal_wavelengths_size() const {
+  return _impl_.wavelengths_.size();
+}
+inline int ParameterSimulation::wavelengths_size() const {
+  return _internal_wavelengths_size();
+}
+inline void ParameterSimulation::clear_wavelengths() {
+  _impl_.wavelengths_.Clear();
+}
+inline double ParameterSimulation::_internal_wavelengths(int index) const {
+  return _impl_.wavelengths_.Get(index);
+}
+inline double ParameterSimulation::wavelengths(int index) const {
+  // @@protoc_insertion_point(field_get:simulation.ParameterSimulation.wavelengths)
+  return _internal_wavelengths(index);
+}
+inline void ParameterSimulation::set_wavelengths(int index, double value) {
+  _impl_.wavelengths_.Set(index, value);
+  // @@protoc_insertion_point(field_set:simulation.ParameterSimulation.wavelengths)
+}
+inline void ParameterSimulation::_internal_add_wavelengths(double value) {
+  _impl_.wavelengths_.Add(value);
+}
+inline void ParameterSimulation::add_wavelengths(double value) {
+  _internal_add_wavelengths(value);
+  // @@protoc_insertion_point(field_add:simulation.ParameterSimulation.wavelengths)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+ParameterSimulation::_internal_wavelengths() const {
+  return _impl_.wavelengths_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+ParameterSimulation::wavelengths() const {
+  // @@protoc_insertion_point(field_list:simulation.ParameterSimulation.wavelengths)
+  return _internal_wavelengths();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+ParameterSimulation::_internal_mutable_wavelengths() {
+  return &_impl_.wavelengths_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+ParameterSimulation::mutable_wavelengths() {
+  // @@protoc_insertion_point(field_mutable_list:simulation.ParameterSimulation.wavelengths)
+  return _internal_mutable_wavelengths();
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -89,8 +89,47 @@ struct SimulationDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SimulationDefaultTypeInternal _Simulation_default_instance_;
+PROTOBUF_CONSTEXPR ParameterSimulation_Layer::ParameterSimulation_Layer(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.n_)*/0
+  , /*decltype(_impl_.height_)*/0
+  , /*decltype(_impl_.g_)*/0
+  , /*decltype(_impl_.mu_a_)*/0
+  , /*decltype(_impl_.mu_s_)*/0
+  , /*decltype(_impl_.a_)*/0
+  , /*decltype(_impl_.b_)*/0
+  , /*decltype(_impl_.cblood_)*/0
+  , /*decltype(_impl_.foxy_)*/0
+  , /*decltype(_impl_.fwater_)*/0
+  , /*decltype(_impl_.flipid_)*/0} {}
+struct ParameterSimulation_LayerDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ParameterSimulation_LayerDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ParameterSimulation_LayerDefaultTypeInternal() {}
+  union {
+    ParameterSimulation_Layer _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ParameterSimulation_LayerDefaultTypeInternal _ParameterSimulation_Layer_default_instance_;
+PROTOBUF_CONSTEXPR ParameterSimulation::ParameterSimulation(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.simulations_)*/{}
+  , /*decltype(_impl_.layers_)*/{}
+  , /*decltype(_impl_.wavelengths_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct ParameterSimulationDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ParameterSimulationDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ParameterSimulationDefaultTypeInternal() {}
+  union {
+    ParameterSimulation _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ParameterSimulationDefaultTypeInternal _ParameterSimulation_default_instance_;
 }  // namespace simulation
-static ::_pb::Metadata file_level_metadata_simulation_2eproto[4];
+static ::_pb::Metadata file_level_metadata_simulation_2eproto[6];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_simulation_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_simulation_2eproto = nullptr;
 
@@ -151,12 +190,51 @@ const uint32_t TableStruct_simulation_2eproto::offsets[] PROTOBUF_SECTION_VARIAB
   0,
   ~0u,
   ~0u,
+  PROTOBUF_FIELD_OFFSET(::simulation::ParameterSimulation_Layer, _impl_._has_bits_),
+  PROTOBUF_FIELD_OFFSET(::simulation::ParameterSimulation_Layer, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::simulation::ParameterSimulation_Layer, _impl_.n_),
+  PROTOBUF_FIELD_OFFSET(::simulation::ParameterSimulation_Layer, _impl_.height_),
+  PROTOBUF_FIELD_OFFSET(::simulation::ParameterSimulation_Layer, _impl_.g_),
+  PROTOBUF_FIELD_OFFSET(::simulation::ParameterSimulation_Layer, _impl_.mu_a_),
+  PROTOBUF_FIELD_OFFSET(::simulation::ParameterSimulation_Layer, _impl_.mu_s_),
+  PROTOBUF_FIELD_OFFSET(::simulation::ParameterSimulation_Layer, _impl_.a_),
+  PROTOBUF_FIELD_OFFSET(::simulation::ParameterSimulation_Layer, _impl_.b_),
+  PROTOBUF_FIELD_OFFSET(::simulation::ParameterSimulation_Layer, _impl_.cblood_),
+  PROTOBUF_FIELD_OFFSET(::simulation::ParameterSimulation_Layer, _impl_.foxy_),
+  PROTOBUF_FIELD_OFFSET(::simulation::ParameterSimulation_Layer, _impl_.fwater_),
+  PROTOBUF_FIELD_OFFSET(::simulation::ParameterSimulation_Layer, _impl_.flipid_),
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::simulation::ParameterSimulation, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::simulation::ParameterSimulation, _impl_.simulations_),
+  PROTOBUF_FIELD_OFFSET(::simulation::ParameterSimulation, _impl_.layers_),
+  PROTOBUF_FIELD_OFFSET(::simulation::ParameterSimulation, _impl_.wavelengths_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, 9, -1, sizeof(::simulation::Simulation_SimulationDetails_Range)},
   { 12, 23, -1, sizeof(::simulation::Simulation_SimulationDetails_Layer)},
   { 28, 39, -1, sizeof(::simulation::Simulation_SimulationDetails)},
   { 44, 53, -1, sizeof(::simulation::Simulation)},
+  { 56, 73, -1, sizeof(::simulation::ParameterSimulation_Layer)},
+  { 84, -1, -1, sizeof(::simulation::ParameterSimulation)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -164,6 +242,8 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::simulation::_Simulation_SimulationDetails_Layer_default_instance_._instance,
   &::simulation::_Simulation_SimulationDetails_default_instance_._instance,
   &::simulation::_Simulation_default_instance_._instance,
+  &::simulation::_ParameterSimulation_Layer_default_instance_._instance,
+  &::simulation::_ParameterSimulation_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_simulation_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -187,16 +267,28 @@ const char descriptor_table_protodef_simulation_2eproto[] PROTOBUF_SECTION_VARIA
   "\210\001\001\022\016\n\001g\030\005 \001(\001H\004\210\001\001B\004\n\002_nB\t\n\007_heightB\007\n\005"
   "_mu_aB\007\n\005_mu_sB\004\n\002_gB\017\n\r_radialExtentB\017\n"
   "\r_heightExtentB\014\n\n_timeStampB\022\n\020_photons"
-  "LaunchedB\n\n\010_detailsb\006proto3"
+  "LaunchedB\n\n\010_details\"\304\003\n\023ParameterSimula"
+  "tion\022+\n\013simulations\030\001 \003(\0132\026.simulation.S"
+  "imulation\0225\n\006layers\030\002 \003(\0132%.simulation.P"
+  "arameterSimulation.Layer\022\023\n\013wavelengths\030"
+  "\003 \003(\001\032\263\002\n\005Layer\022\016\n\001n\030\001 \001(\001H\000\210\001\001\022\023\n\006heigh"
+  "t\030\002 \001(\001H\001\210\001\001\022\016\n\001g\030\003 \001(\001H\002\210\001\001\022\021\n\004mu_a\030\004 \001"
+  "(\001H\003\210\001\001\022\021\n\004mu_s\030\005 \001(\001H\004\210\001\001\022\016\n\001a\030\006 \001(\001H\005\210"
+  "\001\001\022\016\n\001b\030\007 \001(\001H\006\210\001\001\022\023\n\006cBlood\030\010 \001(\001H\007\210\001\001\022"
+  "\021\n\004fOxy\030\t \001(\001H\010\210\001\001\022\023\n\006fWater\030\n \001(\001H\t\210\001\001\022"
+  "\023\n\006fLipid\030\013 \001(\001H\n\210\001\001B\004\n\002_nB\t\n\007_heightB\004\n"
+  "\002_gB\007\n\005_mu_aB\007\n\005_mu_sB\004\n\002_aB\004\n\002_bB\t\n\007_cB"
+  "loodB\007\n\005_fOxyB\t\n\007_fWaterB\t\n\007_fLipidb\006pro"
+  "to3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_simulation_2eproto_deps[1] = {
   &::descriptor_table_google_2fprotobuf_2ftimestamp_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_simulation_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_simulation_2eproto = {
-    false, false, 828, descriptor_table_protodef_simulation_2eproto,
+    false, false, 1283, descriptor_table_protodef_simulation_2eproto,
     "simulation.proto",
-    &descriptor_table_simulation_2eproto_once, descriptor_table_simulation_2eproto_deps, 1, 4,
+    &descriptor_table_simulation_2eproto_once, descriptor_table_simulation_2eproto_deps, 1, 6,
     schemas, file_default_instances, TableStruct_simulation_2eproto::offsets,
     file_level_metadata_simulation_2eproto, file_level_enum_descriptors_simulation_2eproto,
     file_level_service_descriptors_simulation_2eproto,
@@ -1438,6 +1530,756 @@ void Simulation::InternalSwap(Simulation* other) {
       file_level_metadata_simulation_2eproto[3]);
 }
 
+// ===================================================================
+
+class ParameterSimulation_Layer::_Internal {
+ public:
+  using HasBits = decltype(std::declval<ParameterSimulation_Layer>()._impl_._has_bits_);
+  static void set_has_n(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_height(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_g(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static void set_has_mu_a(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+  static void set_has_mu_s(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
+  }
+  static void set_has_a(HasBits* has_bits) {
+    (*has_bits)[0] |= 32u;
+  }
+  static void set_has_b(HasBits* has_bits) {
+    (*has_bits)[0] |= 64u;
+  }
+  static void set_has_cblood(HasBits* has_bits) {
+    (*has_bits)[0] |= 128u;
+  }
+  static void set_has_foxy(HasBits* has_bits) {
+    (*has_bits)[0] |= 256u;
+  }
+  static void set_has_fwater(HasBits* has_bits) {
+    (*has_bits)[0] |= 512u;
+  }
+  static void set_has_flipid(HasBits* has_bits) {
+    (*has_bits)[0] |= 1024u;
+  }
+};
+
+ParameterSimulation_Layer::ParameterSimulation_Layer(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:simulation.ParameterSimulation.Layer)
+}
+ParameterSimulation_Layer::ParameterSimulation_Layer(const ParameterSimulation_Layer& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  ParameterSimulation_Layer* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.n_){}
+    , decltype(_impl_.height_){}
+    , decltype(_impl_.g_){}
+    , decltype(_impl_.mu_a_){}
+    , decltype(_impl_.mu_s_){}
+    , decltype(_impl_.a_){}
+    , decltype(_impl_.b_){}
+    , decltype(_impl_.cblood_){}
+    , decltype(_impl_.foxy_){}
+    , decltype(_impl_.fwater_){}
+    , decltype(_impl_.flipid_){}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::memcpy(&_impl_.n_, &from._impl_.n_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.flipid_) -
+    reinterpret_cast<char*>(&_impl_.n_)) + sizeof(_impl_.flipid_));
+  // @@protoc_insertion_point(copy_constructor:simulation.ParameterSimulation.Layer)
+}
+
+inline void ParameterSimulation_Layer::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.n_){0}
+    , decltype(_impl_.height_){0}
+    , decltype(_impl_.g_){0}
+    , decltype(_impl_.mu_a_){0}
+    , decltype(_impl_.mu_s_){0}
+    , decltype(_impl_.a_){0}
+    , decltype(_impl_.b_){0}
+    , decltype(_impl_.cblood_){0}
+    , decltype(_impl_.foxy_){0}
+    , decltype(_impl_.fwater_){0}
+    , decltype(_impl_.flipid_){0}
+  };
+}
+
+ParameterSimulation_Layer::~ParameterSimulation_Layer() {
+  // @@protoc_insertion_point(destructor:simulation.ParameterSimulation.Layer)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ParameterSimulation_Layer::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void ParameterSimulation_Layer::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void ParameterSimulation_Layer::Clear() {
+// @@protoc_insertion_point(message_clear_start:simulation.ParameterSimulation.Layer)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x000000ffu) {
+    ::memset(&_impl_.n_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.cblood_) -
+        reinterpret_cast<char*>(&_impl_.n_)) + sizeof(_impl_.cblood_));
+  }
+  if (cached_has_bits & 0x00000700u) {
+    ::memset(&_impl_.foxy_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.flipid_) -
+        reinterpret_cast<char*>(&_impl_.foxy_)) + sizeof(_impl_.flipid_));
+  }
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* ParameterSimulation_Layer::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional double n = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 9)) {
+          _Internal::set_has_n(&has_bits);
+          _impl_.n_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional double height = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 17)) {
+          _Internal::set_has_height(&has_bits);
+          _impl_.height_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional double g = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 25)) {
+          _Internal::set_has_g(&has_bits);
+          _impl_.g_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional double mu_a = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 33)) {
+          _Internal::set_has_mu_a(&has_bits);
+          _impl_.mu_a_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional double mu_s = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 41)) {
+          _Internal::set_has_mu_s(&has_bits);
+          _impl_.mu_s_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional double a = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 49)) {
+          _Internal::set_has_a(&has_bits);
+          _impl_.a_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional double b = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 57)) {
+          _Internal::set_has_b(&has_bits);
+          _impl_.b_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional double cBlood = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 65)) {
+          _Internal::set_has_cblood(&has_bits);
+          _impl_.cblood_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional double fOxy = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 73)) {
+          _Internal::set_has_foxy(&has_bits);
+          _impl_.foxy_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional double fWater = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 81)) {
+          _Internal::set_has_fwater(&has_bits);
+          _impl_.fwater_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional double fLipid = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 89)) {
+          _Internal::set_has_flipid(&has_bits);
+          _impl_.flipid_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ParameterSimulation_Layer::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:simulation.ParameterSimulation.Layer)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // optional double n = 1;
+  if (_internal_has_n()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(1, this->_internal_n(), target);
+  }
+
+  // optional double height = 2;
+  if (_internal_has_height()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(2, this->_internal_height(), target);
+  }
+
+  // optional double g = 3;
+  if (_internal_has_g()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(3, this->_internal_g(), target);
+  }
+
+  // optional double mu_a = 4;
+  if (_internal_has_mu_a()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(4, this->_internal_mu_a(), target);
+  }
+
+  // optional double mu_s = 5;
+  if (_internal_has_mu_s()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(5, this->_internal_mu_s(), target);
+  }
+
+  // optional double a = 6;
+  if (_internal_has_a()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(6, this->_internal_a(), target);
+  }
+
+  // optional double b = 7;
+  if (_internal_has_b()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(7, this->_internal_b(), target);
+  }
+
+  // optional double cBlood = 8;
+  if (_internal_has_cblood()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(8, this->_internal_cblood(), target);
+  }
+
+  // optional double fOxy = 9;
+  if (_internal_has_foxy()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(9, this->_internal_foxy(), target);
+  }
+
+  // optional double fWater = 10;
+  if (_internal_has_fwater()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(10, this->_internal_fwater(), target);
+  }
+
+  // optional double fLipid = 11;
+  if (_internal_has_flipid()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(11, this->_internal_flipid(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:simulation.ParameterSimulation.Layer)
+  return target;
+}
+
+size_t ParameterSimulation_Layer::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:simulation.ParameterSimulation.Layer)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x000000ffu) {
+    // optional double n = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 + 8;
+    }
+
+    // optional double height = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 + 8;
+    }
+
+    // optional double g = 3;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 + 8;
+    }
+
+    // optional double mu_a = 4;
+    if (cached_has_bits & 0x00000008u) {
+      total_size += 1 + 8;
+    }
+
+    // optional double mu_s = 5;
+    if (cached_has_bits & 0x00000010u) {
+      total_size += 1 + 8;
+    }
+
+    // optional double a = 6;
+    if (cached_has_bits & 0x00000020u) {
+      total_size += 1 + 8;
+    }
+
+    // optional double b = 7;
+    if (cached_has_bits & 0x00000040u) {
+      total_size += 1 + 8;
+    }
+
+    // optional double cBlood = 8;
+    if (cached_has_bits & 0x00000080u) {
+      total_size += 1 + 8;
+    }
+
+  }
+  if (cached_has_bits & 0x00000700u) {
+    // optional double fOxy = 9;
+    if (cached_has_bits & 0x00000100u) {
+      total_size += 1 + 8;
+    }
+
+    // optional double fWater = 10;
+    if (cached_has_bits & 0x00000200u) {
+      total_size += 1 + 8;
+    }
+
+    // optional double fLipid = 11;
+    if (cached_has_bits & 0x00000400u) {
+      total_size += 1 + 8;
+    }
+
+  }
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ParameterSimulation_Layer::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    ParameterSimulation_Layer::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ParameterSimulation_Layer::GetClassData() const { return &_class_data_; }
+
+
+void ParameterSimulation_Layer::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<ParameterSimulation_Layer*>(&to_msg);
+  auto& from = static_cast<const ParameterSimulation_Layer&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:simulation.ParameterSimulation.Layer)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x000000ffu) {
+    if (cached_has_bits & 0x00000001u) {
+      _this->_impl_.n_ = from._impl_.n_;
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _this->_impl_.height_ = from._impl_.height_;
+    }
+    if (cached_has_bits & 0x00000004u) {
+      _this->_impl_.g_ = from._impl_.g_;
+    }
+    if (cached_has_bits & 0x00000008u) {
+      _this->_impl_.mu_a_ = from._impl_.mu_a_;
+    }
+    if (cached_has_bits & 0x00000010u) {
+      _this->_impl_.mu_s_ = from._impl_.mu_s_;
+    }
+    if (cached_has_bits & 0x00000020u) {
+      _this->_impl_.a_ = from._impl_.a_;
+    }
+    if (cached_has_bits & 0x00000040u) {
+      _this->_impl_.b_ = from._impl_.b_;
+    }
+    if (cached_has_bits & 0x00000080u) {
+      _this->_impl_.cblood_ = from._impl_.cblood_;
+    }
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
+  }
+  if (cached_has_bits & 0x00000700u) {
+    if (cached_has_bits & 0x00000100u) {
+      _this->_impl_.foxy_ = from._impl_.foxy_;
+    }
+    if (cached_has_bits & 0x00000200u) {
+      _this->_impl_.fwater_ = from._impl_.fwater_;
+    }
+    if (cached_has_bits & 0x00000400u) {
+      _this->_impl_.flipid_ = from._impl_.flipid_;
+    }
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void ParameterSimulation_Layer::CopyFrom(const ParameterSimulation_Layer& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:simulation.ParameterSimulation.Layer)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ParameterSimulation_Layer::IsInitialized() const {
+  return true;
+}
+
+void ParameterSimulation_Layer::InternalSwap(ParameterSimulation_Layer* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(ParameterSimulation_Layer, _impl_.flipid_)
+      + sizeof(ParameterSimulation_Layer::_impl_.flipid_)
+      - PROTOBUF_FIELD_OFFSET(ParameterSimulation_Layer, _impl_.n_)>(
+          reinterpret_cast<char*>(&_impl_.n_),
+          reinterpret_cast<char*>(&other->_impl_.n_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata ParameterSimulation_Layer::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_simulation_2eproto_getter, &descriptor_table_simulation_2eproto_once,
+      file_level_metadata_simulation_2eproto[4]);
+}
+
+// ===================================================================
+
+class ParameterSimulation::_Internal {
+ public:
+};
+
+ParameterSimulation::ParameterSimulation(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:simulation.ParameterSimulation)
+}
+ParameterSimulation::ParameterSimulation(const ParameterSimulation& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  ParameterSimulation* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.simulations_){from._impl_.simulations_}
+    , decltype(_impl_.layers_){from._impl_.layers_}
+    , decltype(_impl_.wavelengths_){from._impl_.wavelengths_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:simulation.ParameterSimulation)
+}
+
+inline void ParameterSimulation::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.simulations_){arena}
+    , decltype(_impl_.layers_){arena}
+    , decltype(_impl_.wavelengths_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+ParameterSimulation::~ParameterSimulation() {
+  // @@protoc_insertion_point(destructor:simulation.ParameterSimulation)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ParameterSimulation::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.simulations_.~RepeatedPtrField();
+  _impl_.layers_.~RepeatedPtrField();
+  _impl_.wavelengths_.~RepeatedField();
+}
+
+void ParameterSimulation::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void ParameterSimulation::Clear() {
+// @@protoc_insertion_point(message_clear_start:simulation.ParameterSimulation)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.simulations_.Clear();
+  _impl_.layers_.Clear();
+  _impl_.wavelengths_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* ParameterSimulation::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated .simulation.Simulation simulations = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_simulations(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .simulation.ParameterSimulation.Layer layers = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_layers(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated double wavelengths = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedDoubleParser(_internal_mutable_wavelengths(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 25) {
+          _internal_add_wavelengths(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr));
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ParameterSimulation::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:simulation.ParameterSimulation)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .simulation.Simulation simulations = 1;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_simulations_size()); i < n; i++) {
+    const auto& repfield = this->_internal_simulations(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  // repeated .simulation.ParameterSimulation.Layer layers = 2;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_layers_size()); i < n; i++) {
+    const auto& repfield = this->_internal_layers(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  // repeated double wavelengths = 3;
+  if (this->_internal_wavelengths_size() > 0) {
+    target = stream->WriteFixedPacked(3, _internal_wavelengths(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:simulation.ParameterSimulation)
+  return target;
+}
+
+size_t ParameterSimulation::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:simulation.ParameterSimulation)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .simulation.Simulation simulations = 1;
+  total_size += 1UL * this->_internal_simulations_size();
+  for (const auto& msg : this->_impl_.simulations_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated .simulation.ParameterSimulation.Layer layers = 2;
+  total_size += 1UL * this->_internal_layers_size();
+  for (const auto& msg : this->_impl_.layers_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated double wavelengths = 3;
+  {
+    unsigned int count = static_cast<unsigned int>(this->_internal_wavelengths_size());
+    size_t data_size = 8UL * count;
+    if (data_size > 0) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    total_size += data_size;
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ParameterSimulation::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    ParameterSimulation::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ParameterSimulation::GetClassData() const { return &_class_data_; }
+
+
+void ParameterSimulation::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<ParameterSimulation*>(&to_msg);
+  auto& from = static_cast<const ParameterSimulation&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:simulation.ParameterSimulation)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_impl_.simulations_.MergeFrom(from._impl_.simulations_);
+  _this->_impl_.layers_.MergeFrom(from._impl_.layers_);
+  _this->_impl_.wavelengths_.MergeFrom(from._impl_.wavelengths_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void ParameterSimulation::CopyFrom(const ParameterSimulation& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:simulation.ParameterSimulation)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ParameterSimulation::IsInitialized() const {
+  return true;
+}
+
+void ParameterSimulation::InternalSwap(ParameterSimulation* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.simulations_.InternalSwap(&other->_impl_.simulations_);
+  _impl_.layers_.InternalSwap(&other->_impl_.layers_);
+  _impl_.wavelengths_.InternalSwap(&other->_impl_.wavelengths_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata ParameterSimulation::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_simulation_2eproto_getter, &descriptor_table_simulation_2eproto_once,
+      file_level_metadata_simulation_2eproto[5]);
+}
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace simulation
 PROTOBUF_NAMESPACE_OPEN
@@ -1456,6 +2298,14 @@ Arena::CreateMaybeMessage< ::simulation::Simulation_SimulationDetails >(Arena* a
 template<> PROTOBUF_NOINLINE ::simulation::Simulation*
 Arena::CreateMaybeMessage< ::simulation::Simulation >(Arena* arena) {
   return Arena::CreateMessageInternal< ::simulation::Simulation >(arena);
+}
+template<> PROTOBUF_NOINLINE ::simulation::ParameterSimulation_Layer*
+Arena::CreateMaybeMessage< ::simulation::ParameterSimulation_Layer >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::simulation::ParameterSimulation_Layer >(arena);
+}
+template<> PROTOBUF_NOINLINE ::simulation::ParameterSimulation*
+Arena::CreateMaybeMessage< ::simulation::ParameterSimulation >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::simulation::ParameterSimulation >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

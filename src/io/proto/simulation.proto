@@ -34,3 +34,30 @@ message Simulation {
     repeated double reflectance = 2 [packed=true];
     repeated double absorption = 3 [packed=true]; // nb: 1D array to be interpreted as 2D
 }
+
+message ParameterSimulation {
+    repeated Simulation simulations = 1;
+
+    message Layer {
+        optional double n = 1;
+        optional double height = 2;
+        optional double g = 3;
+
+        // constant layers define these
+        optional double mu_a = 4;
+        optional double mu_s = 5;
+
+        // wavelength dependent scattering
+        optional double a = 6;
+        optional double b = 7;
+
+        // wavelength dependent absorption
+        optional double cBlood = 8;
+        optional double fOxy = 9;
+        optional double fWater = 10;
+        optional double fLipid = 11;
+    }
+
+    repeated Layer layers = 2;
+    repeated double wavelengths = 3;
+}
