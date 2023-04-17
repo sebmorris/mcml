@@ -34,7 +34,7 @@ Material sampleMaterial(Random random, double nAir) {
     return Material{layers, nAir};
 }
 
-vector<Material> sampleParameterMaterials(Random random, double nAir) {
+ParameterSimulationMaterialOptions sampleParameterMaterials(Random random, double nAir) {
     vector<Material> mats{};
 
     std::size_t n = waterExtinction.size();
@@ -83,5 +83,50 @@ vector<Material> sampleParameterMaterials(Random random, double nAir) {
         mats.emplace_back(layers, nAir);
     }
 
-    return mats;
+    ParameterSimulationLayerOptions optionsOne;
+    optionsOne.n = 1.4;
+    optionsOne.height = oneH;
+    optionsOne.g = 0.9;
+
+    optionsOne.a = oneA;
+    optionsOne.b = oneB;
+    
+    optionsOne.cBlood = oneBlood;
+    optionsOne.fOxy = oneOxyFrac;
+    optionsOne.fWater = oneWater;
+    optionsOne.fLipid = oneLipid;
+    optionsOne.concentrationLayer = true;
+    optionsOne.constantLayer = false;
+
+    ParameterSimulationLayerOptions optionsTwo;
+    optionsTwo.n = 1.4;
+    optionsTwo.g = 0.9;
+
+    optionsTwo.a = twoA;
+    optionsTwo.b = twoB;
+    
+    optionsTwo.cBlood = twoBlood;
+    optionsTwo.fOxy = twoOxyFrac;
+    optionsTwo.fWater = twoWater;
+    optionsTwo.fLipid = twoLipid;
+    optionsTwo.concentrationLayer = true;
+    optionsTwo.constantLayer = false;
+
+    ParameterSimulationLayerOptions optionsCSF;
+    optionsCSF.n = 1.4;
+    optionsCSF.height = csfH;
+    optionsCSF.g = 0.9;
+
+    optionsCSF.mu_a = 0.02;
+    optionsCSF.mu_s = 2.4;
+    optionsCSF.concentrationLayer = false;
+    optionsCSF.constantLayer = true;
+
+    vector<ParameterSimulationLayerOptions> options{optionsOne, optionsCSF, optionsTwo};
+
+    ParameterSimulationMaterialOptions result;
+    result.material = mats;
+    result.layers = options;
+
+    return result;
 }

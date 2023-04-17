@@ -8,6 +8,7 @@
 
 #include "../layer/layer.hpp"
 #include "../material/material.hpp"
+#include "../parameter_simulation/parameter_simulation.hpp"
 #include "../random/random.hpp"
 
 /*
@@ -110,6 +111,6 @@ const std::array<double, 81> wavelengths{
     896, 898, 900
 };
 
-std::vector<Material> sampleParameterMaterials(Random, double nAir = 1);
+ParameterSimulationMaterialOptions sampleParameterMaterials(Random, double nAir = 1);
 
 #endif
