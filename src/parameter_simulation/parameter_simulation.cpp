@@ -2,7 +2,7 @@
 
 using std::vector;
 
-ParameterSimulation::ParameterSimulation(vector<Material> mats, Random random) : materials_(mats) {
+ParameterSimulation::ParameterSimulation(std::vector<Material> mats, std::vector<ParameterSimulationLayerOptions> options, Random random) : materials_(mats), layers_(options) {
     vector<double> tracked{};
     double trackingInterval = 0;
     for (Material m: materials_) {
@@ -11,7 +11,7 @@ ParameterSimulation::ParameterSimulation(vector<Material> mats, Random random) :
 }
 
 void runSimulation(ParameterSimulation& sims) {
-    for (Simulation s: sims.simulations_) {
+    for (Simulation& s: sims.simulations_) {
         runSimulation(s);
     }
 }
