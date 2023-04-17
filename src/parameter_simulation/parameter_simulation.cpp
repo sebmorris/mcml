@@ -10,8 +10,8 @@ ParameterSimulation::ParameterSimulation(vector<Material> mats, Random random) :
     }
 }
 
-void ParameterSimulation::run() {
-    for (Simulation s: simulations_) {
+void runSimulation(ParameterSimulation& sims) {
+    for (Simulation s: sims.simulations_) {
         runSimulation(s);
     }
 }

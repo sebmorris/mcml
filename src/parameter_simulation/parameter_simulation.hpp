@@ -14,7 +14,8 @@ struct ParameterSimulation {
 
     ParameterSimulation(std::vector<Material>, Random);
     ParameterSimulation() = delete;
-    void run();
 };
+
+void runSimulation(ParameterSimulation&);
 
 #endif
