@@ -26,6 +26,8 @@
 #SBATCH --mail-type=NONE
 #! Prevents the job from being requeued in the case of failure
 #SBATCH --no-requeue
+#! Specifies where to write stdout and stderr
+#SBATCH --output=/home/sm2357/output/R-%x.%j.out
 
 #! sbatch directives end here (put any additional directives above this line)
 
@@ -51,6 +53,7 @@ mpi_tasks_per_node=$(echo "$SLURM_TASKS_PER_NODE" | sed -e  's/^\([0-9][0-9]*\).
 module purge                               # Removes all modules still loaded
 module load rhel7/default-ccl              # REQUIRED - loads the basic environment
 module load gcc-7.2.0-gcc-4.8.5-pqn7o2k    # Enable C/C++ compiler - if we need it
+module load glib-2.53.1-gcc-5.4.0-sy6fgwg
 
 #! adding to the library path
 LD_LIBRARY_PATH="/home/sm2357/lib:$LD_LIBRARY_PATH"
