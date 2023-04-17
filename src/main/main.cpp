@@ -21,16 +21,7 @@ using std::round;
 #include "../io/record/record.hpp"
 #include "../random/random.hpp"
 #include "../constants/constants.hpp"
-
-// maybe move this into Simulation.hpp
-void runSimulation(Simulation& sim) {
-    for (uint64_t i = 0; i < PHOTONS_PER_SIMULATION; i++) {
-        if (i % PHOTONS_PER_REPORT == 0) {
-            cout << "Done " << std::ceil((i / (double)PHOTONS_PER_SIMULATION) * 1e4) / 100 << "%" << std::endl;
-        }
-        sim.nextPhoton();
-    }
-}
+#include "../parameter_simulation/parameter_simulation.hpp"
 
 void verificationModels() {
     cout << "Running verification models" << std::endl;
@@ -87,7 +78,7 @@ void verificationModels() {
 
     Recording recorder("/home/sebastian/Projects/mcml-simulation/build/test.db");
 
-    recorder.saveSimulation(simulation);
+    recorder.save(simulation);
 }
 
 void randomSampling(Random random, Recording recorder) {
@@ -100,11 +91,25 @@ void randomSampling(Random random, Recording recorder) {
         runSimulation(sim);
         cout << "Done the " << i << "th simulation on one thread" << std::endl;
 
-        recorder.saveSimulation(sim);
+        recorder.save(sim);
 
         cout << "Saved the simulation" << std::endl;
     }
 } 
+
+void randomParameterSampling(Random random, Recording recorder) {
+    for (int i = 0; i < SIMULATIONS_PER_THREAD; i++) {
+        ParameterSimulationMaterialOptions options = sampleParameterMaterials(random, 1);
+        ParameterSimulation sims(options.material, options.layers, random);
+
+        runSimulation(sims);
+        cout << "Done the " << i << "th simulation on one thread" << std::endl;
+
+        recorder.save(sims);
+
+        cout << "Saved the simulation" << std::endl;
+    }
+}
 
 int main(int argc, char** argv) {
     if (argc < 2) {
@@ -135,6 +140,33 @@ int main(int argc, char** argv) {
         cout << "Spawning " << noThreads << " threads" << std::endl;
         for (auto random : randoms) {
             threads.emplace_back(randomSampling, random, recorder);
+        }
+
+        for (auto& thread : threads) {
+            thread.join();
+        }
+
+        return 0;
+    }
+
+    if (strcmp(argv[1], "random-parameter-simulations") == 0) {
+        if (argc < 3) {
+            cout << "Must provide a database path" << std::endl;
+            return -1;
+        }
+
+        unsigned int noThreads = std::thread::hardware_concurrency();
+        //unsigned int noThreads = 1;
+
+        vector<Random> randoms = manyRandoms(manySeeds(noThreads));
+
+        Recording recorder(argv[2]);
+        vector<std::thread> threads;
+        threads.reserve(randoms.size());
+
+        cout << "Spawning " << noThreads << " threads" << std::endl;
+        for (auto random : randoms) {
+            threads.emplace_back(randomParameterSampling, random, recorder);
         }
 
         for (auto& thread : threads) {
