@@ -120,8 +120,8 @@ ParameterSimulationMaterialOptions sampleParameterMaterials(Random random, doubl
     optionsCSF.height = csfH;
     optionsCSF.g = 0.9;
 
-    optionsCSF.mu_a = 0.02;
-    optionsCSF.mu_s = 2.4;
+    optionsCSF.mu_a = 0;
+    optionsCSF.mu_s = 1;
     optionsCSF.concentrationLayer = false;
     optionsCSF.constantLayer = true;
 
