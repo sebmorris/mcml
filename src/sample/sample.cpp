@@ -45,6 +45,7 @@ ParameterSimulationMaterialOptions sampleParameterMaterials(Random random, doubl
     double oneLipid = random.random_beta(2, 2);
     double twoLipid = random.random_beta(2, 2);
     
+    // units uM
     double oneBlood = random.jeffreys_random_between(1, 100);
     double twoBlood = random.jeffreys_random_between(1, 100);
     
@@ -58,25 +59,27 @@ ParameterSimulationMaterialOptions sampleParameterMaterials(Random random, doubl
     double twoB = random.jeffreys_random_between(0.2, 3);
 
     double oneH = random.jeffreys_random_between(5, 15);
-    double csfH = random.jeffreys_random_between(1, 15);
+    double csfH = random.jeffreys_random_between(1, 10);
 
     for (std::size_t i = 0; i < n; i++) {
+        // absorption cm-1
         double oneAbs = oneWater*waterExtinction[i]*55.5 + oneLipid*lipidExtinction[i] + 
             oneBlood*oneOxyFrac*oxyExtinction[i]*1e-6 + oneBlood*(1 - oneOxyFrac)*deoxyExtinction[i]*1e-6;
         double twoAbs = twoWater*waterExtinction[i]*55.5 + twoLipid*lipidExtinction[i] + 
             twoBlood*twoOxyFrac*oxyExtinction[i]*1e-6 + twoBlood*(1 - twoOxyFrac)*deoxyExtinction[i]*1e-6;
     
-        
-        double oneScatter = oneA*std::pow(wavelengths[i] / 500, -1*oneB);
-        double twoScatter = twoA*std::pow(wavelengths[i] / 500, -1*twoB);
+
+        // also cm-1 w/ *10 due to conversion from reduced scattering coeff        
+        double oneScatter = oneA*std::pow(wavelengths[i] / 500, -1*oneB)*10;
+        double twoScatter = twoA*std::pow(wavelengths[i] / 500, -1*twoB)*10;
 
         BaseLayerOptions oneOptions{1.4, oneAbs, oneH};
         BaseLayerOptions twoOptions{1.4, twoAbs};
-        BaseLayerOptions csfOptions{1.4, 0.02, csfH};
+        BaseLayerOptions csfOptions{1.4, 0.0, csfH};
 
         Layer oneL{oneOptions, oneScatter, 0.9};
         Layer twoL{twoOptions, twoScatter, 0.9};
-        Layer csfL{csfOptions, 2.4, 0.9};
+        Layer csfL{csfOptions, 1, 0.9};
 
         vector<Layer> layers{oneL, csfL, twoL};
 
