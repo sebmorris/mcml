@@ -1,5 +1,7 @@
 #include "sample.hpp"
 
+using std::vector;
+
 /*
     All four layers require g, mu_a, mu_s values
 
@@ -30,4 +32,56 @@ Material sampleMaterial(Random random, double nAir) {
     }
 
     return Material{layers, nAir};
+}
+
+vector<Material> sampleParameterMaterials(Random random, double nAir) {
+    vector<Material> mats{};
+
+    std::size_t n = waterExtinction.size();
+
+    double oneWater = random.random_beta(5, 2);
+    double twoWater = random.random_beta(5, 2);
+
+    double oneLipid = random.random_beta(2, 2);
+    double twoLipid = random.random_beta(2, 2);
+    
+    double oneBlood = random.jeffreys_random_between(1, 100);
+    double twoBlood = random.jeffreys_random_between(1, 100);
+    
+    double oneOxyFrac = random.random_beta(5, 2);
+    double twoOxyFrac = random.random_beta(5, 2);
+
+    double oneA = random.jeffreys_random_between(5, 80);
+    double twoA = random.jeffreys_random_between(5, 80);
+
+    double oneB = random.jeffreys_random_between(0.2, 3);
+    double twoB = random.jeffreys_random_between(0.2, 3);
+
+    double oneH = random.jeffreys_random_between(5, 15);
+    double csfH = random.jeffreys_random_between(1, 15);
+
+    for (std::size_t i = 0; i < n; i++) {
+        double oneAbs = oneWater*waterExtinction[i]*55.5 + oneLipid*lipidExtinction[i] + 
+            oneBlood*oneOxyFrac*oxyExtinction[i]*1e-6 + oneBlood*(1 - oneOxyFrac)*deoxyExtinction[i]*1e-6;
+        double twoAbs = twoWater*waterExtinction[i]*55.5 + twoLipid*lipidExtinction[i] + 
+            twoBlood*twoOxyFrac*oxyExtinction[i]*1e-6 + twoBlood*(1 - twoOxyFrac)*deoxyExtinction[i]*1e-6;
+    
+        
+        double oneScatter = oneA*std::pow(wavelengths[i] / 500, -1*oneB);
+        double twoScatter = twoA*std::pow(wavelengths[i] / 500, -1*twoB);
+
+        BaseLayerOptions oneOptions{1.4, oneAbs, oneH};
+        BaseLayerOptions twoOptions{1.4, twoAbs};
+        BaseLayerOptions csfOptions{1.4, 0.02, csfH};
+
+        Layer oneL{oneOptions, oneScatter, 0.9};
+        Layer twoL{twoOptions, twoScatter, 0.9};
+        Layer csfL{csfOptions, 2.4, 0.9};
+
+        vector<Layer> layers{oneL, csfL, twoL};
+
+        mats.emplace_back(layers, nAir);
+    }
+
+    return mats;
 }
