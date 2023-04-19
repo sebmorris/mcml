@@ -1,6 +1,7 @@
 #include "sample.hpp"
 
 using std::vector;
+using std::cout;
 
 /*
     All four layers require g, mu_a, mu_s values
@@ -52,8 +53,8 @@ ParameterSimulationMaterialOptions sampleParameterMaterials(Random random, doubl
     double oneOxyFrac = random.random_beta(5, 2);
     double twoOxyFrac = random.random_beta(5, 2);
 
-    double oneA = random.jeffreys_random_between(5, 80);
-    double twoA = random.jeffreys_random_between(5, 80);
+    double oneA = random.jeffreys_random_between(5, 70);
+    double twoA = random.jeffreys_random_between(5, 70);
 
     double oneB = random.jeffreys_random_between(0.2, 3);
     double twoB = random.jeffreys_random_between(0.2, 3);
@@ -72,6 +73,8 @@ ParameterSimulationMaterialOptions sampleParameterMaterials(Random random, doubl
         // also cm-1 w/ *10 due to conversion from reduced scattering coeff        
         double oneScatter = oneA*std::pow(wavelengths[i] / 500, -1*oneB)*10;
         double twoScatter = twoA*std::pow(wavelengths[i] / 500, -1*twoB)*10;
+
+        cout << "absorption: " << oneAbs << " " << twoAbs << ", scattering: " << oneScatter << " " << twoScatter << std::endl;
 
         BaseLayerOptions oneOptions{1.4, oneAbs, oneH};
         BaseLayerOptions twoOptions{1.4, twoAbs};
