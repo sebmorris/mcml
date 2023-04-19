@@ -40,7 +40,7 @@ struct ParameterSimulation {
     std::vector<Material> materials_;
     std::vector<ParameterSimulationLayerOptions> layers_;
 
-    ParameterSimulation(std::vector<Material>, std::vector<ParameterSimulationLayerOptions>, Random);
+    ParameterSimulation(std::vector<Material>, std::vector<ParameterSimulationLayerOptions>, std::vector<Random>);
     ParameterSimulation() = delete;
 };
 
